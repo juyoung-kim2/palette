@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palette</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+</head>
+
+<body>
+  <div class="content-wrapper">
+    <section class="banner-section">
+      <div class="banner-image-area"></div>
+    </section>
+
+    <main class="cart-section main-section">
+      <div id="sub_header"></div>
+      <section class="cart-container sub-container">
+        <h1>장바구니</h1>
+        <div class="cart-control">
+          <label class="cart-check-all">
+            <input type="checkbox" id="checkAll">
+            <span>전체 선택</span>
+          </label>
+
+          <button type="button" class="btn-delete-selected">
+            선택 삭제
+          </button>
+        </div>
+        <div class="cart-item-wrap">
+          <!--장바구니 제품 1개-->
+          <div class="cart-item">
+            <label class="cart-check">
+              <input type="checkbox">
+            </label>
+
+            <div class="item-thumb"><img src="images/detail_thumb.png"></div>
+            <div class="item-info">
+              <p class="product-name">Custom Cake</p>
+              <ul class="product-options">
+                <li><span>바닐라 시트 / 생크림</span><span>+₩0</span></li>
+                <li><span>딸기 x1</span><span>+₩400</span></li>
+                <li><span>블루베리 x2</span><span>+₩800</span></li>
+                <li><span>곰돌이 쿠키 x1</span><span>+₩400</span></li>
+              </ul>
+              <div class="qty-box">
+                <button type="button" class="qty-btn minus" aria-label="수량 감소"></button>
+                <input type="number" value="1" min="1" class="qty-input">
+                <button type="button" class="qty-btn plus" aria-label="수량 증가"></button>
+              </div>
+              <p class="product-price">₩50,000</p>
+            </div>
+            <div class="btn_wrap">
+              <button class="btn btn-gray sm">수정하기</button>
+              <button class="btn btn-primary sm">바로 구매</button>
+            </div>
+            <button class="remove-btn"><img src="images/icon_close.png"></button>
+          </div>
+
+      </section>
+      <div class="fixed-bottom-bar">
+        <button class="order-button btn orderform-btn btn-primary"><span>₩50,000 </span>결제하기 (1개)</button>
+      </div>
+      <div id="footer"></div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+</body>
+
+</html>

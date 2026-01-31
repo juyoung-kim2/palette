@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  </head>
+  <style>
+    body {
+      min-width: 1480px;
+    }
+  </style>
+  <body>
+    <div class="content-wrapper">
+      <main class="main-full-section">
+        <div id="admin-menu">
+          <div class="logo"><img src="images/logo.png" /></div>
+          <ul>
+            <li class="selected"><a href="#">재료 관리</a></li>
+            <li><a href="#">주문 관리</a></li>
+            <li><a href="#">1:1문의 관리</a></li>
+          </ul>
+        </div>
+        <section class="sub-container">
+          <h1>재료 등록</h1>
+          <form class="material-form">
+            <div class="material-detail-layout">
+              <!-- 우측: 정보 -->
+              <h3 class="material-detail-title">기본 정보</h3>
+              <div class="material-info">
+                <div class="info-row">
+                  <label>종류</label>
+                  <select>
+                    <option>케이크</option>
+                    <option>시트</option>
+                    <option>토핑</option>
+                  </select>
+                </div>
+
+                <div class="info-row">
+                  <label>재료명</label>
+                  <input type="text" placeholder="예) 초코시트, 딸기 토핑" />
+                </div>
+
+                <div class="info-row">
+                  <label>가격(원)</label>
+                  <input type="text" placeholder="숫자만 입력하세요" />
+                </div>
+
+                <div class="info-row">
+                  <label>상태</label>
+                  <select>
+                    <option value="SALE">판매중</option>
+                    <option value="STOP">판매중지</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 좌측: 이미지 -->
+            <h3 class="material-detail-title">이미지 등록</h3>
+            <div class="file-upload">
+              <span class="file-label">재료 이미지</span>
+              <div>
+                <div class="file-control">
+                  <label for="fileInput" class="btn btn-black sm">사진 선택</label>
+                  <span class="file-name">첨부파일이 없습니다.</span>
+                </div>
+
+                <!--display:none 상태-->
+                <div class="preview">
+                  <img src="images/detail_thumb.png" alt="미리보기" />
+                  <button type="button" class="btn-remove"><img src="images/icon_close.png" /></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 하단 버튼 -->
+            <div class="detail-actions right">
+              <button class="btn btn-gray">취소</button>
+              <button class="btn btn-primary">등록하기</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </body>
+</html>

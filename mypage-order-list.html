@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  </head>
+
+  <body>
+    <div class="content-wrapper">
+      <section class="banner-section">
+        <div class="banner-image-area"></div>
+      </section>
+
+      <main class="mypage-section main-section">
+        <div id="sub_header"></div>
+        <section class="mypage-container sub-container is-empty">
+          <h1>주문내역</h1>
+          <div class="card-wrap">
+            <!--주문1건-->
+            <div class="order-card">
+              <!-- 주문 헤더 -->
+              <div class="order-header">
+                <span class="order-date"> 2025-08-06 <span>( #20251225-0018)</span> </span>
+                <a href="#" class="order-detail-link">상세보기 <img src="images/icon_arrow_r.png" alt="화살표" /></a>
+              </div>
+
+              <!-- 상품 정보 -->
+              <div class="order-product">
+                <div class="product-thumb">
+                  <img src="images/detail_thumb.png" alt="상품 이미지" />
+                </div>
+
+                <div class="product-info">
+                  <p class="product-name">Custom Cake<span>₩50,000</span></p>
+                  <p class="pickup-info">2025-12-25(목) 14:00 픽업</p>
+                  <p class="product-request">예쁘게 해주세요</p>
+                  <ul class="product-options">
+                    <li><span>바닐라 시트 / 생크림</span><span>+₩0</span></li>
+                    <li><span>딸기 x1</span><span>+₩400</span></li>
+                    <li><span>블루베리 x2</span><span>+₩800</span></li>
+                    <li><span>곰돌이 쿠키 x1</span><span>+₩400</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 주문 상태 -->
+              <div class="order-status">
+                <strong class="status-text">주문상태</strong>
+                <span class="badge completed">픽업완료</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="paginate">
+            <a href="#" class="first"></a>
+            <a href="#" class="prev"></a>
+            <ol>
+              <li><a href="#" class="page-num">1</a></li>
+              <li><a href="#" class="page-num selected">2</a></li>
+              <li><a href="#" class="page-num">3</a></li>
+            </ol>
+            <a href="#" class="next"></a>
+            <a href="#" class="last"></a>
+          </div>
+        </section>
+        <div id="footer"></div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </body>
+</html>

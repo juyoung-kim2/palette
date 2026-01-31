@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  </head>
+  <style>
+    body {
+      min-width: 1480px;
+    }
+  </style>
+  <body>
+    <div class="content-wrapper">
+      <main class="main-full-section">
+        <div id="admin-menu">
+          <div class="logo"><img src="images/logo.png" /></div>
+          <ul>
+            <li><a href="#">재료 관리</a></li>
+            <li><a href="#">주문 관리</a></li>
+            <li><a href="#">1:1문의 관리</a></li>
+          </ul>
+        </div>
+        <!-- 공통 게시판 영역 -->
+        <section class="sub-container">
+          <div class="board-wrap board-list order">
+            <h1 class="board-title qna-title">1:1 문의</h1>
+            <h1 class="board-title qna-admin-title">1:1 문의 관리</h1>
+            <h1 class="board-title material-title">재료 관리</h1>
+            <h1 class="board-title order-title">주문 관리</h1>
+
+            <!-- 필터 영역 -->
+            <div class="board-filter">
+              <!-- 왼쪽: 상태 / 유형 필터 -->
+              <div class="filter-left">
+                <!-- 상태 필터 -->
+                <div class="filter-group filter-status" data-filter="status">
+                  <button class="filter-btn selected" data-value="all">전체</button>
+                  <button class="filter-btn" data-value="pending">대기</button>
+                  <button class="filter-btn" data-value="completed">완료</button>
+                </div>
+
+                <!-- 유형 필터 -->
+                <div class="filter-group filter-category" data-filter="category">
+                  <button class="filter-btn selected" data-value="all">전체</button>
+                  <button class="filter-btn" data-value="cake">케이크</button>
+                  <button class="filter-btn" data-value="sheet">시트</button>
+                  <button class="filter-btn" data-value="topping">토핑</button>
+                </div>
+
+                <!-- 상태 필터 -->
+                <select class="filter-group filter-order" data-filter="order">
+                  <option value="all">전체</option>
+                  <option value="pending">결제대기</option>
+                  <option value="completed">주문완료</option>
+                  <option value="cancel">제작중</option>
+                  <option value="cancel">픽업대기</option>
+                  <option value="cancel">픽업완료</option>
+                  <option value="cancel">주문취소</option>
+                </select>
+              </div>
+
+              <!-- 오른쪽: 검색 -->
+              <div class="filter-right">
+                <select class="filter-select filter-search-type">
+                  <option value="title">제목</option>
+                  <option value="content">내용</option>
+                  <option value="writer">작성자</option>
+                </select>
+
+                <input type="text" class="filter-input" placeholder="검색어를 입력해주세요" />
+
+                <button class="btn"><img src="images/icon_search.png" /></button>
+              </div>
+            </div>
+            <div class="board-container">
+              <table class="board-table">
+                <colgroup>
+                  <col class="col-no" />
+
+                  <col class="col-subject" />
+                  <col class="col-writer" />
+                  <col class="col-date" />
+
+                  <col class="col-order-item" />
+                  <col class="col-order-user" />
+                  <col class="col-payment-method" />
+                  <col class="col-payment-price" />
+                  <col class="col-pickup-datetime" />
+                  <col class="col-order-status" />
+
+                  <col class="col-thumbnail" />
+                  <col class="col-material-type" />
+                  <col class="col-material-name" />
+
+                  <col class="col-price" />
+                  <col class="col-status" />
+                  <col class="col-answer" />
+                  <col class="col-progress" />
+                  <col class="col-manage" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="col-no">번호</th>
+
+                    <!-- 공통 -->
+                    <th class="col-subject">제목</th>
+                    <th class="col-writer">작성자</th>
+                    <th class="col-date">작성일</th>
+
+                    <!-- 주문관리 -->
+                    <th class="col-order-item">주문 메뉴</th>
+                    <th class="col-order-user">주문자</th>
+                    <th class="col-payment-method">결제수단</th>
+                    <th class="col-payment-price">결제금액</th>
+                    <th class="col-pickup-datetime">픽업일시</th>
+                    <th class="col-order-status">진행상태</th>
+
+                    <!-- 재료 -->
+                    <th class="col-thumbnail">이미지</th>
+                    <th class="col-material-type">종류</th>
+                    <th class="col-material-name">재료명</th>
+
+                    <!-- 공통 관리 -->
+                    <th class="col-price">가격</th>
+                    <th class="col-status">상태</th>
+                    <th class="col-answer">답변상태</th>
+                    <th class="col-progress">진행상태</th>
+                    <th class="col-manage">관리</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="col-no">1</td>
+
+                    <td class="col-subject">비밀글입니다.</td>
+                    <td class="col-writer">작성자</td>
+                    <td class="col-date">2025-12-25</td>
+                    <td class="col-answer"><span class="badge pending">대기</span></td>
+
+                    <td class="col-order-item" data-label="주문메뉴">
+                      <div class="inner-flex">
+                        <img src="images/detail_thumb.png" />
+                        <div class="item-desc"><span class="order-item-name"> Custom Cake</span><span class="order-item-request">예쁘게 해주세용</span></div>
+                      </div>
+                    </td>
+                    <td class="col-order-user" data-label="주문자">주문자</td>
+                    <td class="col-payment-method" data-label="결제수단"><span class="badge payment">무통장</span></td>
+                    <td class="col-payment-price" data-label="결제금액">17,500</td>
+                    <td class="col-pickup-datetime" data-label="픽업일시">2025-12-25 <span class="time">10:00</span></td>
+                    <td class="col-order-status" data-label="진행상태">
+                      <select>
+                        <option value="all">전체</option>
+                        <option value="pending">결제대기</option>
+                        <option value="completed">주문완료</option>
+                        <option value="cancel">제작중</option>
+                        <option value="cancel">픽업대기</option>
+                        <option value="cancel">픽업완료</option>
+                        <option value="cancel">주문취소</option>
+                      </select>
+                    </td>
+
+                    <td class="col-thumbnail"><img src="images/detail_thumb.png" /></td>
+
+                    <td class="col-material-type" data-label="종류">케이크 시트</td>
+                    <td class="col-material-name" data-label="재료명">바닐라시트</td>
+                    <td class="col-price" data-label="가격">3,000원</td>
+                    <td class="col-status"><span class="badge completed">판매중</span></td>
+
+                    <td class="col-category">카테고리</td>
+                    <td class="col-progress badge completed">주문완료</td>
+                    <td class="col-manage"><button class="btn btn-black sm">삭제</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="paginate">
+                <a href="#" class="first"></a>
+                <a href="#" class="prev"></a>
+                <ol>
+                  <li><a href="#" class="page-num">1</a></li>
+                  <li><a href="#" class="page-num selected">2</a></li>
+                  <li><a href="#" class="page-num">3</a></li>
+                </ol>
+                <a href="#" class="next"></a>
+                <a href="#" class="last"></a>
+              </div>
+              <button class="btn btn-primary regist-btn">재료 등록</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </body>
+</html>

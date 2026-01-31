@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  </head>
+  <style>
+    body {
+      min-width: 1480px;
+    }
+  </style>
+  <body>
+    <div class="content-wrapper">
+      <main class="main-full-section">
+        <div id="admin-menu">
+          <div class="logo"><img src="images/logo.png" /></div>
+          <ul>
+            <li><a href="#">재료 관리</a></li>
+            <li><a href="#">주문 관리</a></li>
+            <li class="selected"><a href="#">1:1문의 관리</a></li>
+          </ul>
+        </div>
+        <section class="sub-container">
+          <h1 class="read-title">비밀글입니다.</h1>
+          <div class="read-meta">
+            <span class="meta-item">작성자</span>
+            <span class="meta-item">2025-12-25 10:30</span>
+            <span class="badge pending">대기</span>
+          </div>
+          <div class="read-content">문의 내용이 여기에 표시됩니다. 줄바꿈도 그대로 유지됩니다.</div>
+          <div class="read-attachments">
+            <strong>첨부파일</strong>
+            <ul>
+              <li>
+                <a href="#">image01.jpg</a>
+              </li>
+            </ul>
+          </div>
+          <!--관리자 댓글-->
+          <div class="read-answer admin">
+            <div class="answer-head">
+              <p>관리자 답변</p>
+            </div>
+            <textarea class="answer-textarea" placeholder="고객에게 보낼 답변을 친절하게 작성해주세요."></textarea>
+            <div class="answer-actions">
+              <button class="btn btn-black sm">답변 등록</button>
+            </div>
+          </div>
+          <!--관리자 댓글-->
+          <div class="read-answer admin completed">
+            <div class="answer-head">
+              <p>관리자 답변</p>
+              <span class="date">2025-12-25 10:30</span>
+            </div>
+            <div class="answer-content">관리자 답변글입니다.</div>
+
+            <div class="answer-actions">
+              <button class="btn btn-primary sm">수정</button>
+              <button class="btn btn-black sm">삭제</button>
+            </div>
+          </div>
+          <!-- 하단 버튼 -->
+          <div class="detail-actions right">
+            <button class="btn btn-gray">목록</button>
+            <button class="btn btn-black">삭제</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </body>
+</html>

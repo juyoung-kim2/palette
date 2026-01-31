@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  </head>
+
+  <body>
+    <div class="content-wrapper">
+      <section class="banner-section">
+        <div class="banner-image-area"></div>
+      </section>
+
+      <main class="agreement-section main-section">
+        <div id="sub_header"></div>
+        <section class="agreement-container sub-container is-empty">
+          <h1>회원가입</h1>
+          <!-- 전체 동의 -->
+          <div class="agree-all">
+            <label class="check-line">
+              <input type="checkbox" id="agreeAll" />
+              <span class="check-ui" aria-hidden="true"></span>
+              <span class="check-label">전체 동의하기</span>
+            </label>
+
+            <p class="agree-all-desc">회원가입에 필요한 모든 약관에 동의합니다.</p>
+          </div>
+
+          <!-- 약관 리스트 -->
+          <ul class="agree-list" aria-label="약관 동의 목록">
+            <!-- 1) 이용약관 (필수) -->
+            <li class="agree-item">
+              <div class="agree-accordion" data-key="terms">
+                <div class="agree-row">
+                  <label class="check-line">
+                    <input type="checkbox" id="agreeTerms" />
+                    <span class="check-ui" aria-hidden="true"></span>
+                    <span class="check-label"><b>(필수)</b> 이용약관 동의</span>
+                  </label>
+                  <span class="arrow" aria-hidden="true"><img src="images/icon_arrow_b.png" alt="" /></span>
+                </div>
+
+                <div class="agree-content" role="region" aria-label="이용약관 상세">
+                  <div class="agree-box">
+                    <p>
+                      본 약관은 Palete(이하 “회사”)가 제공하는 서비스 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다. 제1조 (서비스 이용) 회사는 회원에게 케이크 주문, 결제, 주문 내역 조회 등의 서비스를 제공합니다. 회원은 본 약관에 동의함으로써 회사가 제공하는 서비스를 이용할 수 있습니다. 제2조 (회원의 의무) 회원은 서비스 이용 시 관계 법령 및 본 약관을 준수하여야 하며, 타인의 정보를 도용하거나 서비스 운영을 방해하는 행위를 해서는 안 됩니다. 제3조 (서비스 변경
+                      및 중단) 회사는 운영상 또는 기술상 필요에 따라 서비스의 일부 또는 전부를 변경하거나 중단할 수 있습니다. 이 경우 회사는 사전에 공지하며, 불가피한 경우 사후 공지할 수 있습니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- 2) 개인정보 수집·이용 (필수) -->
+            <li class="agree-item">
+              <div class="agree-accordion" data-key="privacy">
+                <div class="agree-row">
+                  <label class="check-line">
+                    <input type="checkbox" id="agreePrivacy" />
+                    <span class="check-ui" aria-hidden="true"></span>
+                    <span class="check-label"><b>(필수)</b> 개인정보 수집·이용 동의</span>
+                  </label>
+                  <span class="arrow" aria-hidden="true"><img src="images/icon_arrow_b.png" alt="" /></span>
+                </div>
+
+                <div class="agree-content" role="region" aria-label="개인정보 수집·이용 상세">
+                  <div class="agree-box">
+                    <p>1. 수집 항목 필수: 이름, 이메일, 아이디, 비밀번호 선택: 마케팅 수신 동의 정보 2. 이용 목적 회원 가입 및 본인 확인 주문 및 결제 처리 고객 문의 응대 및 서비스 개선 3. 보유 및 이용 기간 회원 탈퇴 시까지 보관하며, 관계 법령에 따라 일정 기간 보관할 수 있습니다. 회원은 개인정보 수집·이용에 대한 동의를 거부할 수 있으나, 필수 항목 동의 거부 시 서비스 이용이 제한될 수 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- 3) 마케팅 수신 (선택) -->
+            <li class="agree-item">
+              <div class="agree-accordion" data-key="marketing">
+                <div class="agree-row">
+                  <label class="check-line">
+                    <input type="checkbox" id="agreeMarketing" />
+                    <span class="check-ui" aria-hidden="true"></span>
+                    <span class="check-label"><b>(선택)</b> 마케팅 수신 동의</span>
+                  </label>
+                  <span class="arrow" aria-hidden="true"><img src="images/icon_arrow_b.png" alt="" /></span>
+                </div>
+
+                <div class="agree-content" role="region" aria-label="마케팅 수신 동의 상세">
+                  <div class="agree-box">
+                    <p>회사는 신규 서비스, 이벤트, 할인 혜택 안내를 위해 이메일 또는 문자 메시지를 통해 마케팅 정보를 제공할 수 있습니다. 수신 매체: 이메일, 문자(SMS) 이용 목적: 프로모션 및 이벤트 안내 보유 기간: 회원 탈퇴 또는 동의 철회 시까지 마케팅 수신 동의는 선택 사항이며, 동의하지 않아도 서비스 이용에는 제한이 없습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="btn btn-primary-disabled">다음</div>
+        </section>
+        <div id="footer"></div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  </body>
+</html>
