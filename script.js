@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+    var detailswiper = new Swiper(".option-panel .swiper-container", {
+      slidesPerView: 3,
+    spaceBetween: 10,
+  });
+
   const header = document.getElementById("main_header");
   const SCROLL_POINT = 50; // 기준 px (원하는 값으로 조절)
 

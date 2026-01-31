@@ -453,9 +453,6 @@ input[type="checkbox"]:checked {
     overflow: hidden;
 }
 
-.main-section .footer {
-    margin-top: 0;
-}
 
 /*index*/
 .main-hero {
@@ -776,11 +773,11 @@ input[type="checkbox"]:checked {
 
 
 #main_header .header_inner {
-    padding-top: 40px;
+    padding-top: 60px;
 }
 
 #main_header .header.remove .header_inner {
-    padding-top: 0;
+    padding-top: 20px;
 }
 
 .header {
@@ -801,11 +798,6 @@ input[type="checkbox"]:checked {
     transition: all 0.3s ease;
 }
 
-
-.header.remove .header_inner {
-    padding-top: 0 !important;
-}
-
 .header.remove .header-top {
     transform: translateY(-100%);
 }
@@ -815,10 +807,13 @@ input[type="checkbox"]:checked {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
-    padding: 0 var(--section-padding);
+    padding: var(--section-padding);
     box-sizing: content-box;
     transition: all 0.3s ease;
+    max-width: 428px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
 }
 
 .header .header_inner .header-logo {
@@ -882,12 +877,14 @@ input[type="checkbox"]:checked {
     pointer-events: none;
     /* 닫혀있을 때 클릭 방지 */
     transition: visibility 0.3s;
+    max-width: 428px;
 }
 
 #mobile-menu .menu-container {
     width: 100%;
     max-width: 428px;
     position: relative;
+    height: 100%;
 }
 
 #mobile-menu.open {
@@ -1046,9 +1043,9 @@ input[type="checkbox"]:checked {
 }
 
 #mobile-menu .mobile-menu .btn {
-    width: calc(100% - 40px);
+    width: 100%;
     position: absolute;
-    left: 20px;
+    left: 0px;
     bottom: 74px;
 }
 
@@ -1057,7 +1054,7 @@ input[type="checkbox"]:checked {
     color: var(--gray-500);
     text-align: left;
     position: absolute;
-    left: 20px;
+    left: 0px;
     bottom: 40px;
 }
 
@@ -1197,11 +1194,11 @@ input[type="checkbox"]:checked {
 .fixed-bottom-bar {
     position: fixed;
     bottom: 0;
-    left: calc((50% - 44px) + 40px);
-    width: 428px;
+    max-width: 428px;
     padding: 10px 20px;
     background: var(--white);
     border-top: 1px solid var(--gray-200);
+    width: 100%;
 }
 
 .order-button {
@@ -1218,15 +1215,13 @@ input[type="checkbox"]:checked {
     bottom: 0;
 
     /* 오른쪽 패널 위치 공식 */
-    width: 428px;
-    left: calc((50% - 44px) + 40px);
-
+    max-width: 428px;
+    width: 100%;
     background: var(--white);
     border-radius: var(--radius-md) var(--radius-md) 0 0;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
 
     z-index: 999;
-
     transform: translateY(100%);
     opacity: 0;
     transition: transform .35s ease, opacity .25s ease;
@@ -1287,6 +1282,11 @@ input[type="checkbox"]:checked {
     border-radius: var(--radius-md);
     margin: 0 auto 20px auto;
     cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 .option-popup-layer .btn_wrap {
