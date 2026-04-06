@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
@@ -15,6 +16,7 @@ function HeroSection() {
         }}
         slidesPerView={1}
         loop={true}
+        speed={1500}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -24,21 +26,21 @@ function HeroSection() {
           <img src="/images/main-banner.png" alt="배너01" />
           <div className="text-wrap">
             <h2>Design <br />Every Detail</h2>
-            <div className="btn sm btn-primary"><a href="#">Order Now</a></div>
+            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <img src="/images/main-banner02.png" alt="배너02" />
           <div className="text-wrap">
             <h2>Your Cake, <br />Your Every Detail</h2>
-            <div className="btn sm btn-primary"><a href="#">Order Now</a></div>
+            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <img src="/images/main-banner.png" alt="배너03" />
           <div className="text-wrap">
             <h2>Design <br />Every Detail</h2>
-            <div className="btn sm btn-primary"><a href="#">Order Now</a></div>
+            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
           </div>
         </SwiperSlide>
       </Swiper>

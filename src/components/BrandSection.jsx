@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function BrandSection() {
   return (
     <section className="brand-section">
@@ -15,7 +17,7 @@ function BrandSection() {
         <img src="/images/main-deco03.png" alt="deco" className="deco-img02" />
         <img src="/images/main-deco-arrow.png" alt="deco" className="deco-img03" />
         <img src="/images/brand-section-img.png" alt="브랜드 대표 이미지" className="main" />
-        <div className="btn sm btn-primary">Order Now</div>
+        <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
       </div>
     </section>
   )
