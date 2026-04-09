@@ -60,11 +60,13 @@ function Header({ variant, openMenu }) {
 
             <div className="header-right">
               <Link to="/cart" className="icon">
-                <img src="/images/icon-cart-w.png" alt="장바구니" />
-                {hasItem && <span className="cart-badge"></span>}
+                <img src="/images/icon-cart-w.png" alt="장바구니 아이콘" />
+                {cartCount > 0 && (
+                  <span className="cart-badge">{cartCount}</span>
+                )}
               </Link>
-              <Link to="" className="icon">
-                <img src="/images/icon-user-w.png" alt="마이페이지" />
+              <Link to="/mypage" className="icon">
+                <img src="/images/icon-user-w.png" alt="마이페이지 아이콘" />
               </Link>
               <button
                 type="button"
@@ -74,7 +76,7 @@ function Header({ variant, openMenu }) {
                 <img
                   className="icon"
                   src="/images/icon-menu-w.png"
-                  alt="메뉴"
+                  alt="메뉴 아이콘"
                 />
               </button>
             </div>
@@ -98,20 +100,20 @@ function Header({ variant, openMenu }) {
 
             <div className="header-right">
               <Link to="/cart" className="icon">
-                <img src="/images/icon_cart.png" alt="장바구니" />
+                <img src="/images/icon_cart.png" alt="장바구니 아이콘" />
                 {cartCount > 0 && (
                   <span className="cart-badge">{cartCount}</span>
                 )}
               </Link>
-              <Link to="" className="icon">
-                <img src="/images/icon_user.png" alt="마이페이지" />
+              <Link to="/mypage" className="icon">
+                <img src="/images/icon_user.png" alt="마이페이지 아이콘" />
               </Link>
               <button
                 type="button"
                 className="menu-btn icon"
                 onClick={openMenu}
               >
-                <img src="/images/icon_menu.png" alt="메뉴" />
+                <img src="/images/icon_menu.png" alt="메뉴 아이콘" />
               </button>
             </div>
           </div>

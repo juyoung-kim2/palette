@@ -69,7 +69,7 @@ function Cart() {
       localStorage.setItem("cartData", JSON.stringify(updatedCart));
 
       //삭제 후 체크박스 상태에서도 해당 id 제거
-      setCheckedItems(checkedItems.filter((checked) => chechedId !== id));
+      setCheckedItems(checkedItems.filter((checked) => checkedId !== id));
 
       window.location.reload();
     }
@@ -115,6 +115,28 @@ function Cart() {
       },
     });
   };
+
+  //바로구매
+  const handleDirectOrder = (item) => {
+    navigator("/OrderSheet", {
+      state: {
+        orders: [item], // 배열 형태로 감싸서 보냄
+        totalPrice: item.totalAmount,
+      },
+    });
+  };
+
+  //수정하기
+  const handleEdit = (item, idx) => {
+    console.log("보낼 데이터 확인:", item);
+    navigator("/Order", {
+      state: {
+        editItem: item,
+        editIndex: idx,
+      },
+    });
+  };
+
   return (
     <>
       <div className="content-wrapper">
@@ -212,8 +234,18 @@ function Cart() {
                       </p>
                     </div>
                     <div className="btn_wrap">
-                      <button className="btn btn-gray sm">수정하기</button>
-                      <button className="btn btn-primary sm">바로 구매</button>
+                      <button
+                        className="btn btn-gray sm"
+                        onClick={() => handleEdit(item, idx)}
+                      >
+                        수정하기
+                      </button>
+                      <button
+                        className="btn btn-primary sm"
+                        onClick={() => handleDirectOrder(item)}
+                      >
+                        바로 구매
+                      </button>
                     </div>
                     <button
                       className="remove-btn"

@@ -8,7 +8,7 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cart from "../Pages/Cart";
 
 function Order() {
@@ -69,12 +69,12 @@ function Order() {
 
   // 총액 계산
   const basePrice = 50000; //케이크 기본가
-  const sheetPrice = optionInfo[selectedSheet].price;
-  const creamPrice = optionInfo[selectedCream].price;
+  const sheetPrice = optionInfo[selectedSheet]?.price || 0;
+  const creamPrice = optionInfo[selectedCream]?.price || 0;
 
   // 데코 가격 합산 (개수*단가)
   const decoPrice = Object.entries(decoCounts).reduce((acc, [id, count]) => {
-    return acc + count * optionInfo[id].price;
+    return acc + count * optionInfo[id]?.price || 0;
   }, 0);
 
   const totalPrice = basePrice + sheetPrice + creamPrice + decoPrice;
@@ -102,6 +102,8 @@ function Order() {
   const handleOrder = () => {
     const finalOrder = {
       id: Date.now(), // 각 주문을 구분하기 위한 고유 id
+      sheetId: selectedSheet,
+      creamId: selectedCream,
       sheetName: optionInfo[selectedSheet]?.name,
       sheetPrice: optionInfo[selectedSheet]?.price,
       creamName: optionInfo[selectedCream]?.name,
@@ -109,6 +111,7 @@ function Order() {
       selectedDeco: Object.entries(decoCounts)
         .filter(([id, count]) => count > 0)
         .map(([id, count]) => ({
+          id: id,
           name: optionInfo[id]?.name,
           count: count,
           price: optionInfo[id]?.price,
@@ -154,6 +157,63 @@ function Order() {
         totalPrice: totalPrice,
       },
     });
+  };
+
+  const location = useLocation();
+  const { editItem, editIndex } = location.state || {};
+
+  //수정하기
+  useEffect(() => {
+    if (editItem) {
+      const { editItem } = location.state;
+      //사용자가 골랐던 값으로 세팅
+      setSelectedSheet(editItem.sheetId);
+      setSelectedCream(editItem.creamId);
+      setLettering(editItem.lettering || "");
+
+      if (editItem.selectedDeco) {
+        const initialDecos = {};
+
+        Object.keys(optionInfo).forEach((key) => {
+          if (key.startsWith("sheet") || key.startsWith("cream")) return;
+          initialDecos[key] = 0;
+        });
+        editItem.selectedDeco.forEach((item) => {
+          initialDecos[item.id] = item.count;
+        });
+        setDecoCounts(initialDecos);
+      }
+    }
+  }, [editItem]);
+
+  //수정완료
+  const handleUpdateCart = () => {
+    const currentCart = JSON.parse(localStorage.getItem("cartData")) || [];
+    const updatedOrder = {
+      id: editItem.id,
+      sheetId: selectedSheet,
+      creamId: selectedCream,
+      sheetName: optionInfo[selectedSheet]?.name,
+      sheetPrice: optionInfo[selectedSheet]?.price,
+      creamName: optionInfo[selectedCream]?.name,
+      creamPrice: optionInfo[selectedCream]?.price,
+      selectedDeco: Object.entries(decoCounts)
+        .filter(([id, count]) => count > 0)
+        .map(([id, count]) => ({
+          id: id,
+          name: optionInfo[id]?.name,
+          count: count,
+          price: optionInfo[id]?.price,
+        })),
+      lettering: lettering,
+      totalAmount: totalPrice,
+    };
+
+    //장바구니 배열에서 해당 인덱스만 교체하기
+    const newCartList = [...currentCart];
+    newCartList[editIndex] = updatedOrder;
+    localStorage.setItem("cartData", JSON.stringify(newCartList));
+    navigate("/cart");
   };
   return (
     <div className="content-wrapper">
@@ -670,8 +730,11 @@ function Order() {
             </div>
           </div>
           <div className="btn_wrap">
-            <button className="order-button btn-gray btn" onClick={handleOrder}>
-              ADD TO CART
+            <button
+              className="order-button btn-gray btn"
+              onClick={editItem ? handleUpdateCart : handleOrder}
+            >
+              {editItem ? "UPDATE CART" : "ADD TO CART"}
             </button>
             <button
               className="order-button popup-order-button btn btn-primary"
