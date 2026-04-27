@@ -33,7 +33,7 @@
 ## 📸 Screen Shots
 | 메인 페이지 | 커스텀 페이지 | 마이페이지 |
 | :---: | :---: | :---: |
-| <img src="./public/images/readme_main.png" width="250"> | <img src="./public/images/readme_mypage.png" width="250"> | <img src="./public/images/readme_order.png" width="250"> |
+| <img src="./public/images/readme_main.png" width="250"> | <img src="./public/images/readme_order.png" width="250"> | <img src="./public/images/readme_mypage.png" width="250"> |
 
 
 ---
