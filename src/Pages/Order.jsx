@@ -6,12 +6,51 @@ import Header from "../components/Header";
 import HowToOrderSection from "../components/HowToOrderSection";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cart from "../Pages/Cart";
 
+const CAKE_OPTIONS = {
+  cakeSheet: [
+    { id: "sheet-base", name: "기본", price: 0, img: "option1_1.png" },
+    { id: "sheet-choco", name: "초코 시트", price: 2000, img: "option1_2.png" },
+    {
+      id: "sheet-red",
+      name: "레드벨벳 시트",
+      price: 3000,
+      img: "option1_3.png",
+    },
+    { id: "sheet-green", name: "녹차 시트", price: 3000, img: "option1_4.png" },
+  ],
+  cream: [
+    { id: "cream-base", name: "생크림", price: 0, img: "option2_1.png" },
+    { id: "cream-choco", name: "초코 크림", price: 2000, img: "option2_2.png" },
+    {
+      id: "cream-strawberry",
+      name: "딸기 크림",
+      price: 3000,
+      img: "option2_3.png",
+    },
+    {
+      id: "cream-sesame",
+      name: "흑임자 크림",
+      price: 4000,
+      img: "option2_4.png",
+    },
+  ],
+  deco: [
+    { id: "blueberry", name: "블루베리", price: 300, img: "option3_1.png" },
+    { id: "strawberry", name: "딸기", price: 400, img: "option3_2.png" },
+    { id: "ribbonBlack", name: "리본(블랙)", price: 300, img: "option3_5.png" },
+    { id: "ribbonPink", name: "리본(분홍)", price: 300, img: "option3_4.png" },
+    { id: "cookie", name: "곰돌이 쿠키", price: 500, img: "option3_3.png" },
+  ],
+};
+
 function Order() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);
 
@@ -34,50 +73,29 @@ function Order() {
     ribbonPink: 0,
     cookie: 0,
   });
-  const handleCountChange = (name, type) => {
-    setDecoCounts((prev) => {
-      const currentCount = prev[name];
-
-      if (type === "plus") {
-        return { ...prev, [name]: currentCount + 1 };
-      } else {
-        return { ...prev, [name]: Math.max(0, currentCount - 1) };
-      }
-    });
+  const handleDecoCount = (id, delta) => {
+    setDecoCounts((prev) => ({ ...prev, [id]: Math.max(0, prev[id] + delta) }));
   };
 
-  const optionInfo = {
-    //시트
-    "sheet-base": { name: "기본", price: 0 },
-    "sheet-choco": { name: "초코 시트", price: 2000 },
-    "sheet-red": { name: "레드벨벳 시트", price: 3000 },
-    "sheet-green": { name: "녹차 시트", price: 3000 },
-
-    //크림
-    "cream-base": { name: "생크림", price: 0 },
-    "cream-choco": { name: "초코 크림", price: 2000 },
-    "cream-strawberry": { name: "딸기 크림", price: 3000 },
-    "cream-sesame": { name: "흑임자 크림", price: 4000 },
-
-    //데코
-    blueberry: { name: "블루베리", price: 300 },
-    strawberry: { name: "딸기", price: 400 },
-    ribbonBlack: { name: "리본(블랙)", price: 300 },
-    ribbonPink: { name: "리본(분홍)", price: 300 },
-    cookie: { name: "곰돌이 쿠키", price: 500 },
-  };
+  const allOptions = useMemo(
+    () => ({
+      ...Object.fromEntries(CAKE_OPTIONS.cakeSheet.map((i) => [i.id, i])),
+      ...Object.fromEntries(CAKE_OPTIONS.cream.map((i) => [i.id, i])),
+      ...Object.fromEntries(CAKE_OPTIONS.deco.map((i) => [i.id, i])),
+    }),
+    [],
+  );
 
   // 총액 계산
-  const basePrice = 50000; //케이크 기본가
-  const sheetPrice = optionInfo[selectedSheet]?.price || 0;
-  const creamPrice = optionInfo[selectedCream]?.price || 0;
-
-  // 데코 가격 합산 (개수*단가)
-  const decoPrice = Object.entries(decoCounts).reduce((acc, [id, count]) => {
-    return acc + count * optionInfo[id]?.price || 0;
-  }, 0);
-
-  const totalPrice = basePrice + sheetPrice + creamPrice + decoPrice;
+  const basePrice = 50000;
+  const totalPrice = useMemo(() => {
+    const sPrice = allOptions[selectedSheet]?.price || 0;
+    const cPrice = allOptions[selectedCream]?.price || 0;
+    const dPrice = Object.entries(decoCounts).reduce((acc, [id, count]) => {
+      return acc + (allOptions[id]?.price || 0) * count;
+    }, 0);
+    return basePrice + sPrice + cPrice + dPrice;
+  }, [selectedSheet, selectedCream, decoCounts, allOptions]);
 
   useEffect(() => {
     if (menuOpen || optionOpen) {
@@ -98,23 +116,73 @@ function Order() {
     setMenuOpen(false);
   };
 
-  const navigate = useNavigate();
+  const renderOptionItem = (item, type) => {
+    const isSelected =
+      type === "deco"
+        ? decoCounts[item.id] > 0
+        : type === "sheet"
+          ? selectedSheet === item.id
+          : selectedCream === item.id;
+
+    return (
+      <SwiperSlide key={item.id}>
+        <label className={`option-item ${isSelected ? "selected" : ""}`}>
+          <input
+            type={type === "deco" ? "checkbox" : "radio"}
+            name={`${type}Option`}
+            checked={isSelected}
+            onChange={() =>
+              type === "sheet"
+                ? setSelectedSheet(item.id)
+                : type === "cream"
+                  ? setSelectedCream(item.id)
+                  : null
+            }
+          />
+          <div className="option-image-box">
+            <img src={`images/${item.img}`} alt={item.name} />
+          </div>
+          <span className="option-name">{item.name}</span>
+          <span className="option-price">+{item.price}</span>
+
+          {type === "deco" && (
+            <div className="topping-qty">
+              <button
+                onClick={() => handleDecoCount(item.id, -1)}
+                className="qty-minus"
+              >
+                -
+              </button>
+              <span className="qty-value">{decoCounts[item.id]}</span>
+              <button
+                onClick={() => handleDecoCount(item.id, 1)}
+                className="qty-plus"
+              >
+                +
+              </button>
+            </div>
+          )}
+        </label>
+      </SwiperSlide>
+    );
+  };
+
   const handleOrder = () => {
     const finalOrder = {
       id: Date.now(), // 각 주문을 구분하기 위한 고유 id
       sheetId: selectedSheet,
       creamId: selectedCream,
-      sheetName: optionInfo[selectedSheet]?.name,
-      sheetPrice: optionInfo[selectedSheet]?.price,
-      creamName: optionInfo[selectedCream]?.name,
-      creamPrice: optionInfo[selectedCream]?.price,
+      sheetName: allOptions[selectedSheet]?.name,
+      sheetPrice: allOptions[selectedSheet]?.price,
+      creamName: allOptions[selectedCream]?.name,
+      creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
         .filter(([id, count]) => count > 0)
         .map(([id, count]) => ({
           id: id,
-          name: optionInfo[id]?.name,
+          name: allOptions[id]?.name,
           count: count,
-          price: optionInfo[id]?.price,
+          price: allOptions[id]?.price,
         })),
       lettering: lettering,
       totalAmount: totalPrice,
@@ -137,16 +205,16 @@ function Order() {
   const handleDirectOrder = () => {
     const currentCake = {
       id: Date.now(),
-      sheetName: optionInfo[selectedSheet]?.name,
-      sheetPrice: optionInfo[selectedSheet]?.price,
-      creamName: optionInfo[selectedCream]?.name,
-      creamPrice: optionInfo[selectedCream]?.price,
+      sheetName: allOptions[selectedSheet]?.name,
+      sheetPrice: allOptions[selectedSheet]?.price,
+      creamName: allOptions[selectedCream]?.name,
+      creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
         .filter(([id, count]) => count > 0)
         .map(([id, count]) => ({
-          name: optionInfo[id]?.name,
+          name: allOptions[id]?.name,
           count: count,
-          price: optionInfo[id]?.price,
+          price: allOptions[id]?.price,
         })),
       lettering: lettering,
       totalAmount: totalPrice,
@@ -159,7 +227,6 @@ function Order() {
     });
   };
 
-  const location = useLocation();
   const { editItem, editIndex } = location.state || {};
 
   //수정하기
@@ -174,7 +241,7 @@ function Order() {
       if (editItem.selectedDeco) {
         const initialDecos = {};
 
-        Object.keys(optionInfo).forEach((key) => {
+        Object.keys(allOptions).forEach((key) => {
           if (key.startsWith("sheet") || key.startsWith("cream")) return;
           initialDecos[key] = 0;
         });
@@ -193,17 +260,17 @@ function Order() {
       id: editItem.id,
       sheetId: selectedSheet,
       creamId: selectedCream,
-      sheetName: optionInfo[selectedSheet]?.name,
-      sheetPrice: optionInfo[selectedSheet]?.price,
-      creamName: optionInfo[selectedCream]?.name,
-      creamPrice: optionInfo[selectedCream]?.price,
+      sheetName: allOptions[selectedSheet]?.name,
+      sheetPrice: allOptions[selectedSheet]?.price,
+      creamName: allOptions[selectedCream]?.name,
+      creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
         .filter(([id, count]) => count > 0)
         .map(([id, count]) => ({
           id: id,
-          name: optionInfo[id]?.name,
+          name: allOptions[id]?.name,
           count: count,
-          price: optionInfo[id]?.price,
+          price: allOptions[id]?.price,
         })),
       lettering: lettering,
       totalAmount: totalPrice,
@@ -247,434 +314,47 @@ function Order() {
         </div>
 
         <div className={`option-popup-layer ${optionOpen ? "active" : ""}`}>
-          <div className="popup-dimmed"></div>
           <div className="popup-content scroll">
             <div className="popup-handle" onClick={closeOption}></div>
 
             <nav className="option-tabs">
-              {["cakeSheet", "cream", "deco", "Lettering"].map((tab) => (
-                <button
-                  key={tab}
-                  className={`tab-item ${activeTab === tab ? "active" : ""}`}
-                  onClick={() => setActiveTab(tab)}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+              {Object.keys(CAKE_OPTIONS)
+                .concat("Lettering")
+                .map((tab) => (
+                  <button
+                    key={tab}
+                    className={`tab-item ${activeTab === tab ? "active" : ""}`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1).toLowerCase()}
+                  </button>
+                ))}
             </nav>
 
             <div className="option-selection-container">
-              {/* Cake Sheet 패널 */}
-              <div
-                className={`option-panel ${activeTab === "cakeSheet" ? "active" : ""}`}
-              >
-                <Swiper
-                  slidesPerView={3.5}
-                  loop={false}
-                  speed={1500}
-                  spaceBetween={10}
+              {/* 시트/크림/데코 패널을 하나의 로직으로 처리 */}
+              {["cakeSheet", "cream", "deco"].map((type) => (
+                <div
+                  key={type}
+                  className={`option-panel ${activeTab === type ? "active" : ""}`}
                 >
-                  <SwiperSlide>
-                    <label
-                      className={`option-item ${selectedSheet === "sheet-base" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="sheetOption"
-                        value="sheet-base"
-                        checked={selectedSheet === "sheet-base"}
-                        onChange={(e) => setSelectedSheet(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option1_1.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["sheet-base"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["sheet-base"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedSheet === "sheet-choco" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="sheetOption"
-                        value="sheet-choco"
-                        checked={selectedSheet === "sheet-choco"}
-                        onChange={(e) => setSelectedSheet(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option1_2.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["sheet-choco"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["sheet-choco"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedSheet === "sheet-red" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="sheetOption"
-                        value="sheet-red"
-                        checked={selectedSheet === "sheet-red"}
-                        onChange={(e) => setSelectedSheet(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option1_3.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["sheet-red"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["sheet-red"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
+                  <Swiper slidesPerView={3.5} spaceBetween={10}>
+                    {CAKE_OPTIONS[type]?.map((item) =>
+                      renderOptionItem(
+                        item,
+                        type.replace("cakeSheet", "sheet"),
+                      ),
+                    )}
+                  </Swiper>
+                </div>
+              ))}
 
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedSheet === "sheet-green" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="sheetOption"
-                        value="sheet-green"
-                        checked={selectedSheet === "sheet-green"}
-                        onChange={(e) => setSelectedSheet(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option1_4.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["sheet-green"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["sheet-green"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                </Swiper>
-              </div>
-
-              {/* Cream 패널 */}
-              <div
-                className={`option-panel ${activeTab === "cream" ? "active" : ""}`}
-              >
-                <Swiper
-                  slidesPerView={3.5}
-                  loop={false}
-                  speed={1500}
-                  spaceBetween={10}
-                >
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedCream === "cream-base" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="CreamOption"
-                        value="cream-base"
-                        checked={selectedCream === "cream-base"}
-                        onChange={(e) => setSelectedCream(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option2_1.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["cream-base"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["cream-base"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedCream === "cream-choco" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="CreamOption"
-                        value="cream-choco"
-                        checked={selectedCream === "cream-choco"}
-                        onChange={(e) => setSelectedCream(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option2_2.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["cream-choco"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["cream-choco"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedCream === "cream-strawberry" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="CreamOption"
-                        value="cream-strawberry"
-                        checked={selectedCream === "cream-strawberry"}
-                        onChange={(e) => setSelectedCream(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option2_3.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["cream-strawberry"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["cream-strawberry"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${selectedCream === "cream-sesame" ? "selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="CreamOption"
-                        value="cream-sesame"
-                        checked={selectedCream === "cream-sesame"}
-                        onChange={(e) => setSelectedCream(e.target.value)}
-                      />
-                      <div className="option-image-box">
-                        <img src="images/option2_4.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["cream-sesame"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["cream-sesame"].price}
-                      </span>
-                    </label>
-                  </SwiperSlide>
-                </Swiper>
-              </div>
-
-              {/* Deco 패널 */}
-              <div
-                className={`option-panel ${activeTab === "deco" ? "active" : ""}`}
-              >
-                <Swiper
-                  slidesPerView={3.5}
-                  loop={false}
-                  speed={1500}
-                  spaceBetween={10}
-                >
-                  <SwiperSlide>
-                    <label
-                      className={`option-item ${decoCounts.blueberry > 0 ? "selected" : ""}`}
-                    >
-                      <input type="checkbox" name="decoOption" />
-                      <div className="option-image-box">
-                        <img src="images/option3_1.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["blueberry"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["blueberry"].price}
-                      </span>
-                      <div className="topping-qty">
-                        <button
-                          className="qty-minus"
-                          onClick={() =>
-                            handleCountChange("blueberry", "minus")
-                          }
-                        >
-                          -
-                        </button>
-                        <span className="qty-value">
-                          {decoCounts.blueberry}
-                        </span>
-                        <button
-                          className="qty-plus"
-                          onClick={() => handleCountChange("blueberry", "plus")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <label
-                      className={`option-item ${decoCounts.strawberry > 0 ? "selected" : ""}`}
-                    >
-                      <input type="checkbox" name="decoOption" />
-                      <div className="option-image-box">
-                        <img src="images/option3_2.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["strawberry"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["strawberry"].price}
-                      </span>
-                      <div className="topping-qty">
-                        <button
-                          className="qty-minus"
-                          onClick={() =>
-                            handleCountChange("strawberry", "minus")
-                          }
-                        >
-                          -
-                        </button>
-                        <span className="qty-value">
-                          {decoCounts.strawberry}
-                        </span>
-                        <button
-                          className="qty-plus"
-                          onClick={() =>
-                            handleCountChange("strawberry", "plus")
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <label
-                      className={`option-item ${decoCounts.ribbonBlack > 0 ? "selected" : ""}`}
-                    >
-                      <input type="checkbox" name="decoOption" />
-                      <div className="option-image-box">
-                        <img src="images/option3_5.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["ribbonBlack"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["ribbonBlack"].price}
-                      </span>
-                      <div className="topping-qty">
-                        <button
-                          className="qty-minus"
-                          onClick={() =>
-                            handleCountChange("ribbonBlack", "minus")
-                          }
-                        >
-                          -
-                        </button>
-                        <span className="qty-value">
-                          {decoCounts.ribbonBlack}
-                        </span>
-                        <button
-                          className="qty-plus"
-                          onClick={() =>
-                            handleCountChange("ribbonBlack", "plus")
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <label
-                      className={`option-item ${decoCounts.ribbonPink > 0 ? "selected" : ""}`}
-                    >
-                      <input type="checkbox" name="decoOption" />
-                      <div className="option-image-box">
-                        <img src="images/option3_4.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["ribbonPink"].name}
-                      </span>
-                      <span className="option-price">
-                        +{optionInfo["ribbonPink"].price}
-                      </span>
-                      <div className="topping-qty">
-                        <button
-                          className="qty-minus"
-                          onClick={() =>
-                            handleCountChange("ribbonPink", "minus")
-                          }
-                        >
-                          -
-                        </button>
-                        <span className="qty-value">
-                          {decoCounts.ribbonPink}
-                        </span>
-                        <button
-                          className="qty-plus"
-                          onClick={() =>
-                            handleCountChange("ribbonPink", "plus")
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </label>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    {" "}
-                    <label
-                      className={`option-item ${decoCounts.cookie > 0 ? "selected" : ""}`}
-                    >
-                      <input type="checkbox" name="decoOption" />
-                      <div className="option-image-box">
-                        <img src="images/option3_3.png" />
-                      </div>
-                      <span className="option-name">
-                        {optionInfo["cookie"].name}
-                      </span>
-                      <span className="option-price" data-price="500">
-                        +{optionInfo["cookie"].price}
-                      </span>
-                      <div className="topping-qty">
-                        <button
-                          className="qty-minus"
-                          onClick={() => handleCountChange("cookie", "minus")}
-                        >
-                          -
-                        </button>
-                        <span className="qty-value">{decoCounts.cookie}</span>
-                        <button
-                          className="qty-plus"
-                          onClick={() => handleCountChange("cookie", "plus")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </label>
-                  </SwiperSlide>
-                </Swiper>
-              </div>
-              {/* Letter 패널 */}
+              {/* 레터링 패널만 따로 유지 */}
               <div
                 className={`option-panel letter ${activeTab === "Lettering" ? "active" : ""}`}
               >
-                <p className="info">
-                  레터링 문구를 입력해주세요. (최대 15자 이내)
-                </p>
                 <input
                   type="text"
-                  id="cake-text"
-                  placeholder="케이크에 적을 문구를 입력해 주세요"
                   value={lettering}
                   onChange={(e) => setLettering(e.target.value)}
                   maxLength={15}
@@ -683,35 +363,34 @@ function Order() {
             </div>
 
             <div className="selected-option-box">
-              <div className="selected-group selected-base">
-                <span className="name">{optionInfo[selectedSheet]?.name}</span>
-                <span className="price">
-                  + ₩{optionInfo[selectedSheet]?.price}
-                </span>
-              </div>
-              <div className="selected-group selected-base">
-                <span className="name">{optionInfo[selectedCream]?.name}</span>
-                <span className="price">
-                  + ₩{optionInfo[selectedCream]?.price}
-                </span>
-              </div>
-              <div className="selected-toppings">
-                {Object.entries(decoCounts).map(
-                  ([id, count]) =>
-                    //수량이 0보다 클 때만 span 태그 생성
-                    count > 0 && (
+              {/* 시트와 크림 출력 */}
+              {[selectedSheet, selectedCream].map((id) => (
+                <div key={id} className="selected-group selected-base">
+                  <span className="name">{allOptions[id]?.name}</span>
+                  <span className="price">
+                    + ₩{allOptions[id]?.price.toLocaleString()}
+                  </span>
+                </div>
+              ))}
+
+              {/* 데코 출력 (수량 0개 제외) */}
+              {Object.entries(decoCounts).map(
+                ([id, count]) =>
+                  count > 0 && (
+                    <div className="selected-toppings">
                       <span key={id} className="topping-item">
-                        <span className="name">
-                          {optionInfo[id]?.name} x {count}
-                        </span>
-                        <span className="price">
+                        <span>
                           {" "}
-                          + ₩{optionInfo[id]?.price * count}
+                          {allOptions[id]?.name} x {count}{" "}
+                        </span>
+                        <span>
+                          {" "}
+                          + ₩{(allOptions[id]?.price * count).toLocaleString()}
                         </span>
                       </span>
-                    ),
-                )}
-              </div>
+                    </div>
+                  ),
+              )}
               <div className="selected-lettering">
                 {/* lettering에 글자가 한 글자라도 있으면(&& 상황) 화면에 그려줍니다. */}
                 {lettering.length > 0 && (

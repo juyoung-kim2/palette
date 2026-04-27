@@ -1,177 +1,10 @@
 /* ================================
-   RESET
+   1. VARIABLES & RESET
 ================================ */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-}
-
-body {
-  font-family: "Pretendard Variable", sans-serif;
-  background-color: #fff;
-  overflow-x: hidden;
-  letter-spacing: -0.04em;
-  font-size: var(--font-default);
-  height: 100%;
-  color: var(--font-color);
-}
-
-ol,
-li {
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-select {
-  border: 1px solid var(--gray-200);
-  height: 44px;
-  border-radius: var(--radius-sm);
-  box-sizing: border-box;
-  width: 100%;
-  font-family: "Pretendard Variable", sans-serif;
-  padding: 4px 4px 4px 10px;
-  appearance: none;
-  background: url("/images/icon_arrow_b.png") no-repeat center right 10px;
-  background-size: 12px;
-  outline: none;
-}
-
-select:focus {
-  border: 1px solid var(--gray-500);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  border: 1px solid var(--gray-200);
-  background-color: transparent;
-  font-family: "Pretendard Variable", sans-serif;
-  cursor: pointer;
-}
-
-textarea {
-  width: 100%;
-  border-color: var(--gray-200);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-default);
-  padding: var(--space-16);
-}
-
-input[type="password"] {
-  border: 1px solid var(--gray-200);
-  height: 44px;
-  border-radius: var(--radius-sm);
-  padding: 4px 6px 4px 14px;
-  box-sizing: border-box;
-  width: 100%;
-  font-family: "Pretendard Variable", sans-serif;
-  outline: none;
-}
-
-input[type="password"]:focus {
-  border: 1px solid var(--gray-500);
-}
-
-input[type="text"] {
-  border: 1px solid var(--gray-200);
-  height: 44px;
-  border-radius: var(--radius-sm);
-  padding: 4px 6px 4px 16px;
-  box-sizing: border-box;
-  width: 100%;
-  font-family: "Pretendard Variable", sans-serif;
-  outline: none;
-}
-
-input[type="text"]:focus {
-  border: 1px solid var(--gray-800);
-}
-
-input[type="number"] {
-  border: 1px solid var(--gray-200);
-  height: 44px;
-  border-radius: var(--radius-sm);
-  padding: 4px 6px 4px 16px;
-  box-sizing: border-box;
-  width: 100%;
-  font-family: "Pretendard Variable", sans-serif;
-  outline: none;
-}
-
-input[type="number"]:focus {
-  border: 1px solid var(--gray-800);
-}
-
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  border: 1px solid var(--gray-300);
-  appearance: none;
-}
-
-input[type="radio"]::before {
-  content: "";
-  display: block;
-  width: 20px;
-  height: 20px;
-  border: 1px soldi var(--gray-300);
-  border-radius: 100%;
-}
-
-[type="radio"]:checked {
-  border: 0.4em solid var(--font-color);
-}
-
-input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--gray-300);
-  border-radius: 2px;
-  appearance: none;
-}
-
-input[type="checkbox"]:checked {
-  content: "";
-  border-color: var(--font-color);
-  background: var(--font-color) url("/images/icon_check_w.png") center center;
-  background-size: 12px;
-}
-.detail-page-wrapper .footer {
-  margin-top: 0;
-}
-
-.cart-section .footer {
-  padding-bottom: 100px;
-  margin-top: 100px;
-}
-.detail-page-wrapper .footer {
-  padding-bottom: 100px;
-}
-.mypage-section .footer {
-  margin-top: 100px;
-}
-.detail-page-wrapper input[type="radio"] {
-  display: none;
-}
-
-.detail-page-wrapper input[type="checkbox"] {
-  display: none;
 }
 
 :root {
@@ -244,6 +77,176 @@ input[type="checkbox"]:checked {
   /* 실제 푸터 높이 */
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "Pretendard Variable", sans-serif;
+  background-color: #fff;
+  overflow-x: hidden;
+  letter-spacing: -0.04em;
+  font-size: var(--font-default);
+  height: 100%;
+  color: var(--font-color);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+select {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 4px 4px 10px;
+  appearance: none;
+  background: url("/images/icon_arrow_b.png") no-repeat center right 10px;
+  background-size: 12px;
+  outline: none;
+}
+
+select:focus {
+  border: 1px solid var(--gray-500);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: 1px solid var(--gray-200);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  border-color: var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-default);
+  padding: var(--space-16);
+}
+
+input[type="password"] {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px 4px 14px;
+  box-sizing: border-box;
+  width: 100%;
+
+  outline: none;
+}
+
+input[type="password"]:focus {
+  border: 1px solid var(--gray-500);
+}
+
+input[type="text"] {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px 4px 16px;
+  box-sizing: border-box;
+  width: 100%;
+
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border: 1px solid var(--gray-800);
+}
+
+input[type="number"] {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px 4px 16px;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  border: 1px solid var(--gray-800);
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-300);
+  appearance: none;
+}
+
+input[type="radio"]::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px soldi var(--gray-300);
+  border-radius: 100%;
+}
+
+[type="radio"]:checked {
+  border: 0.4em solid var(--font-color);
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--gray-300);
+  border-radius: 2px;
+  appearance: none;
+}
+
+input[type="checkbox"]:checked {
+  content: "";
+  border-color: var(--font-color);
+  background: var(--font-color) url("/images/icon_check_w.png") center center;
+  background-size: 12px;
+}
+.detail-page-wrapper .footer {
+  margin-top: 0;
+}
+
+.cart-section .footer {
+  padding-bottom: 100px;
+  margin-top: 100px;
+}
+.detail-page-wrapper .footer {
+  padding-bottom: 100px;
+}
+.mypage-section .footer {
+  margin-top: 100px;
+}
+.detail-page-wrapper input[type="radio"] {
+  display: none;
+}
+
+.detail-page-wrapper input[type="checkbox"] {
+  display: none;
+}
+
 .positive {
   color: var(--accent-blue);
 }
@@ -261,28 +264,29 @@ input[type="checkbox"]:checked {
   gap: var(--space-6);
 }
 
-.paginate > a {
+.paginate button {
   display: inline-block;
   width: 18px;
   height: 18px;
+  border: none;
 }
 
-.paginate a.first {
+.paginate button.first {
   background: url("/images/icon_page_first.png");
   background-size: contain;
 }
 
-.paginate a.prev {
+.paginate button.prev {
   background: url("/images/icon_arrow_l.png");
   background-size: contain;
 }
 
-.paginate a.next {
+.paginate button.next {
   background: url("/images/icon_arrow_r.png");
   background-size: contain;
 }
 
-.paginate a.last {
+.paginate button.last {
   background: url("/images/icon_page_last.png");
   background-size: contain;
 }
@@ -303,6 +307,7 @@ input[type="checkbox"]:checked {
   font-size: var(--font-sm);
   color: var(--gray-300);
   font-weight: var(--weight-medium);
+  border: none;
 }
 
 .paginate ol li .page-num.selected {
@@ -310,7 +315,9 @@ input[type="checkbox"]:checked {
   font-weight: var(--weight-semibold);
 }
 
-/* 버튼 */
+/* ================================
+   2. COMMON COMPONENTS (Buttons, Layout)
+================================ */
 .btn {
   font-family: var(--font-main);
   font-weight: var(--weight-semibold);

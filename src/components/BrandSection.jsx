@@ -9,13 +9,14 @@ function BrandSection() {
         </div>
         <div>
           <img src="/images/main-deco01.png" alt="deco" className="typo-deco" />
-          <h1>Sweetes Moments</h1>
+          {/* 오타 수정: Sweetes -> Sweetest */}
+          <h1>Sweetest Moments</h1>
         </div>
       </div>
       <div className="imgage-area">
         <img
           src="/images/main-deco02.png"
-          alt="deco "
+          alt="deco"
           className="deco-img01 move"
         />
         <img
@@ -33,7 +34,8 @@ function BrandSection() {
           alt="브랜드 대표 이미지"
           className="main"
         />
-        <Link to={"/order"} className="btn sm btn-primary">
+        {/* Link의 to 속성을 더 간결하게 수정 */}
+        <Link to="/order" className="btn sm btn-primary">
           Order Now
         </Link>
       </div>

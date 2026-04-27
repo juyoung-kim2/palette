@@ -7,7 +7,25 @@ import React, { useState } from "react";
 import { data, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+const pickup_dates = [
+  "2025-12-23",
+  "2025-12-24",
+  "2025-12-25",
+  "2025-12-26",
+  "2025-12-27",
+];
+const pickup_times = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
+const phone_first = ["010", "011", "016", "017", "018", "019"];
+
 function OrderSheet() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { orders, totalPrice } = location.state || {
+    orders: [],
+    totalPrice: 0,
+  };
+
+  // 메뉴 및 섹션 토글 상태
   const [menuOpen, setMenuOpen] = useState(false);
 
   const openMenu = (e) => {
@@ -18,6 +36,7 @@ function OrderSheet() {
     setMenuOpen(false);
   };
 
+  // 메뉴 오픈 시 스크롤 제어
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -47,37 +66,42 @@ function OrderSheet() {
     );
   };
 
-  const location = useLocation();
-  const { orders, totalPrice } = location.state || {
-    orders: [],
-    totalPrice: 0,
+  const [formData, setFormData] = useState({
+    date: pickup_dates[0],
+    time: "",
+    name: "",
+    phoneFirst: "010",
+    phoneMid: "",
+    phoneLast: "",
+    request: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const cleanValue =
+      name === "phoneMid" || name === "phoneLast"
+        ? value.replace(/[^0-9]/g, "")
+        : value;
+    setFormData((prev) => ({ ...prev, [name]: cleanValue }));
   };
 
-  const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState("2025-12-23");
-  const [userName, setUserName] = useState("");
-  const [userPhoneFirst, setUserPhoneFirst] = useState("010");
-  const [userPhoneMid, setUserPhoneMid] = useState("");
-  const [userPhoneLast, setUserPhoneLast] = useState("");
-  const [userRequest, setUserRequest] = useState("");
-  const navigate = useNavigate();
   const handlePayment = () => {
-    if (!userName || !userPhoneMid || !userPhoneLast || !selectedTime) {
+    const { name, phoneMid, phoneLast, time, date, request } = formData;
+    if (!name || !phoneMid || !phoneLast || !time) {
       alert("픽업 시간과 주문자 정보를 모두 입력해주세요!");
       return;
     }
 
-    const fullPhone = `${userPhoneFirst}-${userPhoneMid}-${userPhoneLast}`;
     const orderData = {
       orderer: {
-        name: userName,
-        phone: fullPhone,
+        name,
+        phone: `${formData.phoneFirst}-${phoneMid}-${phoneLast}`,
       },
       items: orders,
-      totalPrice: totalPrice,
-      pickupDate: selectedDate,
-      pickupTime: selectedTime,
-      request: userRequest,
+      totalPrice,
+      pickupDate: date,
+      pickupTime: time,
+      request: request,
     };
     navigate("/order-complete", {
       state: orderData,
@@ -189,13 +213,15 @@ function OrderSheet() {
                       <div className="pickup-date-wrapper">
                         <select
                           className="pickup-select"
-                          value={selectedDate}
-                          onChange={(e) => setSelectedDate(e.target.value)}
+                          name="date"
+                          value={formData.date}
+                          onChange={handleInputChange}
                         >
-                          <option value="2025-12-23">2025 - 12 - 23</option>
-                          <option value="2025-12-24">2025 - 12 - 24</option>
-                          <option value="2025-12-25">2025 - 12 - 25</option>
-                          <option value="2025-12-26">2025 - 12 - 26</option>
+                          {pickup_dates.map((date) => (
+                            <option key={date} value={date}>
+                              {date}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -204,19 +230,14 @@ function OrderSheet() {
                     <div className="pickup-field">
                       <label className="pickup-label">픽업 시간</label>
                       <div className="pickup-time-list">
-                        {[
-                          "10:00",
-                          "11:00",
-                          "12:00",
-                          "13:00",
-                          "14:00",
-                          "15:00",
-                        ].map((time) => (
+                        {pickup_times.map((time) => (
                           <button
                             key={time}
                             type="button"
-                            className={`pickup-time-btn ${selectedTime === time ? "is-active" : ""}`}
-                            onClick={() => setSelectedTime(time)}
+                            className={`pickup-time-btn ${formData.time === time ? "is-active" : ""}`}
+                            onClick={() =>
+                              setFormData((prev) => ({ ...prev, time }))
+                            }
                           >
                             {time}
                           </button>
@@ -249,8 +270,9 @@ function OrderSheet() {
                       <label className="orderer-label">수령인</label>
                       <input
                         type="text"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="orderer-field">
@@ -259,15 +281,15 @@ function OrderSheet() {
                         {/*앞자리*/}
                         <select
                           className="contact-select"
-                          value={userPhoneFirst}
-                          onChange={(e) => setUserPhoneFirst(e.target.value)}
+                          name="phoneFirst"
+                          value={formData.phoneFirst}
+                          onChange={handleInputChange}
                         >
-                          <option value="010">010</option>
-                          <option value="011">011</option>
-                          <option value="016">016</option>
-                          <option value="017">017</option>
-                          <option value="018">018</option>
-                          <option value="019">019</option>
+                          {phone_first.map((p) => (
+                            <option key={p} value={p}>
+                              {p}
+                            </option>
+                          ))}
                         </select>
 
                         <span className="dash">-</span>
@@ -277,13 +299,10 @@ function OrderSheet() {
                           type="text"
                           className="contact-input"
                           maxlength="4"
+                          name="phoneMid"
                           placeholder="1234"
-                          value={userPhoneMid}
-                          onChange={(e) =>
-                            setUserPhoneMid(
-                              e.target.value.replace(/[^0-9]/g, ""),
-                            )
-                          }
+                          value={formData.phoneMid}
+                          onChange={handleInputChange}
                         />
 
                         <span className="dash">-</span>
@@ -293,13 +312,10 @@ function OrderSheet() {
                           type="text"
                           className="contact-input"
                           maxlength="4"
+                          name="phoneLast"
                           placeholder="5678"
-                          value={userPhoneLast}
-                          onChange={(e) =>
-                            setUserPhoneLast(
-                              e.target.value.replace(/[^0-9]/g, ""),
-                            )
-                          }
+                          value={formData.phoneLast}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -321,9 +337,10 @@ function OrderSheet() {
                     <label className="input-label">요청사항</label>
                     <textarea
                       className="textarea"
+                      name="request"
                       placeholder="원하시는 디자인·색감·레터링 느낌이 있다면 적어주세요 :)"
-                      value={userRequest}
-                      onChange={(e) => setUserRequest(e.target.value)}
+                      value={formData.request}
+                      onChange={handleInputChange}
                     ></textarea>
                   </div>
                 </div>

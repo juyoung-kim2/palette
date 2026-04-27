@@ -3,19 +3,14 @@ import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function MypageOrderList() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -28,6 +23,7 @@ function MypageOrderList() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -37,23 +33,23 @@ function MypageOrderList() {
       <main className="mypage-section main-section">
         <Header variant="sub" openMenu={openMenu} />
         <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
+
         <section className="mypage-container sub-container is-empty">
           <h1>주문내역</h1>
+
           <div className="card-wrap">
-            {/*주문 1건*/}
+            {/* 주문 1건 */}
             <div className="order-card">
-              {/*주문 헤더*/}
               <div className="order-header">
                 <span className="order-date">
-                  {" "}
-                  2025-08-06 <span>( #20251225-0018)</span>{" "}
+                  2025-08-06 <span>( #20251225-0018)</span>
                 </span>
-                <Link to="/mypageOrderDetail" className="order-detail-link">
+
+                <Link to="/mypage-order-detail" className="order-detail-link">
                   상세보기 <img src="/images/icon_arrow_r.png" alt="화살표" />
                 </Link>
               </div>
 
-              {/*상품 정보*/}
               <div className="order-product">
                 <div className="product-thumb">
                   <img src="/images/detail_thumb.png" alt="상품 이미지" />
@@ -86,7 +82,6 @@ function MypageOrderList() {
                 </div>
               </div>
 
-              {/*주문 상태*/}
               <div className="order-status">
                 <strong className="status-text">주문상태</strong>
                 <span className="badge completed">픽업완료</span>
@@ -94,30 +89,32 @@ function MypageOrderList() {
             </div>
           </div>
 
+          {/* 페이지네이션  */}
           <div className="paginate">
-            <a href="#" className="first"></a>
-            <a href="#" className="prev"></a>
+            <button type="button" className="first"></button>
+            <button type="button" className="prev"></button>
             <ol>
               <li>
-                <a href="#" className="page-num">
+                <button type="button" className="page-num">
                   1
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="page-num selected">
+                <button type="button" className="page-num selected">
                   2
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="page-num">
+                <button type="button" className="page-num">
                   3
-                </a>
+                </button>
               </li>
             </ol>
-            <a href="#" className="next"></a>
-            <a href="#" className="last"></a>
+            <button type="button" className="next"></button>
+            <button type="button" className="last"></button>
           </div>
         </section>
+
         <Footer />
       </main>
     </div>

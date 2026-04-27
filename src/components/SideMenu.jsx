@@ -8,9 +8,9 @@ function SideMenu({ menuOpen, closeMenu }) {
         <div className="menu-container">
           <div className="menu-header">
             <button className="btn-close" onClick={closeMenu}>
-              <img src="images/icon_close.png" alt="" />
+              <img src="images/icon_close.png" alt="닫기" />
             </button>
-            <img src="images/logo.png" alt="" />
+            <img src="images/logo.png" alt="팔레트 로고" />
             <p className="user-name">
               안녕하세요, <span>사용자</span>님 :)
             </p>
@@ -18,19 +18,34 @@ function SideMenu({ menuOpen, closeMenu }) {
 
           <ul className="menu-list primary">
             <li>
-              <Link to="/mypage">마이페이지</Link>
+              {/* /mypage 는 그대로 유지 */}
+              <Link to="/mypage" onClick={closeMenu}>
+                마이페이지
+              </Link>
             </li>
             <li>
-              <Link to="/mypageOrderList">주문내역</Link>
+              {/* /mypageOrderList -> /mypage-order-list 로 변경 */}
+              <Link to="/mypage-order-list" onClick={closeMenu}>
+                주문내역
+              </Link>
             </li>
             <li>
-              <Link to="/cart">장바구니</Link>
+              {/* /cart 는 그대로 유지 */}
+              <Link to="/cart" onClick={closeMenu}>
+                장바구니
+              </Link>
             </li>
             <li>
-              <Link to="/mypageQnaList">1:1 문의</Link>
+              {/* /mypageQnaList -> /mypage-qna-list 로 변경 */}
+              <Link to="/mypage-qna-list" onClick={closeMenu}>
+                1:1 문의
+              </Link>
             </li>
             <li className="point">
-              <Link to="/order">케이크 제작하기</Link>
+              {/* /order 는 그대로 유지 */}
+              <Link to="/order" onClick={closeMenu}>
+                케이크 제작하기
+              </Link>
             </li>
           </ul>
           <button className="btn btn-gray">로그아웃</button>

@@ -194,7 +194,7 @@ function MypageOrderDetail() {
               </div>
             </div>
           </div>
-          <Link to="/mypageOrderList" className="btn btn-gray sm">
+          <Link to="/mypage-order-list" className="btn btn-gray sm">
             목록
           </Link>
         </section>

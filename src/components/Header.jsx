@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header({ variant, openMenu }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [bannerOpen, setBannerOpen] = useState(true);
+  const [cartCount, setCartCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      //console.log(scrollTop);
       setIsScrolled(scrollTop > 50);
     };
     window.addEventListener("scroll", handleScroll);
@@ -18,22 +20,17 @@ function Header({ variant, openMenu }) {
     };
   }, []);
 
-  const [bannerOpen, setBannerOpen] = useState(true);
-
   const closeBanner = () => {
     setBannerOpen(false);
   };
 
-  const navigate = useNavigate();
-  const hasItem = localStorage.getItem("cartData");
-  const [cartCount, setCartCount] = useState(0);
   const updateCount = () => {
     const cart = JSON.parse(localStorage.getItem("cartData")) || [];
     setCartCount(cart.length);
   };
-  useEffect(() => {
-    updateCount(); //처음 로드될 때 계산
 
+  useEffect(() => {
+    updateCount();
     window.addEventListener("cartUpdate", updateCount);
     return () => window.removeEventListener("cartUpdate", updateCount);
   }, []);
@@ -45,7 +42,6 @@ function Header({ variant, openMenu }) {
           <div className={`header-top ${bannerOpen ? "" : "remove"}`}>
             <div className="top-inner">
               <p>회원가입 후 팔레트의 이벤트를 확인하세요!</p>
-
               <button className="btn-close" onClick={closeBanner}>
                 <img src="/images/icon_close.png" alt="close" />
               </button>
@@ -53,10 +49,11 @@ function Header({ variant, openMenu }) {
           </div>
 
           <div className="header_inner">
-            <div className="header-logo">
+            {/* 로고 클릭 시 홈으로 이동하도록 Link 추가하면 더 좋아요! */}
+            <Link to="/" className="header-logo">
               <img src="/images/logo-w.png" alt="logo" className="logo-w" />
               <img src="/images/logo.png" alt="logo" className="logo-b" />
-            </div>
+            </Link>
 
             <div className="header-right">
               <Link to="/cart" className="icon">
@@ -65,6 +62,7 @@ function Header({ variant, openMenu }) {
                   <span className="cart-badge">{cartCount}</span>
                 )}
               </Link>
+              {/* 마이페이지 링크 */}
               <Link to="/mypage" className="icon">
                 <img src="/images/icon-user-w.png" alt="마이페이지 아이콘" />
               </Link>
@@ -90,7 +88,7 @@ function Header({ variant, openMenu }) {
             <div className="header-left">
               <button
                 type="button"
-                style={{ border: 0 }}
+                style={{ border: 0, background: "none" }}
                 className="icon"
                 onClick={() => navigate(-1)}
               >

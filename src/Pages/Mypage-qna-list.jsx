@@ -80,7 +80,7 @@ function MypageQnaList() {
                 </thead>
 
                 <tbody>
-                  <tr onClick={() => navigate("/mypageQnaDetail")}>
+                  <tr onClick={() => navigate("/mypage-qna-detail")}>
                     <td className="col-answer badge pending">대기</td>
                     <td className="col-subject">비밀글입니다.</td>
                     <td className="col-writer">작성자</td>
@@ -90,27 +90,27 @@ function MypageQnaList() {
               </table>
 
               <div className="paginate">
-                <a href="#" className="first"></a>
-                <a href="#" className="prev"></a>
+                <button type="button" className="first"></button>
+                <button type="button" className="prev"></button>
                 <ol>
                   <li>
-                    <a href="#" className="page-num">
+                    <button type="button" className="page-num">
                       1
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a href="#" className="page-num selected">
+                    <button type="button" className="page-num selected">
                       2
-                    </a>
+                    </button>
                   </li>
                   <li>
-                    <a href="#" className="page-num">
+                    <button type="button" className="page-num">
                       3
-                    </a>
+                    </button>
                   </li>
                 </ol>
-                <a href="#" className="next"></a>
-                <a href="#" className="last"></a>
+                <button type="button" className="next"></button>
+                <button type="button" className="last"></button>
               </div>
               <button
                 className="btn btn-primary write-btn"
