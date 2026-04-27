@@ -16,7 +16,7 @@
 - **Frontend:** React, React-Router-DOM
 - **State Management:** React Hooks (useState, useEffect)
 - **Styling:** CSS3 (Custom Variables 활용), Flex/Grid
-- **Deployment:** GitHub Pages
+- **Deployment:** Vercel
 
 ## 💡 주요 기술적 고민 및 해결 (Key Points)
 
@@ -33,7 +33,7 @@
 ## 📸 Screen Shots
 | 메인 페이지 | 커스텀 페이지 | 마이페이지 |
 | :---: | :---: | :---: |
-| <img src="./public/images/reademe_main.png" width="250"> | <img src="./public/images/reademe_mypage.png" width="250"> | <img src="./public/images/reademe_order.png" width="250"> |
+| <img src="./public/images/readme_main.png" width="250"> | <img src="./public/images/readme_mypage.png" width="250"> | <img src="./public/images/readme_order.png" width="250"> |
 
 
 ---
