@@ -46,10 +46,11 @@ function App() {
           <div className="portfolio-notice-modal">
             <h2>Project Information</h2>
             <p>
-              기능 구현 : 리액트 State & LocalStorage 기반 실시간 데이터 연동
+              Development<br></br>• React State & LocalStorage 연동 구매 시스템
               <br></br>
-              디자인 가이드 : 마이페이지, 로그인 등은 전체 UX 비전 제시를 위한
-              퍼블리싱 단계
+              <br></br>
+              Design & Pub<br></br>• 마이페이지 및 세부 UI 컴포넌트 설계 완료
+              <br></br>• 사용자 경험(UX) 중심의 인터랙티브 프로토타입
             </p>
             <button
               onClick={() => setShowNotice(false)}

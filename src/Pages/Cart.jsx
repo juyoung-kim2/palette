@@ -196,7 +196,7 @@ function Cart() {
                     </label>
 
                     <div className="item-thumb">
-                      <img src="images/detail_thumb.png" />
+                      <img src="/images/detail_thnmb.png" />
                     </div>
                     <div className="item-info">
                       <p className="product-name">Custom Cake</p>

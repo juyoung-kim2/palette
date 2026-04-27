@@ -226,7 +226,7 @@ function Order() {
         <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
 
         <div className="main-image-area">
-          <img src="images/detail_thnmb.png" alt="상품썸네일" />
+          <img src="/images/detail_thnmb.png" alt="상품썸네일" />
         </div>
         <div className="product-info-section">
           <h1 className="title">Custom Cake</h1>

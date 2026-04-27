@@ -37,6 +37,21 @@ function OrderComplete() {
     setMenuOpen(false);
   };
 
+  // 토글
+  const [openSections, setOpenSections] = useState([
+    "pickup",
+    "request",
+    "payInfo",
+  ]);
+
+  const toggleSection = (section) => {
+    setOpenSections((prev) =>
+      prev.includes(section)
+        ? prev.filter((item) => item !== section)
+        : [...prev, section],
+    );
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
   const { orderer, items, totalPrice, pickupDate, pickupTime, request } =
@@ -90,10 +105,15 @@ function OrderComplete() {
               </div>
             </div>
             {/* 결제정보 */}
-            <div className="payInfo-section">
-              <div className="toggleTitle">
+            <div
+              className={`payInfo-section ${openSections.includes("payInfo") ? "open" : ""}`}
+            >
+              <div
+                className="toggleTitle"
+                onClick={() => toggleSection("payInfo")}
+              >
                 <h3>결제정보</h3>
-                <img src="images/icon_arrow_b.png" alt="" />
+                <img src="images/icon_arrow_b.png" alt="화살표" />
               </div>
               <div className="toggleContent">
                 <div className="box_container">
@@ -141,26 +161,41 @@ function OrderComplete() {
             </div>
 
             {/* 픽업안내 */}
-            <div className="pickup-section">
-              <div className="toggleTitle">
+            <div
+              className={`pickup-section ${openSections.includes("pickup") ? "open" : ""}`}
+            >
+              <div
+                className="toggleTitle"
+                onClick={() => toggleSection("pickup")}
+              >
                 <h3>픽업 안내</h3>
-                <img src="images/icon_arrow_b.png" alt="" />
+                <img src="images/icon_arrow_b.png" alt="화살표" />
               </div>
               <div className="toggleContent">
-                <p>Palete Studio 서울 강남구 논현로 123</p>
+                <p>Palete Studio 1층</p>
                 <div className="text-btn">
-                  <a href="#">
-                    지도 보기 <img src="images/icon_arrow_r_c.png" alt="" />
+                  <a
+                    href="https://map.naver.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    지도 보기
+                    <img src="images/icon_arrow_r_c.png" alt="화살표" />
                   </a>
                 </div>
               </div>
             </div>
 
             {/* 요청사항 */}
-            <div className="request-section">
-              <div className="toggleTitle">
+            <div
+              className={`request-section ${openSections.includes("request") ? "open" : ""}`}
+            >
+              <div
+                className="toggleTitle"
+                onClick={() => toggleSection("request")}
+              >
                 <h3>요청사항</h3>
-                <img src="images/icon_arrow_b.png" alt="" />
+                <img src="images/icon_arrow_b.png" alt="화살표" />
               </div>
               <div className="toggleContent">
                 {request && request.trim() !== "" ? (

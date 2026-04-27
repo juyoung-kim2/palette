@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { data, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function OrderSheet() {
@@ -29,6 +29,24 @@ function OrderSheet() {
     };
   }, [menuOpen]);
 
+  // 토글
+  const [openSections, setOpenSections] = useState([
+    "product",
+    "pickup",
+    "orderer",
+    "request",
+    "payment",
+    "payInfo",
+  ]);
+
+  const toggleSection = (section) => {
+    setOpenSections((prev) =>
+      prev.includes(section)
+        ? prev.filter((item) => item !== section)
+        : [...prev, section],
+    );
+  };
+
   const location = useLocation();
   const { orders, totalPrice } = location.state || {
     orders: [],
@@ -36,9 +54,9 @@ function OrderSheet() {
   };
 
   const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState("2025-12-23");
   const [userName, setUserName] = useState("");
-  const [userPhoneFirst, setUserPhoneFirst] = useState("");
+  const [userPhoneFirst, setUserPhoneFirst] = useState("010");
   const [userPhoneMid, setUserPhoneMid] = useState("");
   const [userPhoneLast, setUserPhoneLast] = useState("");
   const [userRequest, setUserRequest] = useState("");
@@ -80,12 +98,21 @@ function OrderSheet() {
             {orders.length > 0 ? (
               <>
                 <div className="prevImg">
-                  <img src="images/detail_thumb.png" alt="" />
+                  <img
+                    style={{ width: "100%" }}
+                    src="/images/detail_thnmb.png"
+                    alt=""
+                  />
                 </div>
 
                 {/*주문상품*/}
-                <div className="product-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`product-section ${openSections.includes("product") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("product")}
+                  >
                     <h3>주문상품</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
@@ -143,8 +170,13 @@ function OrderSheet() {
                 </div>
 
                 {/*픽업정보*/}
-                <div className="pickup-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`pickup-section ${openSections.includes("pickup") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("pickup")}
+                  >
                     <h3>픽업 정보</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
@@ -160,10 +192,10 @@ function OrderSheet() {
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
                         >
-                          <option value="2025-12-05">2025 - 12 - 23</option>
-                          <option value="2025-12-06">2025 - 12 - 24</option>
-                          <option value="2025-12-07">2025 - 12 - 25</option>
-                          <option value="2025-12-07">2025 - 12 - 26</option>
+                          <option value="2025-12-23">2025 - 12 - 23</option>
+                          <option value="2025-12-24">2025 - 12 - 24</option>
+                          <option value="2025-12-25">2025 - 12 - 25</option>
+                          <option value="2025-12-26">2025 - 12 - 26</option>
                         </select>
                       </div>
                     </div>
@@ -202,8 +234,13 @@ function OrderSheet() {
                 </div>
 
                 {/*주문자 정보*/}
-                <div className="orderer-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`orderer-section ${openSections.includes("orderer") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("orderer")}
+                  >
                     <h3>주문자 정보</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
@@ -270,8 +307,13 @@ function OrderSheet() {
                 </div>
 
                 {/*요청사항*/}
-                <div className="request-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`request-section ${openSections.includes("request") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("request")}
+                  >
                     <h3>요청사항</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
@@ -287,8 +329,13 @@ function OrderSheet() {
                 </div>
 
                 {/*결제수단*/}
-                <div className="payment-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`payment-section ${openSections.includes("payment") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("payment")}
+                  >
                     <h3>결제수단</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
@@ -305,8 +352,13 @@ function OrderSheet() {
                 </div>
 
                 {/*결제정보*/}
-                <div className="payInfo-section">
-                  <div className="toggleTitle">
+                <div
+                  className={`payInfo-section ${openSections.includes("payInfo") ? "open" : ""}`}
+                >
+                  <div
+                    className="toggleTitle"
+                    onClick={() => toggleSection("payInfo")}
+                  >
                     <h3>결제정보</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>

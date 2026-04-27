@@ -11,7 +11,7 @@ function SideMenu({ menuOpen, closeMenu }) {
               <img src="images/icon_close.png" alt="" />
             </button>
             <img src="images/logo.png" alt="" />
-            <p class="user-name">
+            <p className="user-name">
               안녕하세요, <span>사용자</span>님 :)
             </p>
           </div>
@@ -21,7 +21,7 @@ function SideMenu({ menuOpen, closeMenu }) {
               <Link to="/mypage">마이페이지</Link>
             </li>
             <li>
-              <Link to="/mypageOrderDetail">주문내역</Link>
+              <Link to="/mypageOrderList">주문내역</Link>
             </li>
             <li>
               <Link to="/cart">장바구니</Link>

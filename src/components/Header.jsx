@@ -87,7 +87,7 @@ function Header({ variant, openMenu }) {
       {variant === "sub" && (
         <div className="header_inner">
           <div className="header-container">
-            <div>
+            <div className="header-left">
               <button
                 type="button"
                 style={{ border: 0 }}
@@ -96,6 +96,9 @@ function Header({ variant, openMenu }) {
               >
                 <img src="/images/icon_arrow_l.png" alt="뒤로가기" />
               </button>
+              <Link to="/" className="icon">
+                <img src="/images/icon-home.png" alt="홈 아이콘" />
+              </Link>
             </div>
 
             <div className="header-right">
