@@ -1,6 +1,7 @@
 # 🍰 Palette Cake (커스텀 케이크 주문 플랫폼)
 
-> **"당신의 특별한 순간을 디자인하세요"** > Palette Cake는 사용자가 직접 시트, 크림, 토핑을 선택하여 자신만의 케이크를 커스터마이징하고 주문할 수 있는 인터랙티브 웹 애플리케이션입니다.
+> **"당신의 특별한 순간을 디자인하세요"**
+> > Palette Cake는 사용자가 직접 시트, 크림, 토핑을 선택하여 자신만의 케이크를 커스터마이징하고 주문할 수 있는 인터랙티브 웹 애플리케이션입니다.
 
 ---
 
@@ -32,7 +33,7 @@
 ## 📸 Screen Shots
 | 메인 페이지 | 커스텀 페이지 | 마이페이지 |
 | :---: | :---: | :---: |
-| <img src="./public/images/readme_main.png" width="250"> | <img src="./public/images/readme_order.png" width="250"> | <img src="./public/images/readme_mypage.png" width="250"> |
+| <img src="./public/images/reademe_main.png" width="250"> | <img src="./public/images/reademe_mypage.png" width="250"> | <img src="./public/images/reademe_order.png" width="250"> |
 
 
 ---
