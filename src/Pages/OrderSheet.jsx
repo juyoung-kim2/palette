@@ -217,6 +217,7 @@ function OrderSheet() {
                         <select
                           className="pickup-select"
                           name="date"
+                          id="pickup-date"
                           value={formData.date}
                           onChange={handleInputChange}
                         >
@@ -270,10 +271,14 @@ function OrderSheet() {
                   </div>
                   <div className="toggleContent">
                     <div className="orderer-field">
-                      <label className="orderer-label">수령인</label>
+                      <label className="orderer-label" htmlFor="orderer-name">
+                        수령인
+                      </label>
                       <input
+                        id="orderer-name"
                         type="text"
                         name="name"
+                        autocomplete="name"
                         value={formData.name}
                         onChange={handleInputChange}
                       />
