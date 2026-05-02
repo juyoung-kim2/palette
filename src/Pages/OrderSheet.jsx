@@ -278,7 +278,7 @@ function OrderSheet() {
                         id="orderer-name"
                         type="text"
                         name="name"
-                        autocomplete="name"
+                        autoComplete="name"
                         value={formData.name}
                         onChange={handleInputChange}
                       />
