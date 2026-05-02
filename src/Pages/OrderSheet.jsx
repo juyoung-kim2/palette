@@ -143,7 +143,7 @@ function OrderSheet() {
                     <h3>주문상품</h3>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  {orders.map((item) => (
+                  {orders.map((item, index) => (
                     <div key={item.id || index} className="toggleContent">
                       <div className="prd_info">
                         <p className="prd_name">Custom Cake</p>
