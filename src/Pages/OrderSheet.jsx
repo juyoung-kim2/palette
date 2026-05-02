@@ -1,11 +1,14 @@
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import React, { useState } from "react";
-import { data, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
+// hooks
+import { useState, useEffect } from "react";
+
+// router
+import { useLocation, useNavigate } from "react-router-dom";
 
 const pickup_dates = [
   "2025-12-23",
@@ -119,7 +122,7 @@ function OrderSheet() {
           <Header variant="sub" openMenu={openMenu} />
           <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
           <section className="orderform-container">
-            {orders.length > 0 ? (
+            {orders?.length > 0 ? (
               <>
                 <div className="prevImg">
                   <img
@@ -141,7 +144,7 @@ function OrderSheet() {
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   {orders.map((item) => (
-                    <div className="toggleContent">
+                    <div key={item.id || index} className="toggleContent">
                       <div className="prd_info">
                         <p className="prd_name">Custom Cake</p>
                         <p className="prd_price">
@@ -207,7 +210,7 @@ function OrderSheet() {
                   <div className="toggleContent">
                     {/*픽업날짜*/}
                     <div className="pickup-field">
-                      <label for="pickup-date" className="pickup-label">
+                      <label htmlFor="pickup-date" className="pickup-label">
                         픽업 날짜
                       </label>
                       <div className="pickup-date-wrapper">
@@ -298,7 +301,7 @@ function OrderSheet() {
                         <input
                           type="text"
                           className="contact-input"
-                          maxlength="4"
+                          maxLength="4"
                           name="phoneMid"
                           placeholder="1234"
                           value={formData.phoneMid}
@@ -311,7 +314,7 @@ function OrderSheet() {
                         <input
                           type="text"
                           className="contact-input"
-                          maxlength="4"
+                          maxLength="4"
                           name="phoneLast"
                           placeholder="5678"
                           value={formData.phoneLast}
@@ -358,7 +361,13 @@ function OrderSheet() {
                   </div>
                   <div className="toggleContent">
                     <label className="radio-row">
-                      <input type="radio" name="payment" value="card" checked />
+                      <input
+                        type="radio"
+                        name="payment"
+                        value="card"
+                        checked
+                        readOnly
+                      />
                       카드 결제
                     </label>
                     {/*                     <label className="radio-row">
@@ -428,7 +437,7 @@ function OrderSheet() {
               </div>
             )}
           </section>
-          {orders.length > 0 && (
+          {orders?.length > 0 && (
             <div className="fixed-bottom-bar">
               <button
                 className="order-button btn orderform-btn btn-primary"

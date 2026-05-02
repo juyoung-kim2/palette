@@ -1,11 +1,13 @@
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
+// hooks
+import { useEffect, useState } from "react";
+
+// router
 import { useNavigate } from "react-router-dom";
 
 function MypageQnaList() {

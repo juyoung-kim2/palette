@@ -1,14 +1,18 @@
-import "../style.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import HowToOrderSection from "../components/HowToOrderSection";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import React, { useState, useEffect, useMemo } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import Cart from "../Pages/Cart";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
+// hooks
+import { useState, useEffect, useMemo } from "react";
+
+// router
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CAKE_OPTIONS = {
   cakeSheet: [
@@ -219,7 +223,7 @@ function Order() {
       lettering: lettering,
       totalAmount: totalPrice,
     };
-    navigate("/ordersheet", {
+    navigate("/order-sheet", {
       state: {
         orders: [currentCake],
         totalPrice: totalPrice,
@@ -377,8 +381,8 @@ function Order() {
               {Object.entries(decoCounts).map(
                 ([id, count]) =>
                   count > 0 && (
-                    <div className="selected-toppings">
-                      <span key={id} className="topping-item">
+                    <div key={id} className="selected-toppings">
+                      <span className="topping-item">
                         <span>
                           {" "}
                           {allOptions[id]?.name} x {count}{" "}

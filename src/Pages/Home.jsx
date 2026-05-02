@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import HeroSection from "../components/HeroSection";
 import BrandSection from "../components/BrandSection";
@@ -8,6 +7,9 @@ import FAQSection from "../components/FAQSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SideMenu from "../components/SideMenu";
+
+// hooks
+import { useState, useEffect } from "react";
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);

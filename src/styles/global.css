@@ -4374,11 +4374,25 @@ input[type="checkbox"]:checked {
   padding: var(--space-16) 0;
   cursor: pointer;
 }
-
+.mypage-container .order-info .order-section.open .toggleContent {
+  overflow-y: hidden;
+  max-height: 500px;
+  visibility: visible;
+}
 .mypage-container .order-info .order-section .section-title .arrow {
   width: 24px;
+  object-fit: contain;
+  transition: all 0.3s;
 }
-
+.mypage-container .order-info .order-section.open .section-title .arrow {
+  transform: rotate(180deg);
+}
+.mypage-container .order-info .order-section .toggleContent {
+  overflow: hidden;
+  max-height: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
 .mypage-container .order-info .order-section .info-row {
   display: flex;
   align-items: center;

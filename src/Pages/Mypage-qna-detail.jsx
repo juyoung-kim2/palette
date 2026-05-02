@@ -1,9 +1,13 @@
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react"; // useState 임포트 위치 정리
+
+// hooks
+import { useEffect, useState } from "react";
+
+// router
 import { Link } from "react-router-dom";
 
 function MypageQnaDetail() {

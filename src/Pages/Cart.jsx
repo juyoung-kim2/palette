@@ -1,12 +1,14 @@
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
+
+// hooks
 import { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import OrderSheet from "../Pages/OrderSheet";
+
+// router
+import { useNavigate, Link } from "react-router-dom";
 
 function Cart() {
   const navigate = useNavigate();
@@ -76,19 +78,19 @@ function Cart() {
     const selectedItems = cartList.filter((item) =>
       checkedItems.includes(item.id),
     );
-    navigate("/OrderSheet", {
+    navigate("/order-sheet", {
       state: { orders: selectedItems, totalPrice: totalCheckedPrice },
     });
   };
 
   const handleDirectOrder = (item) => {
-    navigate("/OrderSheet", {
+    navigate("/order-sheet", {
       state: { orders: [item], totalPrice: item.totalAmount },
     });
   };
 
   const handleEdit = (item, idx) => {
-    navigate("/Order", { state: { editItem: item, editIndex: idx } });
+    navigate("/order", { state: { editItem: item, editIndex: idx } });
   };
 
   // 메뉴 열릴 때 스크롤 방지

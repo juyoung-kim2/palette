@@ -1,11 +1,15 @@
-import "../style.css";
+// components
 import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-import React, { useState } from "react";
+
+// hooks
+import { useState, useEffect } from "react";
+
+// router
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 function OrderComplete() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);

@@ -1,15 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
-import Home from "./Pages/Home";
-import Order from "./Pages/Order";
-import Cart from "./Pages/Cart";
-import Mypage from "./Pages/Mypage";
-import MypageOrderList from "./Pages/Mypage-orderList";
-import MypageOrderDetail from "./Pages/Mypage-orderDetail";
-import MypageQnaList from "./Pages/Mypage-qna-list";
-import MypageQnaDetail from "./Pages/Mypage-qna-detail";
-import OrderSheet from "./Pages/OrderSheet";
-import OrderComplete from "./Pages/Order-complete";
+
+// pages
+import Home from "./pages/Home";
+import Order from "./pages/Order";
+import Cart from "./pages/Cart";
+import Mypage from "./pages/Mypage";
+import MypageOrderList from "./pages/Mypage-orderList";
+import MypageOrderDetail from "./pages/Mypage-orderDetail";
+import MypageQnaList from "./pages/Mypage-qna-list";
+import MypageQnaDetail from "./pages/Mypage-qna-detail";
+import OrderSheet from "./pages/OrderSheet";
+import OrderComplete from "./pages/Order-complete";
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/order" element={<Order />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/ordersheet" element={<OrderSheet />} />
+        <Route path="/order-sheet" element={<OrderSheet />} />
         <Route path="/order-complete" element={<OrderComplete />} />
 
         {/* 마이페이지 관련 경로 (소문자/하이픈으로 통일) */}
