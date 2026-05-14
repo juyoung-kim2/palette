@@ -1,3 +1,4 @@
+import "./HowToOrderSection.css";
 function HowToOrderSection() {
   return (
     <section className="how-to-order-section">

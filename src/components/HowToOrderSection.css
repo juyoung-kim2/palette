@@ -1,0 +1,88 @@
+/* -------------------------
+   How to order 영역
+------------------------- */
+.how-to-order-section {
+  padding: 60px var(--section-padding);
+  text-align: center;
+  background: #fcf8e8;
+  min-height: 500px;
+  background: url(/images/step_bg.jpg) center center;
+  background-size: cover;
+}
+
+.how-to-order-section h2.en-title {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-semibold);
+}
+
+.how-to-order-section .order-step-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-40);
+}
+
+.how-to-order-section .order-step {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--space-32);
+  width: 100%;
+  aspect-ratio: 1/0.9;
+}
+
+.how-to-order-section .order-step > .en-title {
+  font-size: var(--font-lg);
+  margin-bottom: var(--space-16);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+}
+
+.how-to-order-section .order-step p:not(.step-num) {
+  font-weight: var(--weight-medium);
+  color: var(--gray-800);
+}
+
+.how-to-order-section .order-step > img {
+  max-width: 100px;
+}
+
+.how-to-order-section .order-step .step-num {
+  padding: var(--space-2);
+  border: 1px dashed var(--accent-blue);
+  margin-bottom: var(--space-10);
+  margin-top: var(--space-20);
+  border-radius: var(--radius-lg);
+}
+
+.how-to-order-section .order-step .step-num > span {
+  display: block;
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-bold);
+  padding: var(--space-6) var(--space-10);
+  border-radius: var(--radius-lg);
+  background-color: var(--accent-blue);
+  color: var(--white);
+  line-height: 1;
+}
+
+.how-to-order-section .order-step:nth-child(2) .step-num {
+  border-color: var(--accent-green);
+}
+
+.how-to-order-section .order-step:nth-child(2) .step-num > span {
+  background-color: var(--accent-green);
+}
+
+.how-to-order-section .order-step:nth-child(3) .step-num {
+  border-color: var(--accent-red);
+}
+
+.how-to-order-section .order-step:nth-child(3) .step-num > span {
+  background-color: var(--accent-red);
+}

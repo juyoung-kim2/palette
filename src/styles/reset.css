@@ -1,0 +1,206 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-main: "Pretendard Variable", sans-serif;
+  /* 기본 UI 텍스트 */
+  --font-point: "Cormorant Garamond", serif;
+
+  --primary-cream: #fff6e9;
+  --primary-yellow: #f5d79d;
+  --primary-yellow-dark: #e9c27d;
+  --primary-yellow-active: #dfa84f;
+  --primary-brown: #a47b5b;
+
+  --accent-red: #ff8a74;
+  --accent-green: #28a868;
+  --accent-blue: #8cc7ff;
+
+  --accent-blue-bg: rgba(37, 143, 255, 0.2);
+  --accent-green-bg: rgba(40, 168, 104, 0.2);
+  --accent-red-bg: rgba(255, 80, 53, 0.2);
+
+  --font-color: #151515;
+  --gray-800: #383939;
+  --gray-700: #6f6f6f;
+  --gray-500: #8b8b8b;
+  --gray-300: #c5c4c4;
+  --gray-200: #dfdfdf;
+  --gray-100: #f5f5f5;
+  --white: #fff;
+
+  --section-padding: 20px;
+
+  /* Font size scale */
+  --font-xxs: 12px;
+  --font-xs: 13px;
+  --font-sm: 14px;
+  --font-md: 18px;
+  --font-lg: 24px;
+  --font-xl: 32px;
+  --font-xxl: 36px;
+  --font-xxxl: 40px;
+  --font-default: 15px;
+
+  /* Font weight */
+  --weight-regular: 300;
+  --weight-medium: 400;
+  --weight-semibold: 500;
+  --weight-bold: 600;
+
+  /*Radius*/
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 40px;
+
+  /*Spacing (padding/gap)*/
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+
+  --header-h: 64px;
+  /* 실제 헤더 높이 */
+  --footer-h: 233px;
+  /* 실제 푸터 높이 */
+
+  --z-index-popup: 9999;
+  --z-index-sidemenu: 999;
+  --z-index-header: 100;
+  --mobile-max-width: 428px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "Pretendard Variable", sans-serif;
+  background-color: #fff;
+  overflow-x: hidden;
+  letter-spacing: -0.04em;
+  font-size: var(--font-default);
+  min-height: 100%;
+  color: var(--font-color);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+select {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 4px 4px 10px;
+  appearance: none;
+  background: url("/images/icon_arrow_b.png") no-repeat center right 10px;
+  background-size: 12px;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: 1px solid var(--gray-200);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  border-color: var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-default);
+  padding: var(--space-16);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+  border: 1px solid var(--gray-200);
+  height: 44px;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px 4px 16px;
+  box-sizing: border-box;
+  width: 100%;
+
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border: 1px solid var(--gray-800);
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-300);
+  appearance: none;
+}
+
+input[type="radio"]::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gray-300);
+  border-radius: 100%;
+}
+
+[type="radio"]:checked {
+  border: 0.4em solid var(--font-color);
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--gray-300);
+  border-radius: 2px;
+  appearance: none;
+}
+
+input[type="checkbox"]:checked {
+  content: "";
+  border-color: var(--font-color);
+  background: var(--font-color) url("/images/icon_check_w.png") center center;
+  background-size: 12px;
+}

@@ -3,6 +3,7 @@ import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
+import "./Cart.css";
 
 // hooks
 import { useState, useEffect, useMemo } from "react";

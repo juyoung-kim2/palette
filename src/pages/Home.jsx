@@ -7,6 +7,7 @@ import FAQSection from "../components/FAQSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SideMenu from "../components/SideMenu";
+import "./Home.css";
 
 // hooks
 import { useState, useEffect } from "react";

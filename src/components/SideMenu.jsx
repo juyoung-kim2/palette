@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import "./SideMenu.css";
 function SideMenu({ menuOpen, closeMenu }) {
   return (
     <div className={` sideMenu ${menuOpen ? "open" : ""}`}>

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import HowToOrderSection from "../components/HowToOrderSection";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
+import "./Order.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

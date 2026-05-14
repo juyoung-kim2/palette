@@ -3,7 +3,7 @@ import LeftBanner from "../components/LeftBanner";
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
-
+import "./Order.css";
 // hooks
 import { useState, useEffect } from "react";
 

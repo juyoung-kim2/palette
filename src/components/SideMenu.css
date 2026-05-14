@@ -1,0 +1,209 @@
+.sideMenu .menu-dim {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  height: 100%;
+}
+
+.sideMenu.open .menu-dim {
+  opacity: 1;
+}
+
+.sideMenu {
+  position: fixed;
+  top: 0;
+  right: calc((100% - 848px) / 2);
+  width: 100%;
+  max-width: var(--mobile-max-width);
+  height: 100vh;
+  z-index: var(--z-index-sidemenu);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.sideMenu.open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.sideMenu .menu-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 30px var(--section-padding) 40px;
+  background-color: #fff;
+}
+
+.sideMenu.agree-box {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sideMenu .mobile-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100%;
+  background: #fff;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.sideMenu.open .mobile-menu {
+  transform: translateX(0);
+}
+
+.sideMenu .menu-header {
+  position: relative;
+  border-bottom: 1px dashed var(--gray-200);
+  padding-bottom: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.sideMenu .menu-header .btn-close {
+  position: absolute;
+  right: 0px;
+  top: 00px;
+  border: none;
+  cursor: pointer;
+}
+
+.sideMenu .menu-header .btn-close img {
+  width: 24px;
+}
+
+.sideMenu .menu-header > p {
+  font-weight: var(--weight-medium);
+  margin-top: var(--space-32);
+  display: none;
+}
+
+.sideMenu .menu-header > p.user-name {
+  display: block;
+  position: relative;
+  font-size: var(--font-sm);
+}
+
+.sideMenu .menu-header > p > b {
+  font-weight: var(--weight-bold);
+  text-decoration: underline;
+}
+
+.sideMenu .menu-header .user-name span {
+  color: var(--primary-brown);
+}
+
+.sideMenu .menu-list.order {
+  display: flex;
+  background-color: var(--primary-cream);
+  padding: var(--space-24);
+  justify-content: space-between;
+  border-radius: var(--radius-md);
+}
+
+.sideMenu .menu-list.order .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-10);
+  position: relative;
+}
+
+.sideMenu .menu-list.order .item:nth-child(2)::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 80%;
+  background: var(--gray-200);
+  position: absolute;
+  right: -40px;
+}
+
+.sideMenu .menu-list.order .item:nth-child(2)::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 80%;
+  background: var(--gray-200);
+  position: absolute;
+  left: -40px;
+}
+
+.sideMenu .menu-list.order .item .label {
+  font-weight: var(--weight-medium);
+}
+
+.sideMenu .menu-list.order .item strong {
+  font-size: var(--font-md);
+  font-weight: var(--weight-bold);
+}
+
+.sideMenu .menu-list.primary {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding: 0 var(--space-6);
+}
+
+.sideMenu .menu-list.primary li {
+  position: relative;
+  padding-bottom: 24px;
+  cursor: pointer;
+}
+
+.sideMenu .menu-list.primary li.point {
+  color: var(--primary-brown);
+  font-weight: var(--weight-semibold);
+}
+
+.sideMenu .menu-list.primary li:last-child {
+  border-bottom: none;
+}
+
+.sideMenu .menu-list.primary li:after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url(/images/icon_arrow_r.png);
+  position: absolute;
+  right: 0;
+  top: 3px;
+  background-size: contain;
+}
+
+.sideMenu .menu-list.account {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-24);
+  margin-top: var(--space-20);
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+}
+
+.sideMenu .mobile-menu .btn {
+  width: calc(100% - 40px);
+  position: absolute;
+  left: 20px;
+  bottom: 74px;
+}
+
+.sideMenu .copy {
+  font-size: var(--font-xxs);
+  color: var(--gray-500);
+  text-align: left;
+  position: absolute;
+  left: 20px;
+  bottom: 40px;
+}
