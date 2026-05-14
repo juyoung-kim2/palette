@@ -52,9 +52,26 @@ const CAKE_OPTIONS = {
   ],
 };
 
+const DEFAULT_DECO_COUNTS = Object.fromEntries(
+  CAKE_OPTIONS.deco.map((item) => [item.id, 0]),
+);
+
+const getDecoCountsFromItem = (item) => {
+  if (!item?.selectedDeco) return DEFAULT_DECO_COUNTS;
+
+  return item.selectedDeco.reduce(
+    (counts, deco) => ({
+      ...counts,
+      [deco.id]: deco.count,
+    }),
+    { ...DEFAULT_DECO_COUNTS },
+  );
+};
+
 function Order() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { editItem, editIndex } = location.state || {};
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [optionOpen, setOptionOpen] = useState(false);
@@ -68,16 +85,16 @@ function Order() {
   };
 
   const [activeTab, setActiveTab] = useState("cakeSheet");
-  const [selectedSheet, setSelectedSheet] = useState("sheet-base");
-  const [selectedCream, setSelectedCream] = useState("cream-base");
-  const [lettering, setLettering] = useState("");
-  const [decoCounts, setDecoCounts] = useState({
-    blueberry: 0,
-    strawberry: 0,
-    ribbonBlack: 0,
-    ribbonPink: 0,
-    cookie: 0,
-  });
+  const [selectedSheet, setSelectedSheet] = useState(
+    () => editItem?.sheetId || "sheet-base",
+  );
+  const [selectedCream, setSelectedCream] = useState(
+    () => editItem?.creamId || "cream-base",
+  );
+  const [lettering, setLettering] = useState(() => editItem?.lettering || "");
+  const [decoCounts, setDecoCounts] = useState(() =>
+    getDecoCountsFromItem(editItem),
+  );
   const handleDecoCount = (id, delta) => {
     setDecoCounts((prev) => ({ ...prev, [id]: Math.max(0, prev[id] + delta) }));
   };
@@ -182,11 +199,11 @@ function Order() {
       creamName: allOptions[selectedCream]?.name,
       creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
-        .filter(([id, count]) => count > 0)
+        .filter(([, count]) => count > 0)
         .map(([id, count]) => ({
-          id: id,
+          id,
           name: allOptions[id]?.name,
-          count: count,
+          count,
           price: allOptions[id]?.price,
         })),
       lettering: lettering,
@@ -215,10 +232,10 @@ function Order() {
       creamName: allOptions[selectedCream]?.name,
       creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
-        .filter(([id, count]) => count > 0)
+        .filter(([, count]) => count > 0)
         .map(([id, count]) => ({
           name: allOptions[id]?.name,
-          count: count,
+          count,
           price: allOptions[id]?.price,
         })),
       lettering: lettering,
@@ -232,32 +249,6 @@ function Order() {
     });
   };
 
-  const { editItem, editIndex } = location.state || {};
-
-  //수정하기
-  useEffect(() => {
-    if (editItem) {
-      const { editItem } = location.state;
-      //사용자가 골랐던 값으로 세팅
-      setSelectedSheet(editItem.sheetId);
-      setSelectedCream(editItem.creamId);
-      setLettering(editItem.lettering || "");
-
-      if (editItem.selectedDeco) {
-        const initialDecos = {};
-
-        Object.keys(allOptions).forEach((key) => {
-          if (key.startsWith("sheet") || key.startsWith("cream")) return;
-          initialDecos[key] = 0;
-        });
-        editItem.selectedDeco.forEach((item) => {
-          initialDecos[item.id] = item.count;
-        });
-        setDecoCounts(initialDecos);
-      }
-    }
-  }, [editItem]);
-
   //수정완료
   const handleUpdateCart = () => {
     const currentCart = JSON.parse(localStorage.getItem("cartData")) || [];
@@ -270,11 +261,11 @@ function Order() {
       creamName: allOptions[selectedCream]?.name,
       creamPrice: allOptions[selectedCream]?.price,
       selectedDeco: Object.entries(decoCounts)
-        .filter(([id, count]) => count > 0)
+        .filter(([, count]) => count > 0)
         .map(([id, count]) => ({
-          id: id,
+          id,
           name: allOptions[id]?.name,
-          count: count,
+          count,
           price: allOptions[id]?.price,
         })),
       lettering: lettering,

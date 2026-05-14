@@ -8,22 +8,13 @@ import "./Order.css";
 import { useState, useEffect } from "react";
 
 // router
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function OrderComplete() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [optionOpen, setOptionOpen] = useState(false);
-
-  const openOption = () => {
-    setOptionOpen(true);
-  };
-
-  const closeOption = () => {
-    setOptionOpen(false);
-  };
 
   useEffect(() => {
-    if (menuOpen || optionOpen) {
+    if (menuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -31,7 +22,7 @@ function OrderComplete() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuOpen, optionOpen]);
+  }, [menuOpen]);
 
   const openMenu = (e) => {
     e.preventDefault();
@@ -57,7 +48,6 @@ function OrderComplete() {
   };
 
   const location = useLocation();
-  const navigate = useNavigate();
   const { orderer, items, totalPrice, pickupDate, pickupTime, request } =
     location.state || {};
   return (

@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
+const getCartCount = () => {
+  const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+  return cart.length;
+};
+
 function Header({ variant, openMenu }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(true);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(getCartCount);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,12 +31,10 @@ function Header({ variant, openMenu }) {
   };
 
   const updateCount = () => {
-    const cart = JSON.parse(localStorage.getItem("cartData")) || [];
-    setCartCount(cart.length);
+    setCartCount(getCartCount());
   };
 
   useEffect(() => {
-    updateCount();
     window.addEventListener("cartUpdate", updateCount);
     return () => window.removeEventListener("cartUpdate", updateCount);
   }, []);
