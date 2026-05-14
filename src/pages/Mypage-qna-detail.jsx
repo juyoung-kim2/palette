@@ -89,7 +89,15 @@ function MypageQnaDetail() {
             <Link to="/mypage-qna-list" className="btn btn-gray sm">
               목록
             </Link>
-            <button type="button" className="btn btn-primary sm">
+            <button
+              type="button"
+              className="btn btn-primary sm"
+              onClick={() =>
+                alert(
+                  "준비 중인 기능입니다. 상세 페이지와 장바구니 기능을 먼저 확인해 보세요!",
+                )
+              }
+            >
               수정
             </button>
             <button

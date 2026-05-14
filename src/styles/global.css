@@ -18,9 +18,11 @@
   padding-bottom: 100px;
   margin-top: 100px;
 }
-.detail-page-wrapper .footer,
-.mypage-section .footer {
+.detail-page-wrapper .footer {
   padding-bottom: 100px;
+}
+.mypage-section .footer {
+  margin-top: 100px;
 }
 
 .detail-page-wrapper input[type="radio"] {
@@ -29,6 +31,28 @@
 
 .detail-page-wrapper input[type="checkbox"] {
   display: none;
+}
+
+.sub-container {
+  padding: 100px var(--section-padding) 0;
+  box-sizing: border-box;
+  min-height: 60vh;
+}
+
+.sub-container.is-empty {
+  min-height: calc(100vh - var(--header-h) - var(--footer-h));
+}
+.sub-container h1 {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  text-align: center;
+  margin-bottom: var(--space-40);
+}
+
+.sub-container p {
+  text-align: center;
+  font-weight: var(--weight-medium);
+  line-height: 1.6;
 }
 
 .positive {
@@ -103,7 +127,6 @@
    2. COMMON COMPONENTS (Buttons, Layout)
 ================================ */
 .btn {
-  font-family: var(--font-main);
   font-weight: var(--weight-semibold);
   font-size: var(--font-default);
   padding: 0 var(--space-32);
@@ -180,4 +203,63 @@
 
 .en-title {
   font-family: var(--font-point);
+}
+
+@media (max-width: 1024px) {
+  .header,
+  #mobile-menu {
+    padding-left: 0;
+  }
+
+  .content-wrapper {
+    gap: 0;
+  }
+  .banner-section {
+    display: none;
+  }
+
+  .fixed-bottom-bar,
+  .sideMenu {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .option-popup-layer {
+    left: calc(50% - 214px);
+  }
+}
+@media (max-width: 428px) {
+  .fixed-bottom-bar {
+    width: 100%;
+  }
+  .option-popup-layer {
+    width: 100%;
+    left: 0;
+  }
+  .content-wrapper {
+    gap: 0;
+  }
+}
+
+.badge {
+  font-size: var(--font-xxs);
+  font-weight: var(--weight-semibold);
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.badge.pending {
+  background: var(--gray-100);
+  color: var(--font-color);
+}
+
+.badge.completed {
+  color: #fff;
+  background: var(--accent-blue);
+}
+
+.badge.payment {
+  background: var(--accent-green);
+  color: #fff;
 }

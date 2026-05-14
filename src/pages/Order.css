@@ -5,7 +5,9 @@
   width: 100%;
   aspect-ratio: 1/1;
 }
-
+.main-image-area img {
+  width: 100%;
+}
 .product-section {
   padding-top: 64px;
 }
@@ -307,7 +309,7 @@
 }
 
 .orderform-btn {
-  font-family: var(--font-main);
+  font-family: var(--font-main) !important;
 }
 
 /*주문완료 페이지*/
