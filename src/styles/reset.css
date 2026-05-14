@@ -177,14 +177,14 @@ input[type="radio"] {
   appearance: none;
 }
 
-input[type="radio"]::before {
+/*input[type="radio"]::before {
   content: "";
   display: block;
   width: 20px;
   height: 20px;
   border: 1px solid var(--gray-300);
   border-radius: 100%;
-}
+}*/
 
 [type="radio"]:checked {
   border: 0.4em solid var(--font-color);

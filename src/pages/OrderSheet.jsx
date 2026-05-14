@@ -370,7 +370,6 @@ function OrderSheet() {
                         type="radio"
                         name="payment"
                         value="card"
-                        checked
                         readOnly
                       />
                       카드 결제
