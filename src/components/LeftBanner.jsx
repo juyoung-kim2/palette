@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function LeftBanner() {
   return (
-    <section className="banner-section">
+    <div className="banner-section">
       <div className="banner logo">
         <img src="/images/logo.png" alt="로고" />
       </div>
@@ -16,7 +16,7 @@ function LeftBanner() {
         </div>
         <img src="/images/icon_arrow_r.png" alt="화살표" className="arrow" />
       </Link>
-    </section>
+    </div>
   );
 }
 

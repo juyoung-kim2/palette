@@ -201,6 +201,7 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   content: "";
   border-color: var(--font-color);
-  background: var(--font-color) url("/images/icon_check_w.png") center center;
+  background: var(--font-color) url("/images/icon_check_w.png") no-repeat center
+    center;
   background-size: 12px;
 }
