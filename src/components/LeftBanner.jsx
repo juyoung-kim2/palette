@@ -11,7 +11,7 @@ function LeftBanner() {
       </div>
       <Link to="/order" className="banner-btn btn btn-primary">
         <div className="left-wrap">
-          <img src="/images/faq-icon03.png" alt="데코 이미지" />
+          <img src="/images/faq-icon03.png" alt="" aria-hidden="true" />
           케이크 제작하기
         </div>
         <img src="/images/icon_arrow_r.png" alt="화살표" className="arrow" />

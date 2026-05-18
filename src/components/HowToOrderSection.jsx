@@ -5,7 +5,7 @@ function HowToOrderSection() {
       <h2 className="en-title">How to order</h2>
       <div className="order-step-group">
         <div className="order-step step-1">
-          <img src="/images/step_img1.png" alt="스텝1 이미지" />
+          <img src="/images/step_img1.png" alt="" aria-hidden="true" />
           <p className="step-num">
             <span>STEP 1</span>
           </p>
@@ -13,7 +13,7 @@ function HowToOrderSection() {
           <p>원하는 시트, 크림, 토핑을 선택해주세요.</p>
         </div>
         <div className="order-step step-2">
-          <img src="/images/step_img2.png" alt="스텝2 이미지" />
+          <img src="/images/step_img2.png" alt="" aria-hidden="true" />
           <p className="step-num">
             <span>STEP 2</span>
           </p>
@@ -21,7 +21,7 @@ function HowToOrderSection() {
           <p>전하고 싶은 메시지, 특별한 순간의 의미를 알려주세요.</p>
         </div>
         <div className="order-step step-3">
-          <img src="/images/step_img3.png" alt="스텝3 이미지" />
+          <img src="/images/step_img3.png" alt="" aria-hidden="true" />
           <p className="step-num">
             <span>STEP 3</span>
           </p>

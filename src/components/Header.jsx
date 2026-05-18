@@ -80,6 +80,8 @@ function Header({ variant, openMenu }) {
               <button
                 type="button"
                 className="menu-btn icon"
+                aria-expanded="false"
+                aria-label="모바일 메뉴 열기"
                 onClick={openMenu}
               >
                 <img

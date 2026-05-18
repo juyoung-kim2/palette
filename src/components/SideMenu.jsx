@@ -4,10 +4,14 @@ function SideMenu({ menuOpen, closeMenu }) {
   return (
     <div className={` sideMenu ${menuOpen ? "open" : ""}`}>
       <div className="menu-dim" onClick={closeMenu}></div>
-      <nav className="mobile-menu">
+      <nav className="mobile-menu" aria-label="모바일 네비게이션">
         <div className="menu-container">
           <div className="menu-header">
-            <button className="btn-close" onClick={closeMenu}>
+            <button
+              className="btn-close"
+              onClick={closeMenu}
+              aria-label="모바일 메뉴 닫기"
+            >
               <img src="images/icon_close.png" alt="닫기" />
             </button>
             <img src="images/logo.png" alt="팔레트 로고" />

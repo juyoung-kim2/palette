@@ -43,7 +43,7 @@ function BrandSection() {
           alt="브랜드 대표 이미지"
           className="main"
         />
-        {/* Link의 to 속성을 더 간결하게 수정 */}
+
         <Link to="/order" className="btn sm btn-primary">
           Order Now
         </Link>
