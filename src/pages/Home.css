@@ -83,6 +83,7 @@
 .main-hero .swiper .swiper-slide img {
   width: 100%;
   height: auto;
+  filter: brightness(0.8);
 }
 
 .main-hero .swiper .swiper-slide .text-wrap {
@@ -326,9 +327,9 @@
 }
 
 .marquee-content span {
-  font-size: 16px;
+  font-size: 17px;
   font-family: var(--font-point);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   color: var(--white);
   padding: 0 7px;
   letter-spacing: 0px;

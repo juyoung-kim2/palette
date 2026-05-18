@@ -1,10 +1,10 @@
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Pagination, Autoplay } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination, Autoplay } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 function HeroSection() {
   return (
@@ -12,7 +12,7 @@ function HeroSection() {
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{
-          type: 'progressbar',
+          type: "progressbar",
         }}
         slidesPerView={1}
         loop={true}
@@ -23,29 +23,44 @@ function HeroSection() {
         }}
       >
         <SwiperSlide>
-          <img src="/images/main-banner.png" alt="배너01" />
-          <div className="text-wrap">
-            <h2>Design <br />Every Detail</h2>
-            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
-          </div>
+          <Link to={"/order"}>
+            <img src="/images/main-banner.png" alt="배너01" />
+            <div className="text-wrap">
+              <h2>
+                Design <br />
+                Every Detail
+              </h2>
+              <div className="btn sm btn-primary">Order Now</div>
+            </div>
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/main-banner02.png" alt="배너02" />
-          <div className="text-wrap">
-            <h2>Your Cake, <br />Your Every Detail</h2>
-            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
-          </div>
+          <Link to={"/order"}>
+            <img src="/images/main-banner02.png" alt="배너02" />
+            <div className="text-wrap">
+              <h2>
+                Your Cake, <br />
+                Your Every Detail
+              </h2>
+              <div className="btn sm btn-primary">Order Now</div>
+            </div>
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/images/main-banner.png" alt="배너03" />
-          <div className="text-wrap">
-            <h2>Design <br />Every Detail</h2>
-            <Link to={"/order"} className="btn sm btn-primary">Order Now</Link>
-          </div>
+          <Link to={"/order"}>
+            <img src="/images/main-banner.png" alt="배너03" />
+            <div className="text-wrap">
+              <h2>
+                Design <br />
+                Every Detail
+              </h2>
+              <div className="btn sm btn-primary">Order Now</div>
+            </div>
+          </Link>
         </SwiperSlide>
       </Swiper>
     </section>
-  )
+  );
 }
 
-export default HeroSection
+export default HeroSection;

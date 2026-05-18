@@ -8,29 +8,38 @@ function BrandSection() {
           <h1>Crafter for your</h1>
         </div>
         <div>
-          <img src="/images/main-deco01.png" alt="deco" className="typo-deco" />
-          {/* 오타 수정: Sweetes -> Sweetest */}
+          <img
+            src="/images/main-deco01.png"
+            alt=""
+            aria-hidden="true"
+            className="typo-deco"
+          />
+
           <h1>Sweetest Moments</h1>
         </div>
       </div>
       <div className="imgage-area">
         <img
           src="/images/main-deco02.png"
-          alt="deco"
+          alt=""
+          aria-hidden="true"
           className="deco-img01 move"
         />
         <img
           src="/images/main-deco03.png"
-          alt="deco"
+          alt=""
+          aria-hidden="true"
           className="deco-img02 move"
         />
         <img
           src="/images/main-deco-arrow.png"
-          alt="deco"
+          alt=""
+          aria-hidden="true"
           className="deco-img03"
         />
         <img
           src="/images/brand-section-img.png"
+          alt=""
           alt="브랜드 대표 이미지"
           className="main"
         />

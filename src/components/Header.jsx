@@ -53,10 +53,17 @@ function Header({ variant, openMenu }) {
           </div>
 
           <div className="header_inner">
-            {/* 로고 클릭 시 홈으로 이동하도록 Link 추가하면 더 좋아요! */}
             <Link to="/" className="header-logo">
-              <img src="/images/logo-w.png" alt="logo" className="logo-w" />
-              <img src="/images/logo.png" alt="logo" className="logo-b" />
+              <img
+                src="/images/logo-w.png"
+                alt="팔레트 로고"
+                className="logo-w"
+              />
+              <img
+                src="/images/logo.png"
+                alt="팔레트 로고"
+                className="logo-b"
+              />
             </Link>
 
             <div className="header-right">
