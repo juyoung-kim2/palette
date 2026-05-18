@@ -13,7 +13,13 @@
   gap: var(--space-20);
   z-index: 99;
 }
-
+.banner-section .banner-logo {
+  width: 100px;
+}
+.banner-section .banner-logo img {
+  width: 100%;
+  height: auto;
+}
 .banner-section .banner-btn {
   width: 100%;
   display: flex;

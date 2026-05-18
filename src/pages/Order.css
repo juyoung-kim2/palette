@@ -585,17 +585,19 @@
 .popup-content::-webkit-scrollbar-button {
   display: none;
 }
-
 .popup-handle {
+  position: fixed;
+  top: 8px;
+  width: 100%;
+  cursor: pointer;
+  padding: 6px;
+}
+.popup-handle .bar {
   width: 40px;
   height: 3px;
   background: var(--gray-200);
   border-radius: var(--radius-md);
-  top: 8px;
-  cursor: pointer;
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
 }
 
 .option-popup-layer .btn_wrap {

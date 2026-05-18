@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 function LeftBanner() {
   return (
     <div className="banner-section">
-      <div className="banner logo">
-        <img src="/images/logo.png" alt="로고" />
+      <div className="banner-logo">
+        <img src="/images/logo.svg" alt="팔레트 로고" />
       </div>
       <div className="banner-image-area">
         <img src="/images/left-banner.png" alt="브랜드 이미지" />

@@ -311,7 +311,9 @@ function Order() {
 
         <div className={`option-popup-layer ${optionOpen ? "active" : ""}`}>
           <div className="popup-content scroll">
-            <div className="popup-handle" onClick={closeOption}></div>
+            <div className="popup-handle" onClick={closeOption}>
+              <div className="bar"></div>
+            </div>
 
             <nav className="option-tabs">
               {Object.keys(CAKE_OPTIONS)

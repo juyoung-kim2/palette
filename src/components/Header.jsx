@@ -55,12 +55,12 @@ function Header({ variant, openMenu }) {
           <div className="header_inner">
             <Link to="/" className="header-logo">
               <img
-                src="/images/logo-w.png"
+                src="/images/logo-w.svg"
                 alt="팔레트 로고"
                 className="logo-w"
               />
               <img
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="팔레트 로고"
                 className="logo-b"
               />
