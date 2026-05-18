@@ -211,12 +211,12 @@
 
 .order-card .order-product .product-info p.pickup-info {
   font-size: var(--font-sm);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .order-card .order-product .product-info p.product-request {
   font-size: var(--font-sm);
-  color: var(--gray-500);
+  color: var(--gray-600);
   border-bottom: 1px dashed var(--gray-200);
   margin-bottom: var(--space-10);
   padding-bottom: var(--space-10);
@@ -238,7 +238,7 @@
 }
 
 .order-card .order-product .product-info .product-options li {
-  color: var(--gray-500);
+  color: var(--gray-600);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -453,7 +453,7 @@
   line-height: 44px;
   border: none;
   border-bottom: 2px solid var(--gray-200);
-  color: var(--gray-500);
+  color: var(--gray-600);
   font-size: var(--font-xs);
   font-weight: var(--weight-semibold);
   cursor: pointer;
@@ -565,7 +565,7 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  color: var(--gray-500);
+  color: var(--gray-600);
   font-size: var(--font-sm);
   position: relative;
 }
@@ -617,7 +617,7 @@
   flex-wrap: wrap;
   gap: var(--space-10);
   font-size: var(--font-xs);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 .read-attachments ul li {
   cursor: pointer;
@@ -643,7 +643,7 @@
 }
 
 .read-answer .answer-head .date {
-  color: var(--gray-500);
+  color: var(--gray-600);
   font-size: var(--font-xs);
 }
 

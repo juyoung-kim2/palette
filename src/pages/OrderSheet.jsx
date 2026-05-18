@@ -210,7 +210,11 @@ function OrderSheet() {
                   <div className="toggleContent">
                     {/*픽업날짜*/}
                     <div className="pickup-field">
-                      <label htmlFor="pickup-date" className="pickup-label">
+                      <label
+                        htmlFor="pickup-date"
+                        className="pickup-label"
+                        aria-label="픽업 날짜 선택"
+                      >
                         픽업 날짜
                       </label>
                       <div className="pickup-date-wrapper">
@@ -218,6 +222,7 @@ function OrderSheet() {
                           className="pickup-select"
                           name="date"
                           id="pickup-date"
+                          aria-label="픽업 날짜 조건 선택"
                           value={formData.date}
                           onChange={handleInputChange}
                         >
@@ -232,7 +237,12 @@ function OrderSheet() {
 
                     {/*픽업시간*/}
                     <div className="pickup-field">
-                      <label className="pickup-label">픽업 시간</label>
+                      <label
+                        className="pickup-label"
+                        aria-label="팍업시간 선택"
+                      >
+                        픽업 시간
+                      </label>
                       <div className="pickup-time-list">
                         {pickup_times.map((time) => (
                           <button
@@ -271,7 +281,11 @@ function OrderSheet() {
                   </div>
                   <div className="toggleContent">
                     <div className="orderer-field">
-                      <label className="orderer-label" htmlFor="orderer-name">
+                      <label
+                        className="orderer-label"
+                        htmlFor="orderer-name"
+                        aria-label="수령인 입력"
+                      >
                         수령인
                       </label>
                       <input
@@ -290,6 +304,7 @@ function OrderSheet() {
                         <select
                           className="contact-select"
                           name="phoneFirst"
+                          aria-label="연락처 앞자리"
                           value={formData.phoneFirst}
                           onChange={handleInputChange}
                         >
@@ -309,6 +324,7 @@ function OrderSheet() {
                           maxLength="4"
                           name="phoneMid"
                           placeholder="1234"
+                          aria-label="연락처 중간번호"
                           value={formData.phoneMid}
                           onChange={handleInputChange}
                         />
@@ -322,6 +338,7 @@ function OrderSheet() {
                           maxLength="4"
                           name="phoneLast"
                           placeholder="5678"
+                          aria-label="연락처 끝번호"
                           value={formData.phoneLast}
                           onChange={handleInputChange}
                         />
@@ -342,7 +359,9 @@ function OrderSheet() {
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
-                    <label className="input-label">요청사항</label>
+                    <label className="input-label" aria-label="요청사항 입력">
+                      요청사항
+                    </label>
                     <textarea
                       className="textarea"
                       name="request"
@@ -370,6 +389,7 @@ function OrderSheet() {
                         type="radio"
                         name="payment"
                         value="card"
+                        aria-label="결제수단 선택"
                         readOnly
                       />
                       카드 결제

@@ -189,7 +189,7 @@
   gap: var(--space-24);
   margin-top: var(--space-20);
   font-size: var(--font-sm);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .sideMenu .mobile-menu .btn {
@@ -201,7 +201,7 @@
 
 .sideMenu .copy {
   font-size: var(--font-xxs);
-  color: var(--gray-500);
+  color: var(--gray-600);
   text-align: left;
   position: absolute;
   left: 20px;

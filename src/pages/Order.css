@@ -662,7 +662,7 @@
 
 .option-panel.active.letter .info {
   font-size: var(--font-sm);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .option-panel .swiper-container {
@@ -819,7 +819,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .selected-option-box .selected-toppings .topping-item:last-child {
@@ -841,5 +841,5 @@
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  color: var(--gray-500);
+  color: var(--gray-600);
 }

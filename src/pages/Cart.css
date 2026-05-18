@@ -70,7 +70,7 @@
 }
 
 .cart-container .cart-item-wrap .cart-item .item-info .product-options li {
-  color: var(--gray-500);
+  color: var(--gray-600);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -167,7 +167,7 @@
   font-size: var(--font-xs);
   cursor: pointer;
   border: none;
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .cart-container .cart-empty-visual {
@@ -178,6 +178,6 @@
 }
 
 .cart-container .cart-empty-visual p {
-  color: var(--gray-500);
+  color: var(--gray-600);
   font-size: var(--font-xs);
 }
