@@ -49,7 +49,10 @@ function MypageQnaList() {
             <div className="board-filter">
               {/*검색*/}
               <div className="filter-right">
-                <select className="filter-select filter-search-type">
+                <select
+                  className="filter-select filter-search-type"
+                  aria-label="검색 조건 선택"
+                >
                   <option value="title">제목</option>
                   <option value="content">내용</option>
                   <option value="writer">작성자</option>
@@ -58,6 +61,7 @@ function MypageQnaList() {
                 <input
                   type="text"
                   className="filter-input"
+                  aria-label="게시판 검색어 입력"
                   placeholder="검색어를 입력해주세요"
                 />
 

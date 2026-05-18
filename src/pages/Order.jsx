@@ -355,6 +355,7 @@ function Order() {
                   type="text"
                   value={lettering}
                   onChange={(e) => setLettering(e.target.value)}
+                  aria-label="케이크 레터링 문구 입력"
                   maxLength={15}
                 />
               </div>

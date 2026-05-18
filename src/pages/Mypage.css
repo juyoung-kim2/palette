@@ -353,7 +353,7 @@
   .product-options
   .label {
   font-size: var(--font-xs);
-  color: var(--gray-500);
+  color: var(--gray-600);
   font-weight: var(--weight-medium);
   line-height: 1.6;
 }
@@ -392,7 +392,7 @@
   span {
   font-size: var(--font-xs);
   font-weight: var(--weight-medium);
-  color: var(--gray-500);
+  color: var(--gray-600);
   line-height: 1.6;
 }
 
@@ -528,7 +528,7 @@
 
 .board-list .board-table tbody td.col-date {
   font-size: var(--font-xxs);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .board-list .board-table tbody td.col-subject {

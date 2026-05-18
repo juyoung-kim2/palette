@@ -718,7 +718,7 @@
   display: block;
   width: 90%;
   margin: 0 auto;
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .option-item .topping-qty {
@@ -805,12 +805,12 @@
   margin-top: 10px;
 }
 .selected-option-box .selected-group .name {
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .selected-option-box .selected-group .price {
   font-weight: var(--weight-semibold);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .selected-option-box .selected-toppings .topping-item {
@@ -828,11 +828,11 @@
 
 .selected-option-box .selected-toppings .topping-item .price {
   font-weight: var(--weight-semibold);
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .selected-option-box .selected-toppings .topping-item .name {
-  color: var(--gray-500);
+  color: var(--gray-600);
 }
 
 .selected-option-box .selected-lettering {
