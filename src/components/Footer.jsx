@@ -4,7 +4,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-logo">
-          <img src="/images/footer-logo.png" alt="logo" />
+          <img src="/images/footer-logo.png" alt="팔레트 로고" />
         </div>
         <div className="footer-content">
           <p>
