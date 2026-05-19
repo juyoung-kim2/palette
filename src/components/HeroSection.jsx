@@ -23,8 +23,8 @@ function HeroSection() {
         }}
       >
         <SwiperSlide>
-          <Link to={"/order"} alt="" aria-hidden="true">
-            <img src="/images/main-banner.png" alt="Design Every Detail" />
+          <Link to={"/"}>
+            <img src="/images/main-banner.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
               <h2>
                 Design <br />
@@ -35,11 +35,8 @@ function HeroSection() {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/order"} alt="" aria-hidden="true">
-            <img
-              src="/images/main-banner02.png"
-              alt="Your Cake, Your Every Detail"
-            />
+          <Link to={"/cart"}>
+            <img src="/images/main-banner02.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
               <h2>
                 Your Cake, <br />
@@ -50,8 +47,8 @@ function HeroSection() {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/order"} alt="" aria-hidden="true">
-            <img src="/images/main-banner.png" alt="Design Every Detail" />
+          <Link to={"/mypage"}>
+            <img src="/images/main-banner.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
               <h2>
                 Design <br />

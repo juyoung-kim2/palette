@@ -107,7 +107,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("payInfo")}
               >
                 <h3>결제정보</h3>
-                <img src="images/icon_arrow_b.png" alt="화살표" />
+                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 <div className="box_container">
@@ -163,7 +163,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("pickup")}
               >
                 <h3>픽업 안내</h3>
-                <img src="images/icon_arrow_b.png" alt="화살표" />
+                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 <p>Palete Studio 1층</p>
@@ -174,7 +174,11 @@ function OrderComplete() {
                     rel="noopener noreferrer"
                   >
                     지도 보기
-                    <img src="images/icon_arrow_r_c.png" alt="화살표" />
+                    <img
+                      src="images/icon_arrow_r_c.png"
+                      alt=""
+                      aria-hidden="true"
+                    />
                   </a>
                 </div>
               </div>
@@ -189,7 +193,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("request")}
               >
                 <h3>요청사항</h3>
-                <img src="images/icon_arrow_b.png" alt="화살표" />
+                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 {request && request.trim() !== "" ? (

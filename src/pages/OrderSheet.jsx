@@ -359,11 +359,16 @@ function OrderSheet() {
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
-                    <label className="input-label" aria-label="요청사항 입력">
+                    <label
+                      className="input-label"
+                      aria-label="요청사항 입력"
+                      htmlFor="request-text"
+                    >
                       요청사항
                     </label>
                     <textarea
                       className="textarea"
+                      id="request-text"
                       name="request"
                       placeholder="원하시는 디자인·색감·레터링 느낌이 있다면 적어주세요 :)"
                       value={formData.request}

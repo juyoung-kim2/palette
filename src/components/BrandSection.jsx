@@ -45,7 +45,9 @@ function BrandSection() {
             className="main"
           />
 
-          <div className="btn sm btn-primary">Order Now</div>
+          <div className="btn sm btn-primary" role="button">
+            Order Now
+          </div>
         </div>
       </Link>
     </section>

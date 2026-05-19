@@ -162,7 +162,7 @@ function Order() {
             }
           />
           <div className="option-image-box">
-            <img src={`images/${item.img}`} alt={item.name} />
+            <img src={`images/${item.img}`} alt="" />
           </div>
           <span className="option-name">{item.name}</span>
           <span className="option-price">+{item.price}</span>

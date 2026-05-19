@@ -66,7 +66,7 @@ function MypageQnaList() {
                 />
 
                 <button className="btn">
-                  <img src="images/icon_search.png" />
+                  <img src="images/icon_search.png" alt="검색" />
                 </button>
               </div>
             </div>
@@ -95,9 +95,22 @@ function MypageQnaList() {
                 </tbody>
               </table>
 
-              <div className="paginate">
-                <button type="button" className="first"></button>
-                <button type="button" className="prev"></button>
+              {/* 페이지네이션  */}
+              <div
+                className="paginate"
+                aria-label="페이지 선택"
+                role="navigation"
+              >
+                <button
+                  type="button"
+                  className="first"
+                  aria-label="처음 페이지로 이동"
+                ></button>
+                <button
+                  type="button"
+                  className="prev"
+                  aria-label="이전 페이지로 이동"
+                ></button>
                 <ol>
                   <li>
                     <button type="button" className="page-num">
@@ -105,7 +118,11 @@ function MypageQnaList() {
                     </button>
                   </li>
                   <li>
-                    <button type="button" className="page-num selected">
+                    <button
+                      type="button"
+                      className="page-num selected"
+                      aria-current="page"
+                    >
                       2
                     </button>
                   </li>
@@ -115,8 +132,16 @@ function MypageQnaList() {
                     </button>
                   </li>
                 </ol>
-                <button type="button" className="next"></button>
-                <button type="button" className="last"></button>
+                <button
+                  type="button"
+                  className="next"
+                  aria-label="다음 페이지로 이동"
+                ></button>
+                <button
+                  type="button"
+                  className="last"
+                  aria-label="마지막 페이지로 이동"
+                ></button>
               </div>
               <button
                 className="btn btn-primary write-btn"

@@ -9,7 +9,7 @@ function LeftBanner() {
       <div className="banner-image-area">
         <img src="/images/left-banner.png" alt="브랜드 이미지" />
       </div>
-      <Link to="/order" className="banner-btn btn btn-primary">
+      <Link to="/order" className="banner-btn btn btn-primary" role="button">
         <div className="left-wrap">
           <img src="/images/faq-icon03.png" alt="" aria-hidden="true" />
           케이크 제작하기

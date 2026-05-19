@@ -142,14 +142,14 @@ function Cart() {
             <div className="cart-item-wrap">
               {cartList.map((item, idx) => (
                 <div className="cart-item" key={item.id || idx}>
-                  <label className="cart-check">
+                  <div className="cart-check">
                     <input
                       type="checkbox"
                       aria-label="장바구니 상품 선택"
                       onChange={() => handleSingleCheck(item.id)} // id만 넘기도록 수정
                       checked={checkedItems.includes(item.id)}
                     />
-                  </label>
+                  </div>
 
                   <div className="item-thumb">
                     <img src="/images/detail_thnmb.png" alt="상품 이미지" />
