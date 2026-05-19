@@ -16,6 +16,27 @@ function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNotice, setShowNotice] = useState(true);
 
+  useEffect(() => {
+    // 1. 페이지 로드시 로컬 스토리지 확인
+    const expiryDate = localStorage.getItem("popupExpiry");
+    const now = new Date().getTime();
+
+    // 저장된 시간이 없거나, 현재 시간이 먄료 시간을 지났다면 팝업 띄우기
+    if (!expiryDate || now > parseInt(expiryDate)) {
+      setShowNotice(true);
+    } else {
+      setShowNotice(false);
+    }
+  }, []);
+
+  const handleClosePopup = () => {
+    // '오늘 하루 보지않기' 체크 했다먼, 24시간 뒤의 시간 계산
+    const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
+    localStorage.setItem("popupExpiry", expiry.toString());
+
+    setShowNotice(false);
+  };
+
   // 메뉴 오픈 시 스크롤 방지
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -40,6 +61,13 @@ function Home() {
         <div className="portfolio-notice-overlay">
           <div className="portfolio-notice-modal">
             <h2>Project Information</h2>
+            <button
+              className="btn-close"
+              onClick={() => setShowNotice(false)}
+              aria-label="팝업 닫기"
+            >
+              <img src="images/icon_close.png" alt="닫기" />
+            </button>
             <div className="notice-content">
               <p>
                 <strong>Development</strong>
@@ -53,12 +81,17 @@ function Home() {
                 <br />• 사용자 경험(UX) 중심의 인터랙티브 프로토타입
               </p>
             </div>
-            <button
-              onClick={() => setShowNotice(false)}
-              className="btn sm btn-primary"
-            >
-              사이트 둘러보기
-            </button>
+            <div className="btn-wrap">
+              <button
+                onClick={() => setShowNotice(false)}
+                className="btn sm btn-primary"
+              >
+                사이트 둘러보기
+              </button>
+              <button className="btn sm btn-gray" onClick={handleClosePopup}>
+                오늘 하루 보지 않기
+              </button>
+            </div>
           </div>
         </div>
       )}

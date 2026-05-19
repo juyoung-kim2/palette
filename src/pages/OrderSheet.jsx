@@ -119,6 +119,7 @@ function OrderSheet() {
         </div>
 
         <main className="orderform-section main-section">
+          <h1 className="blind">주문서 페이지</h1>
           <Header variant="sub" openMenu={openMenu} />
           <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
           <section className="orderform-container">
@@ -140,7 +141,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("product")}
                   >
-                    <h3>주문상품</h3>
+                    <h2>주문상품</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   {orders.map((item, index) => (
@@ -204,7 +205,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("pickup")}
                   >
-                    <h3>픽업 정보</h3>
+                    <h2>픽업 정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
@@ -276,7 +277,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("orderer")}
                   >
-                    <h3>주문자 정보</h3>
+                    <h2>주문자 정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
@@ -355,7 +356,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("request")}
                   >
-                    <h3>요청사항</h3>
+                    <h2>요청사항</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
@@ -385,7 +386,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("payment")}
                   >
-                    <h3>결제수단</h3>
+                    <h2>결제수단</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">
@@ -414,7 +415,7 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("payInfo")}
                   >
-                    <h3>결제정보</h3>
+                    <h2>결제정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   <div className="toggleContent">

@@ -106,7 +106,7 @@ function OrderComplete() {
                 className="toggleTitle"
                 onClick={() => toggleSection("payInfo")}
               >
-                <h3>결제정보</h3>
+                <h2>결제정보</h2>
                 <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
@@ -162,7 +162,7 @@ function OrderComplete() {
                 className="toggleTitle"
                 onClick={() => toggleSection("pickup")}
               >
-                <h3>픽업 안내</h3>
+                <h2>픽업 안내</h2>
                 <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
@@ -192,7 +192,7 @@ function OrderComplete() {
                 className="toggleTitle"
                 onClick={() => toggleSection("request")}
               >
-                <h3>요청사항</h3>
+                <h2>요청사항</h2>
                 <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">

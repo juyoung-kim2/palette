@@ -73,7 +73,7 @@
   cursor: pointer;
 }
 
-.orderform-container .toggleTitle h3 {
+.orderform-container .toggleTitle h2 {
   font-size: var(--font-md);
   font-weight: var(--weight-semibold);
 }
@@ -412,7 +412,7 @@
   cursor: pointer;
 }
 
-.orderresult-container .toggleTitle h3 {
+.orderresult-container .toggleTitle h2 {
   font-size: var(--font-md);
   font-weight: var(--weight-semibold);
 }

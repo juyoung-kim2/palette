@@ -397,6 +397,18 @@
   word-break: keep-all;
   margin-bottom: var(--space-20);
 }
+.portfolio-notice-modal .btn-wrap {
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-40);
+}
 .portfolio-notice-modal .btn {
-  width: 100%;
+  width: 50%;
+}
+.portfolio-notice-modal .btn-close {
+  border: none;
+  position: absolute;
+  right: var(--space-24);
+  top: var(--space-24);
+  width: 24px;
 }
