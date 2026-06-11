@@ -5,28 +5,17 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Mypage.css";
 // hooks
-import { useEffect, useState } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
 
 // router
 import { Link } from "react-router-dom";
 
 function Mypage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
+  const orderList = JSON.parse(localStorage.getItem("orderHistory")) || [];
+  const completedCount = orderList.filter(
+    (order) => order.status === "주문완료",
+  ).length;
 
   return (
     <div className="content-wrapper">
@@ -49,15 +38,15 @@ function Mypage() {
             <div className="order-wrap">
               <div className="item">
                 <span className="label">주문완료</span>
-                <strong>2</strong>
+                <strong>{completedCount}</strong>
               </div>
               <div className="item">
                 <span className="label">픽업대기</span>
-                <strong>5</strong>
+                <strong>0</strong>
               </div>
               <div className="item">
                 <span className="label">픽업완료</span>
-                <strong>1</strong>
+                <strong>0</strong>
               </div>
             </div>
           </div>

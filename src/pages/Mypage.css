@@ -179,7 +179,9 @@
   display: flex;
   gap: var(--space-20);
 }
-
+.order-card .order-product:nth-of-type(n + 2) {
+  border-bottom: 1px solid var(--gray-200);
+}
 .order-card .order-product .product-thumb {
   width: 80px;
   height: 80px;
@@ -254,7 +256,6 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-24) var(--space-16);
-  border-top: 1px solid var(--gray-200);
   border-bottom: 1px solid var(--gray-200);
   font-weight: var(--weight-medium);
 }
@@ -283,7 +284,7 @@
 }
 .mypage-container .order-info .order-section.open .toggleContent {
   overflow-y: hidden;
-  max-height: 500px;
+  max-height: 2000px;
   visibility: visible;
 }
 .mypage-container .order-info .order-section .section-title .arrow {
@@ -339,7 +340,10 @@
   flex-direction: column;
   gap: var(--space-24);
 }
-
+.mypage-container .order-info .order-section .product-box:nth-child(n + 2) {
+  border-top: 1px dashed var(--gray-200);
+  margin-top: 40px;
+}
 .mypage-container .order-info .order-section .product-box .product-header {
   display: flex;
   align-items: center;
@@ -411,6 +415,26 @@
 }
 
 /*마이페이지 1:1문의*/
+.form-group {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.form-group:nth-child(n + 2) {
+  margin-top: 30px;
+}
+.subject-group label {
+  white-space: nowrap;
+}
+.form-group textarea {
+  line-height: 1.6;
+  white-space: pre-line;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: var(--space-16);
+  height: 320px;
+}
 .mypage-container .board-container {
   padding: 0;
 }
@@ -498,6 +522,7 @@
 .board-list .board-container .btn {
   width: 100%;
   margin-top: var(--space-40);
+  display: block;
 }
 
 .board-list .board-table thead {

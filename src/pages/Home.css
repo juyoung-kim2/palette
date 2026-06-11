@@ -167,7 +167,7 @@
   height: auto;
 }
 
-.brand-section .typo-area > div h1 {
+.brand-section .typo-area > div h2 {
   font-size: var(--font-xxxl);
   font-weight: var(--weight-medium);
   font-family: var(--font-point);

@@ -5,54 +5,17 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Order.css";
 // hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
+import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
 import { useLocation, useNavigate } from "react-router-dom";
-
-const pickup_dates = [
-  "2025-12-23",
-  "2025-12-24",
-  "2025-12-25",
-  "2025-12-26",
-  "2025-12-27",
-];
-const pickup_times = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
-const phone_first = ["010", "011", "016", "017", "018", "019"];
+import { useEffect } from "react";
 
 function OrderSheet() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { orders, totalPrice } = location.state || {
-    orders: [],
-    totalPrice: 0,
-  };
-
-  // 메뉴 및 섹션 토글 상태
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  // 메뉴 오픈 시 스크롤 제어
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  // 토글
-  const [openSections, setOpenSections] = useState([
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
+  const { openSections, toggleSection } = useToggleSections([
     "product",
     "pickup",
     "orderer",
@@ -60,17 +23,33 @@ function OrderSheet() {
     "payment",
     "payInfo",
   ]);
-
-  const toggleSection = (section) => {
-    setOpenSections((prev) =>
-      prev.includes(section)
-        ? prev.filter((item) => item !== section)
-        : [...prev, section],
-    );
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { orders, totalPrice } = location.state || {
+    orders: [],
+    totalPrice: 0,
   };
 
+  const [pickupDates, setPickupDates] = useState([]);
+  const [pickupTimes, setPickupTimes] = useState([]);
+  const [phoneFirst, setPhoneFirst] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/pickupData.json")
+      .then((result) => result.json())
+      .then((data) => {
+        setPickupDates(data.pickup_dates);
+        setPickupTimes(data.pickup_times);
+        setPhoneFirst(data.phone_first);
+      })
+      .catch((error) => {
+        console.error("데이터를 불러오는데 실패했습니다", error);
+        alert("서버 연결이 원활하지 않습니다. 잠시 후 다시 시도해 주세요.");
+      });
+  }, []);
+
   const [formData, setFormData] = useState({
-    date: pickup_dates[0],
+    date: pickupDates[0],
     time: "",
     name: "",
     phoneFirst: "010",
@@ -125,14 +104,6 @@ function OrderSheet() {
           <section className="orderform-container">
             {orders?.length > 0 ? (
               <>
-                <div className="prevImg">
-                  <img
-                    style={{ width: "100%" }}
-                    src="/images/detail_thnmb.png"
-                    alt=""
-                  />
-                </div>
-
                 {/*주문상품*/}
                 <div
                   className={`product-section ${openSections.includes("product") ? "open" : ""}`}
@@ -141,11 +112,18 @@ function OrderSheet() {
                     className="toggleTitle"
                     onClick={() => toggleSection("product")}
                   >
-                    <h2>주문상품</h2>
+                    <h2>주문상품 ({orders?.length}개)</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
                   {orders.map((item, index) => (
                     <div key={item.id || index} className="toggleContent">
+                      <div className="prevImg">
+                        <img
+                          style={{ width: "100%" }}
+                          src={item.cakeImage}
+                          alt=""
+                        />
+                      </div>
                       <div className="prd_info">
                         <p className="prd_name">Custom Cake</p>
                         <p className="prd_price">
@@ -180,10 +158,9 @@ function OrderSheet() {
                                 <span>
                                   + ₩
                                   {(deco.price * deco.count).toLocaleString()}
-                                </span>{" "}
-                                {/* 가격 정보가 있다면 계산 */}
+                                </span>
                               </li>
-                            ))}{" "}
+                            ))}
                             <li>
                               <span className="option_name">레터링 문구</span>
                               <span className="option_price">
@@ -227,7 +204,7 @@ function OrderSheet() {
                           value={formData.date}
                           onChange={handleInputChange}
                         >
-                          {pickup_dates.map((date) => (
+                          {pickupDates.map((date) => (
                             <option key={date} value={date}>
                               {date}
                             </option>
@@ -245,7 +222,7 @@ function OrderSheet() {
                         픽업 시간
                       </label>
                       <div className="pickup-time-list">
-                        {pickup_times.map((time) => (
+                        {pickupTimes.map((time) => (
                           <button
                             key={time}
                             type="button"
@@ -309,7 +286,7 @@ function OrderSheet() {
                           value={formData.phoneFirst}
                           onChange={handleInputChange}
                         >
-                          {phone_first.map((p) => (
+                          {phoneFirst.map((p) => (
                             <option key={p} value={p}>
                               {p}
                             </option>
@@ -396,7 +373,7 @@ function OrderSheet() {
                         name="payment"
                         value="card"
                         aria-label="결제수단 선택"
-                        readOnly
+                        checked
                       />
                       카드 결제
                     </label>
@@ -470,10 +447,12 @@ function OrderSheet() {
           {orders?.length > 0 && (
             <div className="fixed-bottom-bar">
               <button
+                type="button"
                 className="order-button btn orderform-btn btn-primary"
                 onClick={handlePayment}
               >
-                <span>₩{totalPrice.toLocaleString()}</span>결제하기
+                <span>₩{totalPrice.toLocaleString()}</span>결제하기 (
+                {orders?.length}개)
               </button>
             </div>
           )}

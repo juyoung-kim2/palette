@@ -5,51 +5,48 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Order.css";
 // hooks
-import { useState, useEffect } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
+import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function OrderComplete() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  // 토글
-  const [openSections, setOpenSections] = useState([
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
+  const { openSections, toggleSection } = useToggleSections([
     "pickup",
     "request",
     "payInfo",
   ]);
-
-  const toggleSection = (section) => {
-    setOpenSections((prev) =>
-      prev.includes(section)
-        ? prev.filter((item) => item !== section)
-        : [...prev, section],
-    );
-  };
-
   const location = useLocation();
   const { orderer, items, totalPrice, pickupDate, pickupTime, request } =
     location.state || {};
+
+  useEffect(() => {
+    if (!orderer) return;
+
+    const orderData = {
+      id: Date.now(),
+      orderer,
+      items,
+      totalPrice,
+      pickupDate,
+      pickupTime,
+      request,
+      status: "주문완료",
+    };
+
+    //기존 주문 내역에 있던 목록 가져오기
+    const existingCart = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+    //기존 목록에 새 주문 추가하기 (배열에 push)
+    const updatedHistory = [...existingCart, orderData];
+
+    //합쳐진 전체 목록을 다시 저장
+    localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
+  }, []);
+
   return (
     <>
       <div className="content-wrapper">
@@ -64,7 +61,7 @@ function OrderComplete() {
             {/* 주문완료 상단 */}
             <div className="result-top">
               <div className="result-text">
-                <img src="images/order_result_icon.png" alt="" />
+                <img src="/images/order_result_icon.png" alt="" />
                 <h1 className="result-title">
                   <span>주문이 완료되었어요!</span>
                 </h1>
@@ -73,7 +70,7 @@ function OrderComplete() {
                 <ul>
                   <li>
                     <span className="info-title">주문번호</span>
-                    <span className="info-data">20251209-0000001</span>
+                    <span className="info-data">{Date.now()}</span>
                   </li>
                   <li>
                     <span className="info-title">수령인</span>
@@ -107,7 +104,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("payInfo")}
               >
                 <h2>결제정보</h2>
-                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
+                <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 <div className="box_container">
@@ -115,12 +112,12 @@ function OrderComplete() {
                     items.map((item, index) => (
                       <ul key={index} className="option_list">
                         {/* 1. 상품 기본 정보 */}
-                        <div className="prd_info">
+                        <li className="prd_info">
                           <p className="prd_name">Custom Cake</p>
                           <p className="prd_price">
                             ₩{item.totalAmount.toLocaleString()}
                           </p>
-                        </div>
+                        </li>
                         <li>
                           <span>{item.sheetName}</span>
                           <span>+ ₩{item.sheetPrice?.toLocaleString()}</span>
@@ -163,7 +160,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("pickup")}
               >
                 <h2>픽업 안내</h2>
-                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
+                <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 <p>Palete Studio 1층</p>
@@ -175,7 +172,7 @@ function OrderComplete() {
                   >
                     지도 보기
                     <img
-                      src="images/icon_arrow_r_c.png"
+                      src="/images/icon_arrow_r_c.png"
                       alt=""
                       aria-hidden="true"
                     />
@@ -193,7 +190,7 @@ function OrderComplete() {
                 onClick={() => toggleSection("request")}
               >
                 <h2>요청사항</h2>
-                <img src="images/icon_arrow_b.png" alt="" aria-hidden="true" />
+                <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
               <div className="toggleContent">
                 {request && request.trim() !== "" ? (

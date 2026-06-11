@@ -12,9 +12,9 @@ function SideMenu({ menuOpen, closeMenu }) {
               onClick={closeMenu}
               aria-label="모바일 메뉴 닫기"
             >
-              <img src="images/icon_close.png" alt="닫기" />
+              <img src="/images/icon_close.png" alt="닫기" />
             </button>
-            <img src="images/logo.svg" alt="팔레트 로고" />
+            <img src="/images/logo.svg" alt="팔레트 로고" />
             <p className="user-name">
               안녕하세요, <span>사용자</span>님 :)
             </p>

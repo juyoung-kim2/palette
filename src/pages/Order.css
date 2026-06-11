@@ -4,9 +4,27 @@
 .main-image-area {
   width: 100%;
   aspect-ratio: 1/1;
+  position: relative;
 }
 .main-image-area img {
   width: 100%;
+}
+.deco-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cake-lettering {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Gaegu", sans-serif;
+  font-size: 30px;
+  letter-spacing: -2px;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+  -webkit-text-stroke: 0.5px currentColor;
 }
 .product-section {
   padding-top: 64px;
@@ -46,7 +64,7 @@
 
 .orderform-container > div:not(.prevImg) {
   padding: 0 var(--section-padding);
-  margin-top: 60px;
+  margin-top: 40px;
 }
 .orderform-container > div:not(.prevImg) .toggleContent {
   overflow: hidden;
@@ -56,7 +74,7 @@
 }
 .orderform-container > div:not(.prevImg).open .toggleContent {
   overflow-y: hidden;
-  max-height: 500px;
+  max-height: 2000px;
   visibility: visible;
 }
 
@@ -216,7 +234,6 @@
   border: 1px solid var(--gray-200);
   padding: var(--space-14);
   border-radius: var(--radius-sm);
-  font-family: "Pretendard Variable", sans-serif;
   padding: var(--space-16);
 }
 

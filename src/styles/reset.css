@@ -145,7 +145,7 @@ textarea {
   width: 100%;
   border-color: var(--gray-200);
   border-radius: var(--radius-sm);
-  font-family: var(--font-default);
+  font-family: var(--font-main);
   padding: var(--space-16);
 }
 

@@ -5,33 +5,18 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Mypage.css";
 // hooks
-import { useEffect, useState } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
 
 // router
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function MypageQnaList() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
   const navigate = useNavigate();
+  const [qnaList] = useState(() => {
+    return JSON.parse(localStorage.getItem("qnaList")) || [];
+  });
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -65,35 +50,45 @@ function MypageQnaList() {
                   placeholder="검색어를 입력해주세요"
                 />
 
-                <button className="btn">
-                  <img src="images/icon_search.png" alt="검색" />
+                <button className="btn" type="button">
+                  <img src="/images/icon_search.png" alt="검색" />
                 </button>
               </div>
             </div>
             <div className="board-container">
-              {/*
-               <div className="board-empty">등록된 게시글이 없습니다.</div>
-               */}
+              {qnaList.length > 0 ? (
+                <table className="board-table">
+                  <thead>
+                    <tr>
+                      {/*공통*/}
+                      <th className="col-answer">상태</th>
+                      <th className="col-subject">제목</th>
+                      <th className="col-writer">작성자</th>
+                      <th className="col-date">작성일</th>
+                    </tr>
+                  </thead>
 
-              <table className="board-table">
-                <thead>
-                  <tr>
-                    {/*공통*/}
-                    <th className="col-subject">제목</th>
-                    <th className="col-writer">작성자</th>
-                    <th className="col-date">작성일</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr onClick={() => navigate("/mypage-qna-detail")}>
-                    <td className="col-answer badge pending">대기</td>
-                    <td className="col-subject">비밀글입니다.</td>
-                    <td className="col-writer">작성자</td>
-                    <td className="col-date">2025-12-25</td>
-                  </tr>
-                </tbody>
-              </table>
+                  <tbody>
+                    {qnaList.map((qna, index) => (
+                      <tr
+                        key={qna.id}
+                        onClick={() => {
+                          navigate("/mypage-qna-detail", { state: { qna } });
+                        }}
+                      >
+                        <td className="col-answer badge pending">
+                          {qna.status}
+                        </td>
+                        <td className="col-subject">{qna.title}</td>
+                        <td className="col-writer">작성자</td>
+                        <td className="col-date">{qna.date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="board-empty">문의내역이 없습니다.</div>
+              )}
 
               {/* 페이지네이션  */}
               <div
@@ -143,16 +138,12 @@ function MypageQnaList() {
                   aria-label="마지막 페이지로 이동"
                 ></button>
               </div>
-              <button
+              <Link
+                to={"/mypage-qna-write"}
                 className="btn btn-primary write-btn"
-                onClick={() =>
-                  alert(
-                    "준비 중인 기능입니다. 상세 페이지와 장바구니 기능을 먼저 확인해 보세요!",
-                  )
-                }
               >
                 글쓰기
-              </button>
+              </Link>
             </div>
           </div>
         </section>

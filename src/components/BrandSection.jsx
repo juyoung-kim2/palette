@@ -5,7 +5,7 @@ function BrandSection() {
     <section className="brand-section">
       <div className="typo-area">
         <div>
-          <h1>Crafter for your</h1>
+          <h2>Crafter for your</h2>
         </div>
         <div>
           <img
@@ -15,7 +15,7 @@ function BrandSection() {
             className="typo-deco"
           />
 
-          <h1>Sweetest Moments</h1>
+          <h2>Sweetest Moments</h2>
         </div>
       </div>
       <Link to="/order">
@@ -40,14 +40,11 @@ function BrandSection() {
           />
           <img
             src="/images/brand-section-img.png"
-            alt=""
             alt="브랜드 대표 이미지"
             className="main"
           />
 
-          <div className="btn sm btn-primary" role="button">
-            Order Now
-          </div>
+          <span className="btn sm btn-primary">Order Now</span>
         </div>
       </Link>
     </section>

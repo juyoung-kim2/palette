@@ -10,50 +10,12 @@ import SideMenu from "../components/SideMenu";
 import "./Home.css";
 
 // hooks
-import { useState, useEffect } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
+import { usePopupExpiry } from "../hooks/usePopupExpiry";
 
 function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showNotice, setShowNotice] = useState(true);
-
-  useEffect(() => {
-    // 1. 페이지 로드시 로컬 스토리지 확인
-    const expiryDate = localStorage.getItem("popupExpiry");
-    const now = new Date().getTime();
-
-    // 저장된 시간이 없거나, 현재 시간이 먄료 시간을 지났다면 팝업 띄우기
-    if (!expiryDate || now > parseInt(expiryDate)) {
-      setShowNotice(true);
-    } else {
-      setShowNotice(false);
-    }
-  }, []);
-
-  const handleClosePopup = () => {
-    // '오늘 하루 보지않기' 체크 했다먼, 24시간 뒤의 시간 계산
-    const expiry = new Date().getTime() + 24 * 60 * 60 * 1000;
-    localStorage.setItem("popupExpiry", expiry.toString());
-
-    setShowNotice(false);
-  };
-
-  // 메뉴 오픈 시 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
+  const { showNotice, setShowNotice, handleClosePopup } = usePopupExpiry();
   return (
     <>
       {/* 포트폴리오 안내 팝업 */}
@@ -66,7 +28,7 @@ function Home() {
               onClick={() => setShowNotice(false)}
               aria-label="팝업 닫기"
             >
-              <img src="images/icon_close.png" alt="닫기" />
+              <img src="/images/icon_close.png" alt="닫기" />
             </button>
             <div className="notice-content">
               <p>
@@ -102,6 +64,7 @@ function Home() {
         </div>
 
         <main className="main-section">
+          <h1 className="blind">팔레트 케이크 - 커스텀 케이크 주문</h1>
           {/* 헤더에 메뉴 오픈 함수 전달 */}
           <Header variant="main" openMenu={openMenu} />
           {/* 사이드메뉴 */}

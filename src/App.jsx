@@ -10,6 +10,7 @@ import MypageOrderList from "./pages/Mypage-orderList";
 import MypageOrderDetail from "./pages/Mypage-orderDetail";
 import MypageQnaList from "./pages/Mypage-qna-list";
 import MypageQnaDetail from "./pages/Mypage-qna-detail";
+import MypageQnaWrite from "./pages/Mypage-qna-write";
 import OrderSheet from "./pages/OrderSheet";
 import OrderComplete from "./pages/Order-complete";
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/mypage-order-detail" element={<MypageOrderDetail />} />
         <Route path="/mypage-qna-list" element={<MypageQnaList />} />
         <Route path="/mypage-qna-detail" element={<MypageQnaDetail />} />
+        <Route path="/mypage-qna-write" element={<MypageQnaWrite />} />
       </Routes>
     </>
   );

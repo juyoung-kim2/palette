@@ -6,33 +6,32 @@ import Footer from "../components/Footer";
 import "./Cart.css";
 
 // hooks
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
 
 // router
 import { useNavigate, Link } from "react-router-dom";
 
 function Cart() {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
 
-  // 2. 누락되었던 상태 선언 추가
-  const [checkedItems, setCheckedItems] = useState([]);
-
-  // 3. 장바구니 데이터를 상태로 관리
+  // 장바구니 데이터를 상태로 관리
   const [cartList, setCartList] = useState(() => {
     return JSON.parse(localStorage.getItem("cartData")) || [];
   });
 
-  // 4. 전체 선택 여부 및 총액 계산 (useMemo 최적화)
+  // 체크 상품 state로 관리
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  // 전체 선택 여부
   const isAllChecked = useMemo(() => {
     return cartList.length > 0 && checkedItems.length === cartList.length;
   }, [cartList, checkedItems]);
 
-  const totalCheckedPrice = useMemo(() => {
-    return cartList
-      .filter((item) => checkedItems.includes(item.id))
-      .reduce((acc, curr) => acc + (curr.totalAmount || 0), 0);
-  }, [cartList, checkedItems]);
+  const handleAllCheck = (checked) => {
+    setCheckedItems(checked ? cartList.map((item) => item.id) : []);
+  };
 
   // 로컬 스토리지 업데이트 유틸
   const updateCartStorage = (newCart) => {
@@ -41,16 +40,13 @@ function Cart() {
   };
 
   // 핸들러 함수들
-  const handleAllCheck = (checked) => {
-    setCheckedItems(checked ? cartList.map((item) => item.id) : []);
-  };
-
   const handleSingleCheck = (id) => {
     setCheckedItems((prev) =>
       prev.includes(id) ? prev.filter((el) => el !== id) : [...prev, id],
     );
   };
 
+  // 개별 삭제
   const deleteItem = (id) => {
     if (!window.confirm("장바구니에서 삭제하시겠습니까?")) return;
     const updatedCart = cartList.filter((item) => item.id !== id);
@@ -58,6 +54,7 @@ function Cart() {
     setCheckedItems((prev) => prev.filter((item) => item !== id));
   };
 
+  // 선택 삭제
   const deleteSelected = () => {
     if (checkedItems.length === 0) return alert("삭제할 항목을 선택해주세요.");
     if (
@@ -73,6 +70,14 @@ function Cart() {
     setCheckedItems([]);
   };
 
+  // 선택 상품 총액 계산
+  const totalCheckedPrice = useMemo(() => {
+    return cartList
+      .filter((item) => checkedItems.includes(item.id))
+      .reduce((acc, curr) => acc + (curr.totalAmount || 0), 0);
+  }, [cartList, checkedItems]);
+
+  // 선택 상품 주문서로 넘기기
   const handleOrderFromCart = () => {
     if (checkedItems.length === 0)
       return alert("주문하실 상품을 선택해 주세요!");
@@ -84,23 +89,18 @@ function Cart() {
     });
   };
 
+  // 개별 상품 주문서로 넘기기
   const handleDirectOrder = (item) => {
     navigate("/order-sheet", {
       state: { orders: [item], totalPrice: item.totalAmount },
     });
   };
 
+  // 개별 상품 수정
   const handleEdit = (item, idx) => {
     navigate("/order", { state: { editItem: item, editIndex: idx } });
   };
 
-  // 메뉴 열릴 때 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -108,14 +108,8 @@ function Cart() {
       </div>
 
       <main className="cart-section main-section">
-        <Header
-          variant="sub"
-          openMenu={(e) => {
-            e.preventDefault();
-            setMenuOpen(true);
-          }}
-        />
-        <SideMenu menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
+        <Header variant="sub" openMenu={openMenu} />
+        <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
 
         <section className="cart-container sub-container">
           <h1>장바구니</h1>
@@ -152,7 +146,7 @@ function Cart() {
                   </div>
 
                   <div className="item-thumb">
-                    <img src="/images/detail_thnmb.png" alt="상품 이미지" />
+                    <img src={item.cakeImage} alt="상품 이미지" />
                   </div>
                   <div className="item-info">
                     <p className="product-name">Custom Cake</p>
@@ -215,7 +209,7 @@ function Cart() {
           ) : (
             <div className="cart-empty-visual">
               <p>장바구니에 담긴 상품이 없습니다.</p>
-              <Link to="/Order" className="btn btn-primary">
+              <Link to="/order" className="btn btn-primary">
                 케이크 만들러 가기
               </Link>
             </div>
@@ -227,7 +221,8 @@ function Cart() {
             className="order-button btn orderform-btn btn-primary"
             onClick={handleOrderFromCart}
           >
-            <span>₩{totalCheckedPrice?.toLocaleString()} </span>결제하기
+            <span>₩{totalCheckedPrice?.toLocaleString()} </span>결제하기 (
+            {checkedItems?.length}개)
           </button>
         </div>
         <Footer />

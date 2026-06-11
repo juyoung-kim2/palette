@@ -10,70 +10,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 // hooks
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
 
 // router
 import { useNavigate, useLocation } from "react-router-dom";
+import html2canvas from "html2canvas";
 
-const CAKE_OPTIONS = {
-  cakeSheet: [
-    { id: "sheet-base", name: "기본", price: 0, img: "option1_1.png" },
-    { id: "sheet-choco", name: "초코 시트", price: 2000, img: "option1_2.png" },
-    {
-      id: "sheet-red",
-      name: "레드벨벳 시트",
-      price: 3000,
-      img: "option1_3.png",
-    },
-    { id: "sheet-green", name: "녹차 시트", price: 3000, img: "option1_4.png" },
-  ],
-  cream: [
-    { id: "cream-base", name: "생크림", price: 0, img: "option2_1.png" },
-    { id: "cream-choco", name: "초코 크림", price: 2000, img: "option2_2.png" },
-    {
-      id: "cream-strawberry",
-      name: "딸기 크림",
-      price: 3000,
-      img: "option2_3.png",
-    },
-    {
-      id: "cream-sesame",
-      name: "흑임자 크림",
-      price: 4000,
-      img: "option2_4.png",
-    },
-  ],
-  deco: [
-    { id: "blueberry", name: "블루베리", price: 300, img: "option3_1.png" },
-    { id: "strawberry", name: "딸기", price: 400, img: "option3_2.png" },
-    { id: "ribbonBlack", name: "리본(블랙)", price: 300, img: "option3_5.png" },
-    { id: "ribbonPink", name: "리본(분홍)", price: 300, img: "option3_4.png" },
-    { id: "cookie", name: "곰돌이 쿠키", price: 500, img: "option3_3.png" },
-  ],
-};
-
-const DEFAULT_DECO_COUNTS = Object.fromEntries(
-  CAKE_OPTIONS.deco.map((item) => [item.id, 0]),
-);
-
-const getDecoCountsFromItem = (item) => {
-  if (!item?.selectedDeco) return DEFAULT_DECO_COUNTS;
-
-  return item.selectedDeco.reduce(
-    (counts, deco) => ({
-      ...counts,
-      [deco.id]: deco.count,
-    }),
-    { ...DEFAULT_DECO_COUNTS },
-  );
-};
+//data
+import {
+  CAKE_OPTIONS,
+  BASE_PRICE,
+  getDecoCountsFromItem,
+} from "../data/cakeOptions";
 
 function Order() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { editItem, editIndex } = location.state || {};
-
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const cakeRef = useRef(null);
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
   const [optionOpen, setOptionOpen] = useState(false);
 
   const openOption = () => {
@@ -84,7 +39,9 @@ function Order() {
     setOptionOpen(false);
   };
 
+  const { editItem, editIndex } = location.state || {};
   const [activeTab, setActiveTab] = useState("cakeSheet");
+
   const [selectedSheet, setSelectedSheet] = useState(
     () => editItem?.sheetId || "sheet-base",
   );
@@ -95,6 +52,15 @@ function Order() {
   const [decoCounts, setDecoCounts] = useState(() =>
     getDecoCountsFromItem(editItem),
   );
+  //옵션 선택에 따른 이미지 변경
+  const [changeImg, setChangeImg] = useState(() => {
+    if (editItem?.creamId) {
+      const cream = CAKE_OPTIONS.cream.find((i) => i.id === editItem.creamId);
+      return cream?.img || "detail_thnmb.png";
+    }
+    return "detail_thnmb.png";
+  });
+
   const handleDecoCount = (id, delta) => {
     setDecoCounts((prev) => ({ ...prev, [id]: Math.max(0, prev[id] + delta) }));
   };
@@ -109,34 +75,14 @@ function Order() {
   );
 
   // 총액 계산
-  const basePrice = 50000;
   const totalPrice = useMemo(() => {
     const sPrice = allOptions[selectedSheet]?.price || 0;
     const cPrice = allOptions[selectedCream]?.price || 0;
     const dPrice = Object.entries(decoCounts).reduce((acc, [id, count]) => {
       return acc + (allOptions[id]?.price || 0) * count;
     }, 0);
-    return basePrice + sPrice + cPrice + dPrice;
+    return BASE_PRICE + sPrice + cPrice + dPrice;
   }, [selectedSheet, selectedCream, decoCounts, allOptions]);
-
-  useEffect(() => {
-    if (menuOpen || optionOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen, optionOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
 
   const renderOptionItem = (item, type) => {
     const isSelected =
@@ -153,16 +99,18 @@ function Order() {
             type={type === "deco" ? "checkbox" : "radio"}
             name={`${type}Option`}
             checked={isSelected}
-            onChange={() =>
-              type === "sheet"
-                ? setSelectedSheet(item.id)
-                : type === "cream"
-                  ? setSelectedCream(item.id)
-                  : null
-            }
+            onChange={() => {
+              if (type === "sheet") {
+                setSelectedSheet(item.id);
+                setChangeImg(item.img);
+              } else if (type === "cream") {
+                setSelectedCream(item.id);
+                setChangeImg(item.img);
+              }
+            }}
           />
           <div className="option-image-box">
-            <img src={`images/${item.img}`} alt="" />
+            <img src={`/images/${item.img}`} alt="" />
           </div>
           <span className="option-name">{item.name}</span>
           <span className="option-price">+{item.price}</span>
@@ -170,6 +118,7 @@ function Order() {
           {type === "deco" && (
             <div className="topping-qty">
               <button
+                type="button"
                 onClick={() => handleDecoCount(item.id, -1)}
                 className="qty-minus"
               >
@@ -177,6 +126,7 @@ function Order() {
               </button>
               <span className="qty-value">{decoCounts[item.id]}</span>
               <button
+                type="button"
                 onClick={() => handleDecoCount(item.id, 1)}
                 className="qty-plus"
               >
@@ -189,7 +139,9 @@ function Order() {
     );
   };
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
+    const canvas = await html2canvas(cakeRef.current);
+    const imgData = canvas.toDataURL("image/png");
     const finalOrder = {
       id: Date.now(), // 각 주문을 구분하기 위한 고유 id
       sheetId: selectedSheet,
@@ -208,6 +160,7 @@ function Order() {
         })),
       lettering: lettering,
       totalAmount: totalPrice,
+      cakeImage: imgData,
     };
 
     //기존 창고에 있던 목록 가져오기
@@ -224,7 +177,9 @@ function Order() {
   };
 
   //바로 구매
-  const handleDirectOrder = () => {
+  const handleDirectOrder = async () => {
+    const canvas = await html2canvas(cakeRef.current);
+    const imgData = canvas.toDataURL("image/png");
     const currentCake = {
       id: Date.now(),
       sheetName: allOptions[selectedSheet]?.name,
@@ -234,12 +189,14 @@ function Order() {
       selectedDeco: Object.entries(decoCounts)
         .filter(([, count]) => count > 0)
         .map(([id, count]) => ({
+          id,
           name: allOptions[id]?.name,
           count,
           price: allOptions[id]?.price,
         })),
       lettering: lettering,
       totalAmount: totalPrice,
+      cakeImage: imgData,
     };
     navigate("/order-sheet", {
       state: {
@@ -250,7 +207,9 @@ function Order() {
   };
 
   //수정완료
-  const handleUpdateCart = () => {
+  const handleUpdateCart = async () => {
+    const canvas = await html2canvas(cakeRef.current);
+    const imgData = canvas.toDataURL("image/png");
     const currentCart = JSON.parse(localStorage.getItem("cartData")) || [];
     const updatedOrder = {
       id: editItem.id,
@@ -270,6 +229,7 @@ function Order() {
         })),
       lettering: lettering,
       totalAmount: totalPrice,
+      cakeImage: imgData,
     };
 
     //장바구니 배열에서 해당 인덱스만 교체하기
@@ -277,6 +237,14 @@ function Order() {
     newCartList[editIndex] = updatedOrder;
     localStorage.setItem("cartData", JSON.stringify(newCartList));
     navigate("/cart");
+  };
+
+  //레터링 폰트 색상 지정
+  const letteringColors = {
+    "cream-base": "#5c3d2e", // 생크림 → 브라운
+    "cream-choco": "#fff", // 초코 크림 → 화이트
+    "cream-strawberry": "#fff", // 딸기 크림 → 화이트
+    "cream-sesame": "#fff", // 흑임자 → 화이트
   };
   return (
     <div className="content-wrapper">
@@ -288,12 +256,30 @@ function Order() {
         <Header variant="sub" openMenu={openMenu} />
         <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
 
-        <div className="main-image-area">
-          <img src="/images/detail_thnmb.png" alt="상품썸네일" />
+        <div className="main-image-area" ref={cakeRef}>
+          <img src={`/images/${changeImg}`} alt="상품썸네일" />
+          {Object.entries(decoCounts)
+            .filter(([id, count]) => count > 0)
+            .map(([id]) => (
+              <img
+                key={id}
+                src={`/images/${allOptions[id]?.previewImg}`}
+                alt=""
+                className="deco-layer"
+              ></img>
+            ))}
+          {lettering && (
+            <span
+              className="cake-lettering"
+              style={{ color: letteringColors[selectedCream] }}
+            >
+              {lettering}
+            </span>
+          )}
         </div>
         <div className="product-info-section">
           <h1 className="title">Custom Cake</h1>
-          <p className="price">₩{basePrice.toLocaleString()}</p>
+          <p className="price">₩{BASE_PRICE.toLocaleString()}</p>
           <p className="description">
             케이크의 모양, 색은 물론이고 당사의 핸들링 공법이 조합된 보세요.
             전달받은 이야기를 바탕으로, 오직 당신만을 위한 케이크를 정성껏
@@ -304,7 +290,11 @@ function Order() {
         <HowToOrderSection />
 
         <div className="fixed-bottom-bar">
-          <button className="order-button btn btn-primary" onClick={openOption}>
+          <button
+            type="button"
+            className="order-button btn btn-primary"
+            onClick={openOption}
+          >
             ORDER NOW
           </button>
         </div>
@@ -320,9 +310,20 @@ function Order() {
                 .concat("Lettering")
                 .map((tab) => (
                   <button
+                    type="button"
                     key={tab}
                     className={`tab-item ${activeTab === tab ? "active" : ""}`}
-                    onClick={() => setActiveTab(tab)}
+                    onClick={() => {
+                      setActiveTab(tab);
+                      if (tab === "cakeSheet")
+                        setChangeImg(allOptions[selectedSheet].img);
+                      if (
+                        tab === "cream" ||
+                        tab === "deco" ||
+                        tab === "Lettering"
+                      )
+                        setChangeImg(allOptions[selectedCream].img);
+                    }}
                   >
                     {tab.charAt(0).toUpperCase() + tab.slice(1).toLowerCase()}
                   </button>
@@ -409,12 +410,14 @@ function Order() {
           </div>
           <div className="btn_wrap">
             <button
+              type="button"
               className="order-button btn-gray btn"
               onClick={editItem ? handleUpdateCart : handleOrder}
             >
               {editItem ? "UPDATE CART" : "ADD TO CART"}
             </button>
             <button
+              type="button"
               className="order-button popup-order-button btn btn-primary"
               onClick={handleDirectOrder}
             >

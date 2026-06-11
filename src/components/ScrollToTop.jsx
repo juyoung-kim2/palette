@@ -9,7 +9,7 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  return null; // 화면에 아무것도 그리지 않음
+  return null; // 화면에 아무것도 그리지 않음, 꼭 return을 써야함
 };
 
 export default ScrollToTop;

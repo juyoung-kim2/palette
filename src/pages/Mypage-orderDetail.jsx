@@ -5,50 +5,25 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Mypage.css";
 // hooks
-import { useEffect, useState } from "react";
+import { useMenuToggle } from "../hooks/useMenuToggle";
+import { useToggleSections } from "../hooks/useToggleSections";
+import { useLocation } from "react-router-dom";
 
 // router
 import { Link } from "react-router-dom";
 
 function MypageOrderDetail() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const [openSections, setOpenSections] = useState([
+  const location = useLocation();
+  const { menuOpen, openMenu, closeMenu } = useMenuToggle();
+  const { openSections, toggleSection } = useToggleSections([
     "order",
     "orderer",
     "product",
     "payment",
     "pickup",
   ]);
+  const { order } = location.state || {};
 
-  //토글
-  const toggleSection = (section) => {
-    setOpenSections(
-      (prev) =>
-        prev.includes(section)
-          ? prev.filter((s) => s !== section) // 이미 열려있으면 닫기
-          : [...prev, section], // 닫혀있으면 열기
-    );
-  };
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
-  const openMenu = (e) => {
-    e.preventDefault();
-    setMenuOpen(true);
-  };
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -79,22 +54,26 @@ function MypageOrderDetail() {
               <div className="toggleContent">
                 <div className="info-row">
                   <span className="label">주문번호</span>
-                  <span className="value">#20251225-0018</span>
+                  <span className="value">{order.id}</span>
                 </div>
                 <div className="info-row">
                   <span className="label">주문상태</span>
                   <span className="value">
-                    <span className="badge completed">픽업완료</span>
+                    <span className="badge completed">{order.status}</span>
                   </span>
                 </div>
                 <div className="info-row">
                   <span className="label">결제금액</span>
-                  <span className="value price">₩17,500</span>
+                  <span className="value price">
+                    ₩{order.totalPrice.toLocaleString()}
+                  </span>
                 </div>
 
                 <div className="info-row">
                   <span className="label">픽업일시</span>
-                  <span className="value">2025.12.25(목) 14:00</span>
+                  <span className="value">
+                    {order.pickupDate} {order.pickupTime}
+                  </span>
                 </div>
               </div>
             </div>
@@ -109,7 +88,7 @@ function MypageOrderDetail() {
               >
                 주문자 정보
                 <img
-                  src="/images/icon_arrow_b.png"
+                  src={"/images/icon_arrow_b.png"}
                   alt="화살표"
                   className="arrow"
                 />
@@ -117,15 +96,18 @@ function MypageOrderDetail() {
               <div className="toggleContent">
                 <div className="info-row">
                   <span className="label">이름</span>
-                  <span className="value">유저</span>
+                  <span className="value">{order.orderer.name}</span>
                 </div>
                 <div className="info-row">
                   <span className="label">연락처</span>
-                  <span className="value">010-1234-5678</span>
+                  <span className="value">{order.orderer.phone}</span>
                 </div>
                 <div className="info-row">
                   <span className="label">주문일시</span>
-                  <span className="value">2025.12.25(목) 14:00</span>
+                  <span className="value">
+                    {order.pickupDate}
+                    {order.pickupTime}
+                  </span>
                 </div>
               </div>
             </div>
@@ -146,41 +128,48 @@ function MypageOrderDetail() {
                 />
               </h3>
               <div className="toggleContent">
-                <div className="product-box">
-                  <div className="product-header">
-                    <p className="product-name">Custom Cake</p>
-                    <p className="product-price">₩50,000</p>
-                  </div>
+                {order.items.map((item, idx) => (
+                  <div className="product-box" key={idx}>
+                    <img src={item.cakeImage}></img>
+                    <div className="product-header">
+                      <p className="product-name">Custom Cake</p>
+                      <p className="product-price">
+                        ₩ {item.totalAmount.toLocaleString()}
+                      </p>
+                    </div>
 
-                  {/*옵션*/}
-                  <div className="product-options">
-                    <span className="label">주문 옵션</span>
-                    <ul>
-                      <li>
-                        <span>바닐라 시트 / 생크림</span>
-                        <span>+₩0</span>
-                      </li>
-                      <li>
-                        <span>딸기 x1</span>
-                        <span>+₩400</span>
-                      </li>
-                      <li>
-                        <span>블루베리 x2</span>
-                        <span>+₩800</span>
-                      </li>
-                      <li>
-                        <span>곰돌이 쿠키 x1</span>
-                        <span>+₩400</span>
-                      </li>
-                    </ul>
-                  </div>
+                    {/*옵션*/}
+                    <div className="product-options">
+                      <span className="label">주문 옵션</span>
+                      <ul>
+                        <li>
+                          <span>{item.sheetName}</span>
+                          <span>+ ₩{item.sheetPrice?.toLocaleString()}</span>
+                        </li>
+                        <li>
+                          <span>{item.creamName}</span>
+                          <span>+ ₩{item.creamPrice?.toLocaleString()}</span>
+                        </li>
+                        {item.selectedDeco.map((deco, idx) => (
+                          <li key={idx}>
+                            <span>
+                              {deco.name} x{deco.count}
+                            </span>
+                            <span>
+                              + ₩{(deco.price * deco.count).toLocaleString()}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                  {/*요청사항*/}
-                  <div className="product-memo">
-                    <span className="label">요청사항</span>
-                    <p>예쁘게 해주세요</p>
+                    {/*요청사항*/}
+                    <div className="product-memo">
+                      <span className="label">요청사항</span>
+                      <p>{order.request}</p>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
             {/*결제정보*/}
@@ -212,7 +201,9 @@ function MypageOrderDetail() {
 
                 <div className="info-row">
                   <span className="label">결제금액</span>
-                  <span className="value price">₩17,500</span>
+                  <span className="value price">
+                    ₩{order.totalPrice.toLocaleString()}
+                  </span>
                 </div>
               </div>
             </div>
@@ -235,7 +226,10 @@ function MypageOrderDetail() {
               <div className="toggleContent">
                 <div className="info-row">
                   <span className="label">픽업일시</span>
-                  <span className="value">2025-12-25 10:00</span>
+                  <span className="value">
+                    {order.pickupDate}
+                    {order.pickupTime}
+                  </span>
                 </div>
                 <div className="info-row">
                   <span className="label">픽업방법</span>
