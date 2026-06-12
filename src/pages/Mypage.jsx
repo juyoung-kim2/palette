@@ -16,6 +16,7 @@ function Mypage() {
   const completedCount = orderList.filter(
     (order) => order.status === "주문완료",
   ).length;
+  const nextPickup = orderList[orderList.length - 1];
 
   return (
     <div className="content-wrapper">
@@ -53,7 +54,6 @@ function Mypage() {
 
           <div className="order-desc">
             <h3>
-              {/* 1. 링크 수정: /mypageOrderDetail -> /mypage-order-detail */}
               <Link to="/mypage-order-detail">
                 다가오는 픽업
                 <img
@@ -63,11 +63,15 @@ function Mypage() {
                 />
               </Link>
             </h3>
-            <p>
-              12월 25일 14:00
-              <br />
-              <span>Custom Cake</span>
-            </p>
+            {nextPickup ? (
+              <p>
+                {nextPickup.pickupDate} {nextPickup.pickupTime}
+                <br />
+                <span>Custom Cake</span>
+              </p>
+            ) : (
+              <p>다가오는 픽업이 없습니다.</p>
+            )}
           </div>
 
           <ul className="mypage-menu">

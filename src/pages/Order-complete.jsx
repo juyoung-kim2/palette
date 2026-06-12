@@ -38,13 +38,23 @@ function OrderComplete() {
     };
 
     //기존 주문 내역에 있던 목록 가져오기
-    const existingCart = JSON.parse(localStorage.getItem("orderHistory")) || [];
+    const existingOrder =
+      JSON.parse(localStorage.getItem("orderHistory")) || [];
 
     //기존 목록에 새 주문 추가하기 (배열에 push)
-    const updatedHistory = [...existingCart, orderData];
+    const updatedHistory = [...existingOrder, orderData];
 
     //합쳐진 전체 목록을 다시 저장
     localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
+
+    //기존 장바구니 내역 가저오기
+    const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
+    //구매 완료한 상품 id
+    const orderId = items.map((item) => item.id);
+    const deleteId = existingCart.filter((cart) => !orderId.includes(cart.id));
+    //삭제한 목록 카트에 다시 저장
+    localStorage.setItem("cartData", JSON.stringify(deleteId));
+    window.dispatchEvent(new Event("cartUpdate"));
   }, []);
 
   return (

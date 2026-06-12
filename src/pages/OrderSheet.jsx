@@ -41,6 +41,7 @@ function OrderSheet() {
         setPickupDates(data.pickup_dates);
         setPickupTimes(data.pickup_times);
         setPhoneFirst(data.phone_first);
+        setFormData((prev) => ({ ...prev, date: data.pickup_dates[0] }));
       })
       .catch((error) => {
         console.error("데이터를 불러오는데 실패했습니다", error);
