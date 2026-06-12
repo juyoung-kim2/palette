@@ -80,7 +80,7 @@ function OrderComplete() {
                 <ul>
                   <li>
                     <span className="info-title">주문번호</span>
-                    <span className="info-data">{Date.now()}</span>
+                    <span className="info-data">{orderData?.id}</span>
                   </li>
                   <li>
                     <span className="info-title">수령인</span>

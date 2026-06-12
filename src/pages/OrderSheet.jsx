@@ -5,13 +5,12 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import "./Order.css";
 // hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMenuToggle } from "../hooks/useMenuToggle";
 import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function OrderSheet() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();

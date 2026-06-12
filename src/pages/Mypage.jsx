@@ -54,7 +54,7 @@ function Mypage() {
 
           <div className="order-desc">
             <h3>
-              <Link to="/mypage-order-detail">
+              <Link to="/mypage-order-list">
                 다가오는 픽업
                 <img
                   src="/images/icon_arrow_r.png"
