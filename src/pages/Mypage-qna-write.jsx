@@ -28,7 +28,7 @@ function MypageQnaWrite() {
       date: new Date().toISOString().slice(0, 10),
     };
     const existing = JSON.parse(localStorage.getItem("qnaList")) || [];
-    localStorage.setItem("qnaList", JSON.stringify([...existing, newQna]));
+    localStorage.setItem("qnaList", JSON.stringify([newQna, ...existing]));
     navigate("/mypage-qna-list");
   };
   return (

@@ -17,6 +17,14 @@ function MypageQnaList() {
   const [qnaList] = useState(() => {
     return JSON.parse(localStorage.getItem("qnaList")) || [];
   });
+  const [search, setSearch] = useState("");
+  const [searchType, setSearchType] = useState("title");
+  const [appliedSearch, setAppliedSearch] = useState("");
+
+  const filteredList = qnaList.filter((qna) => {
+    return qna[searchType].includes(appliedSearch);
+  });
+
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -37,10 +45,11 @@ function MypageQnaList() {
                 <select
                   className="filter-select filter-search-type"
                   aria-label="검색 조건 선택"
+                  value={searchType}
+                  onChange={(e) => setSearchType(e.target.value)}
                 >
                   <option value="title">제목</option>
                   <option value="content">내용</option>
-                  <option value="writer">작성자</option>
                 </select>
 
                 <input
@@ -48,15 +57,21 @@ function MypageQnaList() {
                   className="filter-input"
                   aria-label="게시판 검색어 입력"
                   placeholder="검색어를 입력해주세요"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
 
-                <button className="btn" type="button">
+                <button
+                  className="btn"
+                  type="button"
+                  onClick={() => setAppliedSearch(search)}
+                >
                   <img src="/images/icon_search.png" alt="검색" />
                 </button>
               </div>
             </div>
             <div className="board-container">
-              {qnaList.length > 0 ? (
+              {filteredList.length > 0 ? (
                 <table className="board-table">
                   <thead>
                     <tr>
@@ -69,7 +84,7 @@ function MypageQnaList() {
                   </thead>
 
                   <tbody>
-                    {qnaList.map((qna, index) => (
+                    {filteredList.map((qna, index) => (
                       <tr
                         key={qna.id}
                         onClick={() => {
