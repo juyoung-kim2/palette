@@ -15,7 +15,7 @@ function MypageOrderList() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
 
   // 주문목록 데이터를 상태로 관리
-  const [orderList, setOrderList] = useState(() => {
+  const [orderList] = useState(() => {
     return JSON.parse(localStorage.getItem("orderHistory")) || [];
   });
 
@@ -76,7 +76,7 @@ function MypageOrderList() {
                             <span>+ ₩{item.creamPrice?.toLocaleString()}</span>
                           </li>
                           {item.selectedDeco.map((deco, idx) => (
-                            <li>
+                            <li key={idx}>
                               <span>
                                 {deco.name} x{deco.count}
                               </span>

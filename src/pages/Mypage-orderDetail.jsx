@@ -7,10 +7,9 @@ import "./Mypage.css";
 // hooks
 import { useMenuToggle } from "../hooks/useMenuToggle";
 import { useToggleSections } from "../hooks/useToggleSections";
-import { useLocation } from "react-router-dom";
 
 // router
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function MypageOrderDetail() {
   const location = useLocation();
@@ -105,8 +104,7 @@ function MypageOrderDetail() {
                 <div className="info-row">
                   <span className="label">주문일시</span>
                   <span className="value">
-                    {order.pickupDate}
-                    {order.pickupTime}
+                    {order.pickupDate} {order.pickupTime}
                   </span>
                 </div>
               </div>
@@ -227,8 +225,7 @@ function MypageOrderDetail() {
                 <div className="info-row">
                   <span className="label">픽업일시</span>
                   <span className="value">
-                    {order.pickupDate}
-                    {order.pickupTime}
+                    {order.pickupDate} {order.pickupTime}
                   </span>
                 </div>
                 <div className="info-row">

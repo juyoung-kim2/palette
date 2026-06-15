@@ -6,31 +6,51 @@ import Footer from "../components/Footer";
 import "./Mypage.css";
 // hooks
 import { useMenuToggle } from "../hooks/useMenuToggle";
-import { useNavigate } from "react-router-dom";
 
 // router
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function MypageQnaWrite() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
-  const [qnaTitle, setQnaTitle] = useState("");
-  const [qnaContent, setQnaContent] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { modifyQna } = location.state || {};
+  const [qnaTitle, setQnaTitle] = useState(modifyQna?.title || "");
+  const [qnaContent, setQnaContent] = useState(modifyQna?.content || "");
+
   const handleRegist = () => {
     if (!qnaTitle.trim()) return alert("제목을 입력해주세요");
     if (!qnaContent.trim()) return alert("내용을 입력해주세요");
-    const newQna = {
-      id: Date.now(),
-      title: qnaTitle,
-      content: qnaContent,
-      status: "대기",
-      date: new Date().toISOString().slice(0, 10),
-    };
     const existing = JSON.parse(localStorage.getItem("qnaList")) || [];
-    localStorage.setItem("qnaList", JSON.stringify([newQna, ...existing]));
+    if (modifyQna) {
+      const updated = existing.map((item) => {
+        return modifyQna.id === item.id
+          ? {
+              id: item.id,
+              title: qnaTitle,
+              content: qnaContent,
+              status: "대기",
+              date: new Date().toISOString().slice(0, 10),
+            }
+          : item;
+      });
+      localStorage.setItem("qnaList", JSON.stringify(updated));
+    } else {
+      const newQna = {
+        id: Date.now(),
+        title: qnaTitle,
+        content: qnaContent,
+        status: "대기",
+        date: new Date().toISOString().slice(0, 10),
+      };
+
+      localStorage.setItem("qnaList", JSON.stringify([newQna, ...existing]));
+    }
+
     navigate("/mypage-qna-list");
   };
+
   return (
     <div className="content-wrapper">
       <div id="leftBanner">

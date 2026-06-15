@@ -22,6 +22,12 @@ function MypageQnaDetail() {
     localStorage.setItem("qnaList", JSON.stringify(updateQna));
     navigate("/mypage-qna-list");
   };
+  const modifyQna = () => {
+    navigate("/mypage-qna-write", {
+      state: { modifyQna: qna },
+    });
+  };
+
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
@@ -62,11 +68,7 @@ function MypageQnaDetail() {
             <button
               type="button"
               className="btn btn-primary sm"
-              onClick={() =>
-                alert(
-                  "준비 중인 기능입니다. 상세 페이지와 장바구니 기능을 먼저 확인해 보세요!",
-                )
-              }
+              onClick={modifyQna}
             >
               수정
             </button>
