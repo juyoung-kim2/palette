@@ -75,6 +75,7 @@ function OrderSheet() {
     }
 
     const orderData = {
+      id: Date.now(),
       orderer: {
         name,
         phone: `${formData.phoneFirst}-${phoneMid}-${phoneLast}`,

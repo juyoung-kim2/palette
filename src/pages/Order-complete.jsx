@@ -10,7 +10,7 @@ import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function OrderComplete() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
@@ -20,14 +20,13 @@ function OrderComplete() {
     "payInfo",
   ]);
   const location = useLocation();
-  const { orderer, items, totalPrice, pickupDate, pickupTime, request } =
+  const { id, orderer, items, totalPrice, pickupDate, pickupTime, request } =
     location.state || {};
 
   useEffect(() => {
     if (!orderer) return;
-
     const orderData = {
-      id: Date.now(),
+      id,
       orderer,
       items,
       totalPrice,
@@ -80,7 +79,7 @@ function OrderComplete() {
                 <ul>
                   <li>
                     <span className="info-title">주문번호</span>
-                    <span className="info-data">{orderData?.id}</span>
+                    <span className="info-data">{id}</span>
                   </li>
                   <li>
                     <span className="info-title">수령인</span>
