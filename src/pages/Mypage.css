@@ -449,6 +449,8 @@
   align-items: center;
   justify-content: center;
   margin-top: var(--space-32);
+  font-size: var(--font-xs);
+  color: var(--gray-600);
 }
 
 /*공통 게시판 목록*/
