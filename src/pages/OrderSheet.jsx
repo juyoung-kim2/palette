@@ -28,8 +28,20 @@ function OrderSheet() {
     orders: [],
     totalPrice: 0,
   };
+  const dates = [];
+  const today = new Date();
+  const dateList = ["일", "월", "화", "수", "목", "금", "토"];
+  for (let i = 2; i <= 14; i++) {
+    const future = new Date(today);
 
-  const [pickupDates, setPickupDates] = useState([]);
+    future.setDate(today.getDate() + i);
+    const year = String(future.getFullYear());
+    const month = String(future.getMonth() + 1).padStart(2, "0");
+    const date = String(future.getDate()).padStart(2, "0");
+    const day = dateList[future.getDay()];
+    dates.push(year + "-" + month + "-" + date + " " + "(" + day + ")");
+  }
+
   const [pickupTimes, setPickupTimes] = useState([]);
   const [phoneFirst, setPhoneFirst] = useState([]);
 
@@ -37,19 +49,16 @@ function OrderSheet() {
     fetch("/data/pickupData.json")
       .then((result) => result.json())
       .then((data) => {
-        setPickupDates(data.pickup_dates);
         setPickupTimes(data.pickup_times);
         setPhoneFirst(data.phone_first);
-        setFormData((prev) => ({ ...prev, date: data.pickup_dates[0] }));
       })
       .catch((error) => {
         console.error("데이터를 불러오는데 실패했습니다", error);
         alert("서버 연결이 원활하지 않습니다. 잠시 후 다시 시도해 주세요.");
       });
   }, []);
-
   const [formData, setFormData] = useState({
-    date: pickupDates[0],
+    date: dates[0],
     time: "",
     name: "",
     phoneFirst: "010",
@@ -205,7 +214,7 @@ function OrderSheet() {
                           value={formData.date}
                           onChange={handleInputChange}
                         >
-                          {pickupDates.map((date) => (
+                          {dates.map((date) => (
                             <option key={date} value={date}>
                               {date}
                             </option>
