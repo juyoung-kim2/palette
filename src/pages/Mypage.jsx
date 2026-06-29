@@ -16,9 +16,11 @@ function Mypage() {
   const completedCount = orderList?.filter(
     (order) => order.status === "주문완료",
   ).length;
-  const nextPickup = orderList?.sort((a, b) => {
-    return a.pickupDate.localeCompare(b.pickupDate);
-  })[0];
+  const nextPickup = orderList
+    ?.filter((order) => order.pickupDate)
+    .sort((a, b) => {
+      return a.pickupDate.localeCompare(b.pickupDate);
+    })[0];
   return (
     <div className="content-wrapper">
       <div id="leftBanner">
