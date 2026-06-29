@@ -872,3 +872,10 @@
   white-space: nowrap;
   border: 0;
 }
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: contents;
+}
