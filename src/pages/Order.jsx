@@ -93,58 +93,49 @@ function Order() {
           : selectedCream === item.id;
 
     return (
-      <fieldset>
-        <legend className="sr-only">
-          {type === "sheet"
-            ? "시트 선택"
-            : type === "cream"
-              ? "크림 선택"
-              : "데코 선택"}
-        </legend>
-        <SwiperSlide key={item.id}>
-          <label className={`option-item ${isSelected ? "selected" : ""}`}>
-            <input
-              type={type === "deco" ? "checkbox" : "radio"}
-              name={`${type}Option`}
-              checked={isSelected}
-              onChange={() => {
-                if (type === "sheet") {
-                  setSelectedSheet(item.id);
-                  setChangeImg(item.img);
-                } else if (type === "cream") {
-                  setSelectedCream(item.id);
-                  setChangeImg(item.img);
-                }
-              }}
-            />
-            <div className="option-image-box">
-              <img src={`/images/${item.img}`} alt="" />
-            </div>
-            <span className="option-name">{item.name}</span>
-            <span className="option-price">+{item.price}</span>
+      <SwiperSlide key={item.id}>
+        <label className={`option-item ${isSelected ? "selected" : ""}`}>
+          <input
+            type={type === "deco" ? "checkbox" : "radio"}
+            name={`${type}Option`}
+            checked={isSelected}
+            onChange={() => {
+              if (type === "sheet") {
+                setSelectedSheet(item.id);
+                setChangeImg(item.img);
+              } else if (type === "cream") {
+                setSelectedCream(item.id);
+                setChangeImg(item.img);
+              }
+            }}
+          />
+          <div className="option-image-box">
+            <img src={`/images/${item.img}`} alt="" />
+          </div>
+          <span className="option-name">{item.name}</span>
+          <span className="option-price">+{item.price}</span>
 
-            {type === "deco" && (
-              <div className="topping-qty">
-                <button
-                  type="button"
-                  onClick={() => handleDecoCount(item.id, -1)}
-                  className="qty-minus"
-                >
-                  -
-                </button>
-                <span className="qty-value">{decoCounts[item.id]}</span>
-                <button
-                  type="button"
-                  onClick={() => handleDecoCount(item.id, 1)}
-                  className="qty-plus"
-                >
-                  +
-                </button>
-              </div>
-            )}
-          </label>
-        </SwiperSlide>
-      </fieldset>
+          {type === "deco" && (
+            <div className="topping-qty">
+              <button
+                type="button"
+                onClick={() => handleDecoCount(item.id, -1)}
+                className="qty-minus"
+              >
+                -
+              </button>
+              <span className="qty-value">{decoCounts[item.id]}</span>
+              <button
+                type="button"
+                onClick={() => handleDecoCount(item.id, 1)}
+                className="qty-plus"
+              >
+                +
+              </button>
+            </div>
+          )}
+        </label>
+      </SwiperSlide>
     );
   };
 
@@ -346,14 +337,23 @@ function Order() {
                   key={type}
                   className={`option-panel ${activeTab === type ? "active" : ""}`}
                 >
-                  <Swiper slidesPerView={3.5} spaceBetween={10}>
-                    {CAKE_OPTIONS[type]?.map((item) =>
-                      renderOptionItem(
-                        item,
-                        type.replace("cakeSheet", "sheet"),
-                      ),
-                    )}
-                  </Swiper>
+                  <fieldset>
+                    <legend className="sr-only">
+                      {type === "cakeSheet"
+                        ? "시트 선택"
+                        : type === "cream"
+                          ? "크림 선택"
+                          : "데코 선택"}
+                    </legend>
+                    <Swiper slidesPerView={3.5} spaceBetween={10}>
+                      {CAKE_OPTIONS[type]?.map((item) =>
+                        renderOptionItem(
+                          item,
+                          type.replace("cakeSheet", "sheet"),
+                        ),
+                      )}
+                    </Swiper>
+                  </fieldset>
                 </div>
               ))}
 
