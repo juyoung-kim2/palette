@@ -6,7 +6,7 @@ function HowToOrderSection() {
       <div className="order-step-group">
         <div className="order-step step-1">
           <img src="/images/step_img1.png" alt="" aria-hidden="true" />
-          <p className="step-num">
+          <p className="step-num" aria-hidden="true">
             <span>STEP 1</span>
           </p>
           <h3 className="en-title">Your Taste, Your Style</h3>
@@ -14,7 +14,7 @@ function HowToOrderSection() {
         </div>
         <div className="order-step step-2">
           <img src="/images/step_img2.png" alt="" aria-hidden="true" />
-          <p className="step-num">
+          <p className="step-num" aria-hidden="true">
             <span>STEP 2</span>
           </p>
           <h3 className="en-title">Tell Us Your Story</h3>
@@ -22,7 +22,7 @@ function HowToOrderSection() {
         </div>
         <div className="order-step step-3">
           <img src="/images/step_img3.png" alt="" aria-hidden="true" />
-          <p className="step-num">
+          <p className="step-num" aria-hidden="true">
             <span>STEP 3</span>
           </p>
           <h3 className="en-title">Freshly Made for You</h3>

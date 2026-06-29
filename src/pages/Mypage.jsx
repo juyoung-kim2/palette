@@ -13,10 +13,10 @@ import { Link } from "react-router-dom";
 function Mypage() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
   const orderList = JSON.parse(localStorage.getItem("orderHistory")) || [];
-  const completedCount = orderList.filter(
+  const completedCount = orderList?.filter(
     (order) => order.status === "주문완료",
   ).length;
-  const nextPickup = orderList.sort((a, b) => {
+  const nextPickup = orderList?.sort((a, b) => {
     return a.pickupDate.localeCompare(b.pickupDate);
   })[0];
   return (

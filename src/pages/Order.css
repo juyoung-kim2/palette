@@ -648,13 +648,13 @@
   font-family: var(--font-point);
   font-size: var(--font-md);
   font-weight: var(--weight-semibold);
-  color: var(--gray-300);
+  color: var(--gray-700);
   text-decoration: none;
   border: none;
 }
 
 .option-tabs .tab-item.active {
-  color: var(--text-black);
+  color: var(--primary-brown);
 }
 
 /* ================================
