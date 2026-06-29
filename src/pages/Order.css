@@ -503,7 +503,7 @@
 }
 
 .orderresult-container .payInfo-section .total_price p:not(.total) {
-  color: var(--primary-brown);
+  color: var(--gray-700);
   font-size: var(--font-sm);
   font-weight: var(--weight-bold);
 }
