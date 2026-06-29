@@ -12,7 +12,7 @@ function FAQSection() {
       icon: "/images/faq-icon02.png",
       question: "케이크 제작은 얼마나 걸리나요?",
       answer:
-        "일반적으로 자적은 2~3일 전 예약을 권장합니다. 주문량에 따라 일정이 변동될 수 있으니 미리 예약해 주세요.",
+        "일반적으로 2~3일 전 예약을 권장합니다. 주문량에 따라 일정이 변동될 수 있으니 미리 예약해 주세요.",
     },
     {
       icon: "/images/faq-icon03.png",

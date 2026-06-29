@@ -8,13 +8,14 @@ import "./Mypage.css";
 import { useMenuToggle } from "../hooks/useMenuToggle";
 
 // router
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link, Navigate } from "react-router-dom";
 
 function MypageQnaDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
   const { qna } = location.state || {};
+  if (!qna) return <Navigate to="/mypage-qna-list" replace />;
   const deleteQna = () => {
     if (!window.confirm("삭제하시겠습니까?")) return;
     const exisiting = JSON.parse(localStorage.getItem("qnaList")) || [];
@@ -39,16 +40,14 @@ function MypageQnaDetail() {
         <SideMenu menuOpen={menuOpen} closeMenu={closeMenu} />
 
         <section className="mypage-container sub-container is-empty">
-          <h1>{qna.title}</h1>
+          <h1>{qna?.title}</h1>
 
           <div className="read-meta">
             <span className="meta-item">작성자</span>
             <span className="meta-item">{qna.date}</span>
             <span className="badge pending">{qna.status}</span>
           </div>
-
           <div className="read-content">{qna.content}</div>
-
           {/* 관리자 댓글 영역 */}
           <div className="read-answer">
             <div className="answer-head">
@@ -59,7 +58,6 @@ function MypageQnaDetail() {
               아직 답변이 등록되지 않았습니다.
             </div>
           </div>
-
           {/* 하단 버튼 영역 */}
           <div className="read-actions">
             <Link to="/mypage-qna-list" className="btn btn-gray sm">

@@ -10,7 +10,7 @@ import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function OrderComplete() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
@@ -54,6 +54,7 @@ function OrderComplete() {
     //삭제한 목록 카트에 다시 저장
     localStorage.setItem("cartData", JSON.stringify(deleteId));
     window.dispatchEvent(new Event("cartUpdate"));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -92,7 +93,7 @@ function OrderComplete() {
                   <li>
                     <span className="info-title">결제금액</span>
                     <span className="info-data">
-                      ₩{totalPrice.toLocaleString()}
+                      ₩{totalPrice?.toLocaleString()}
                     </span>
                   </li>
                   <li>
@@ -155,7 +156,7 @@ function OrderComplete() {
                 </div>
                 <div className="total_price">
                   <p className="total">TOTAL</p>
-                  <p>₩{totalPrice.toLocaleString()}</p>
+                  <p>₩{totalPrice?.toLocaleString()}</p>
                 </div>
               </div>
             </div>

@@ -9,7 +9,7 @@ import { useMenuToggle } from "../hooks/useMenuToggle";
 import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 
 function MypageOrderDetail() {
   const location = useLocation();
@@ -22,6 +22,8 @@ function MypageOrderDetail() {
     "pickup",
   ]);
   const { order } = location.state || {};
+
+  if (!order) return <Navigate to="/mypage-order-list" replace />;
 
   return (
     <div className="content-wrapper">
@@ -128,7 +130,7 @@ function MypageOrderDetail() {
               <div className="toggleContent">
                 {order.items.map((item, idx) => (
                   <div className="product-box" key={idx}>
-                    <img src={item.cakeImage}></img>
+                    <img src={item.cakeImage} alt="주문케이크 이미지"></img>
                     <div className="product-header">
                       <p className="product-name">Custom Cake</p>
                       <p className="product-price">

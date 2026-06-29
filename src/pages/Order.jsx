@@ -259,7 +259,7 @@ function Order() {
         <div className="main-image-area" ref={cakeRef}>
           <img src={`/images/${changeImg}`} alt="상품썸네일" />
           {Object.entries(decoCounts)
-            .filter(([id, count]) => count > 0)
+            .filter(([, count]) => count > 0)
             .map(([id]) => (
               <img
                 key={id}

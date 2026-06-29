@@ -149,7 +149,7 @@ function OrderSheet() {
                                 {item.sheetName}
                               </span>
                               <span className="option_price">
-                                + ₩{item.sheetPrice}
+                                + ₩{item.sheetPrice.toLocaleString()}
                               </span>
                             </li>
                             <li>
@@ -157,7 +157,7 @@ function OrderSheet() {
                                 {item.creamName}
                               </span>
                               <span className="option_price">
-                                + ₩{item.creamPrice}
+                                + ₩{item.creamPrice.toLocaleString()}
                               </span>
                             </li>
                             {item.selectedDeco.map((deco, index) => (
@@ -383,7 +383,7 @@ function OrderSheet() {
                         name="payment"
                         value="card"
                         aria-label="결제수단 선택"
-                        checked
+                        defaultChecked
                       />
                       카드 결제
                     </label>

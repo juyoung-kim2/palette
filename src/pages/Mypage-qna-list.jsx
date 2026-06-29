@@ -22,7 +22,7 @@ function MypageQnaList() {
   const [appliedSearch, setAppliedSearch] = useState("");
 
   const filteredList = qnaList.filter((qna) => {
-    return qna[searchType].includes(appliedSearch);
+    return qna[searchType]?.includes(appliedSearch) ?? false;
   });
 
   return (
@@ -84,7 +84,7 @@ function MypageQnaList() {
                   </thead>
 
                   <tbody>
-                    {filteredList.map((qna, index) => (
+                    {filteredList.map((qna) => (
                       <tr
                         key={qna.id}
                         onClick={() => {
