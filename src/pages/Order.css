@@ -392,7 +392,7 @@
 }
 
 .orderresult-container .result-top .result-info ul li .info-data {
-  color: var(--primary-brown);
+  color: var(--gray-700);
 }
 
 .orderresult-container .result-top .result-info ul li .info-data > b {
