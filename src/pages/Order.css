@@ -1,3 +1,26 @@
+/* 옵션 가로 스크롤 */
+.option-scroll-wrap {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+.option-scroll-wrap > div {
+  flex-shrink: 0;
+  width: 30%;
+}
+.option-scroll-wrap::-webkit-scrollbar {
+  height: 4px;
+}
+.option-scroll-wrap::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+.option-scroll-wrap::-webkit-scrollbar-thumb {
+  background: var(--primary-brown);
+  border-radius: 5px;
+}
+
 /* -------------------------
    상품 기본 정보
 ------------------------- */

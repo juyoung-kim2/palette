@@ -46,8 +46,12 @@ function Header({ variant, openMenu }) {
           <div className={`header-top ${bannerOpen ? "" : "remove"}`}>
             <div className="top-inner">
               <p>회원가입 후 팔레트의 이벤트를 확인하세요!</p>
-              <button className="btn-close" onClick={closeBanner}>
-                <img src="/images/icon_close.png" alt="close" />
+              <button
+                className="btn-close"
+                onClick={closeBanner}
+                aria-label="배너 닫기"
+              >
+                <img src="/images/icon_close.png" alt="" />
               </button>
             </div>
           </div>
@@ -59,35 +63,36 @@ function Header({ variant, openMenu }) {
                 alt="팔레트 로고"
                 className="logo-w"
               />
-              <img
-                src="/images/logo.svg"
-                alt="팔레트 로고"
-                className="logo-b"
-              />
+              <img src="/images/logo.svg" alt="" className="logo-b" />
             </Link>
 
             <div className="header-right">
               <Link to="/cart" className="icon">
-                <img src="/images/icon-cart-w.png" alt="장바구니 아이콘" />
+                <img src="/images/icon-cart-w.png" alt="장바구니" />
                 {cartCount > 0 && (
-                  <span className="cart-badge">{cartCount}</span>
+                  <span
+                    className="cart-badge"
+                    aria-label={`장바구니 ${cartCount}개`}
+                  >
+                    {cartCount}
+                  </span>
                 )}
               </Link>
               {/* 마이페이지 링크 */}
               <Link to="/mypage" className="icon">
-                <img src="/images/icon-user-w.png" alt="마이페이지 아이콘" />
+                <img src="/images/icon-user-w.png" alt="마이페이지" />
               </Link>
               <button
                 type="button"
                 className="menu-btn icon"
-                aria-expanded="false"
+                aria-expanded={openMenu}
                 aria-label="모바일 메뉴 열기"
                 onClick={openMenu}
               >
                 <img
                   className="icon"
                   src="/images/icon-menu-w.png"
-                  alt="메뉴 아이콘"
+                  alt="메뉴"
                 />
               </button>
             </div>
@@ -107,27 +112,34 @@ function Header({ variant, openMenu }) {
               >
                 <img src="/images/icon_arrow_l.png" alt="뒤로가기" />
               </button>
-              <Link to="/" className="icon">
-                <img src="/images/icon-home.png" alt="홈 아이콘" />
+              <Link to="/" className="icon" aria-label="홈으로 이동">
+                <img src="/images/icon-home.png" alt="" />
               </Link>
             </div>
 
             <div className="header-right">
               <Link to="/cart" className="icon">
-                <img src="/images/icon_cart.png" alt="장바구니 아이콘" />
+                <img src="/images/icon_cart.png" alt="장바구니" />
                 {cartCount > 0 && (
-                  <span className="cart-badge">{cartCount}</span>
+                  <span
+                    className="cart-badge"
+                    aria-label={`장바구니 ${cartCount}개`}
+                  >
+                    {cartCount}
+                  </span>
                 )}
               </Link>
               <Link to="/mypage" className="icon">
-                <img src="/images/icon_user.png" alt="마이페이지 아이콘" />
+                <img src="/images/icon_user.png" alt="마이페이지" />
               </Link>
               <button
                 type="button"
                 className="menu-btn icon"
+                aria-expanded={openMenu}
                 onClick={openMenu}
+                aria-label="모바일 메뉴 열기"
               >
-                <img src="/images/icon_menu.png" alt="메뉴 아이콘" />
+                <img src="/images/icon_menu.png" alt="메뉴" />
               </button>
             </div>
           </div>

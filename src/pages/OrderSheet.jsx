@@ -120,11 +120,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("product")}
+                    aria-controls="section-product"
                     onClick={() => toggleSection("product")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("product")}
                   >
                     <h2>주문상품 ({orders?.length}개)</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
+                  <div id="section-product" aria-hidden={!openSections.includes("product")}>
                   {orders.map((item, index) => (
                     <div key={item.id || index} className="toggleContent">
                       <div className="prevImg">
@@ -182,6 +188,7 @@ function OrderSheet() {
                       </div>
                     </div>
                   ))}
+                  </div>
                 </div>
 
                 {/*픽업정보*/}
@@ -190,12 +197,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("pickup")}
+                    aria-controls="section-pickup"
                     onClick={() => toggleSection("pickup")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("pickup")}
                   >
                     <h2>픽업 정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  <div className="toggleContent">
+                  <div id="section-pickup" className="toggleContent" aria-hidden={!openSections.includes("pickup")}>
                     {/*픽업날짜*/}
                     <div className="pickup-field">
                       <label
@@ -227,7 +239,7 @@ function OrderSheet() {
                     <div className="pickup-field">
                       <label
                         className="pickup-label"
-                        aria-label="팍업시간 선택"
+                        aria-label="픽업 시간 선택"
                       >
                         픽업 시간
                       </label>
@@ -262,12 +274,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("orderer")}
+                    aria-controls="section-orderer"
                     onClick={() => toggleSection("orderer")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("orderer")}
                   >
                     <h2>주문자 정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  <div className="toggleContent">
+                  <div id="section-orderer" className="toggleContent" aria-hidden={!openSections.includes("orderer")}>
                     <div className="orderer-field">
                       <label
                         className="orderer-label"
@@ -341,12 +358,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("request")}
+                    aria-controls="section-request"
                     onClick={() => toggleSection("request")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("request")}
                   >
                     <h2>요청사항</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  <div className="toggleContent">
+                  <div id="section-request" className="toggleContent" aria-hidden={!openSections.includes("request")}>
                     <label
                       className="input-label"
                       aria-label="요청사항 입력"
@@ -371,12 +393,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("payment")}
+                    aria-controls="section-payment"
                     onClick={() => toggleSection("payment")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("payment")}
                   >
                     <h2>결제수단</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  <div className="toggleContent">
+                  <div id="section-payment" className="toggleContent" aria-hidden={!openSections.includes("payment")}>
                     <label className="radio-row">
                       <input
                         type="radio"
@@ -400,12 +427,17 @@ function OrderSheet() {
                 >
                   <div
                     className="toggleTitle"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={openSections.includes("payInfo")}
+                    aria-controls="section-payInfo"
                     onClick={() => toggleSection("payInfo")}
+                    onKeyDown={(e) => e.key === "Enter" && toggleSection("payInfo")}
                   >
                     <h2>결제정보</h2>
                     <img src="images/icon_arrow_b.png" alt="" />
                   </div>
-                  <div className="toggleContent">
+                  <div id="section-payInfo" className="toggleContent" aria-hidden={!openSections.includes("payInfo")}>
                     <div className="box_container">
                       <ul className="option_list">
                         <li>

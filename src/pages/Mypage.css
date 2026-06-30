@@ -17,7 +17,7 @@
   margin-top: 40px;
 }
 
-.mypage-container .order-summary h3 {
+.mypage-container .order-summary h2 {
   font-size: var(--font-sm);
   font-weight: var(--weight-semibold);
   margin-bottom: var(--space-10);
@@ -79,7 +79,7 @@
   margin-top: var(--space-40);
 }
 
-.mypage-container .order-desc h3 > a {
+.mypage-container .order-desc h2 > a {
   font-size: var(--font-sm);
   font-weight: var(--weight-semibold);
   margin-bottom: var(--space-10);

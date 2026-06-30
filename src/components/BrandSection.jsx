@@ -18,7 +18,7 @@ function BrandSection() {
           <h2>Sweetest Moments</h2>
         </div>
       </div>
-      <Link to="/order">
+      <Link to="/order" aria-label="케이크 주문하기">
         <div className="imgage-area">
           <img
             src="/images/main-deco02.png"
@@ -44,7 +44,9 @@ function BrandSection() {
             className="main"
           />
 
-          <span className="btn sm btn-primary">Order Now</span>
+          <span className="btn sm btn-primary" aria-label="케이크 주문하기">
+            Order Now
+          </span>
         </div>
       </Link>
     </section>

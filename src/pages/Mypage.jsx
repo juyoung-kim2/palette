@@ -38,7 +38,7 @@ function Mypage() {
           </p>
 
           <div className="order-summary">
-            <h3>주문현황</h3>
+            <h2>주문현황</h2>
             <div className="order-wrap">
               <div className="item">
                 <span className="label">주문완료</span>
@@ -56,16 +56,16 @@ function Mypage() {
           </div>
 
           <div className="order-desc">
-            <h3>
+            <h2>
               <Link to="/mypage-order-list">
                 다가오는 픽업
                 <img
                   src="/images/icon_arrow_r.png"
                   className="arrow"
-                  alt="화살표"
+                  alt=""
                 />
               </Link>
-            </h3>
+            </h2>
             {nextPickup ? (
               <p>
                 {nextPickup.pickupDate} {nextPickup.pickupTime}
@@ -81,25 +81,17 @@ function Mypage() {
             <li>
               {/* 2. 링크 수정: /mypageOrderList -> /mypage-order-list */}
               <Link to="/mypage-order-list">
-                <img src="/images/icon-order.png" alt="주문내역 아이콘" />
+                <img src="/images/icon-order.png" alt="" />
                 주문내역
-                <img
-                  src="/images/icon_arrow_r.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_r.png" alt="" className="arrow" />
               </Link>
             </li>
             <li>
               {/* 3. 링크 수정: /mypageQnaList -> /mypage-qna-list */}
               <Link to="/mypage-qna-list">
-                <img src="/images/icon-qna.png" alt="문의내역 아이콘" />
+                <img src="/images/icon-qna.png" alt="" />
                 1:1 문의
-                <img
-                  src="/images/icon_arrow_r.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_r.png" alt="" className="arrow" />
               </Link>
             </li>
             <li>
@@ -112,13 +104,9 @@ function Mypage() {
                   );
                 }}
               >
-                <img src="/images/icon-rock.png" alt="비밀번호 변경 아이콘" />
+                <img src="/images/icon-rock.png" alt="" />
                 비밀번호 변경
-                <img
-                  src="/images/icon_arrow_r.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_r.png" alt="" className="arrow" />
               </Link>
             </li>
           </ul>

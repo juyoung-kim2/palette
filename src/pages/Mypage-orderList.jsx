@@ -43,9 +43,9 @@ function MypageOrderList() {
                       to="/mypage-order-detail"
                       className="order-detail-link"
                       state={{ order: order }}
+                      aria-label={`주문번호 ${order.id} 상세보기`}
                     >
-                      상세보기{" "}
-                      <img src="/images/icon_arrow_r.png" alt="화살표" />
+                      상세보기 <img src="/images/icon_arrow_r.png" alt="" />
                     </Link>
                   </div>
 

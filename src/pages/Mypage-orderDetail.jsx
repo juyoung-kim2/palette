@@ -43,16 +43,17 @@ function MypageOrderDetail() {
             >
               <h3
                 className="section-title"
+                role="button"
                 onClick={() => toggleSection("order")}
+                tabIndex={0}
+                aria-expanded={openSections.includes("order")}
+                aria-controls="section-order"
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("order")}
               >
                 주문 정보
-                <img
-                  src="/images/icon_arrow_b.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_b.png" alt="" className="arrow" />
               </h3>
-              <div className="toggleContent">
+              <div id="section-order" className="toggleContent" aria-hidden={!openSections.includes("order")}>
                 <div className="info-row">
                   <span className="label">주문번호</span>
                   <span className="value">{order.id}</span>
@@ -85,16 +86,21 @@ function MypageOrderDetail() {
             >
               <h3
                 className="section-title"
+                role="button"
                 onClick={() => toggleSection("orderer")}
+                tabIndex={0}
+                aria-expanded={openSections.includes("orderer")}
+                aria-controls="section-orderer"
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("orderer")}
               >
                 주문자 정보
                 <img
                   src={"/images/icon_arrow_b.png"}
-                  alt="화살표"
+                  alt=""
                   className="arrow"
                 />
               </h3>
-              <div className="toggleContent">
+              <div id="section-orderer" className="toggleContent" aria-hidden={!openSections.includes("orderer")}>
                 <div className="info-row">
                   <span className="label">이름</span>
                   <span className="value">{order.orderer.name}</span>
@@ -118,16 +124,17 @@ function MypageOrderDetail() {
             >
               <h3
                 className="section-title"
+                role="button"
                 onClick={() => toggleSection("product")}
+                tabIndex={0}
+                aria-expanded={openSections.includes("product")}
+                aria-controls="section-product"
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("product")}
               >
                 주문 상품
-                <img
-                  src="/images/icon_arrow_b.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_b.png" alt="" className="arrow" />
               </h3>
-              <div className="toggleContent">
+              <div id="section-product" className="toggleContent" aria-hidden={!openSections.includes("product")}>
                 {order.items.map((item, idx) => (
                   <div className="product-box" key={idx}>
                     <img src={item.cakeImage} alt="주문케이크 이미지"></img>
@@ -178,16 +185,17 @@ function MypageOrderDetail() {
             >
               <h3
                 className="section-title"
+                role="button"
                 onClick={() => toggleSection("payment")}
+                tabIndex={0}
+                aria-expanded={openSections.includes("payment")}
+                aria-controls="section-payment"
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("payment")}
               >
                 결제 정보
-                <img
-                  src="/images/icon_arrow_b.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_b.png" alt="" className="arrow" />
               </h3>
-              <div className="toggleContent">
+              <div id="section-payment" className="toggleContent" aria-hidden={!openSections.includes("payment")}>
                 <div className="info-row">
                   <span className="label">결제수단</span>
                   <span className="value">
@@ -214,16 +222,17 @@ function MypageOrderDetail() {
             >
               <h3
                 className="section-title"
+                role="button"
                 onClick={() => toggleSection("pickup")}
+                tabIndex={0}
+                aria-expanded={openSections.includes("pickup")}
+                aria-controls="section-pickup"
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("pickup")}
               >
                 픽업 정보
-                <img
-                  src="/images/icon_arrow_b.png"
-                  alt="화살표"
-                  className="arrow"
-                />
+                <img src="/images/icon_arrow_b.png" alt="" className="arrow" />
               </h3>
-              <div className="toggleContent">
+              <div id="section-pickup" className="toggleContent" aria-hidden={!openSections.includes("pickup")}>
                 <div className="info-row">
                   <span className="label">픽업일시</span>
                   <span className="value">

@@ -139,7 +139,7 @@ function Cart() {
                   <div className="cart-check">
                     <input
                       type="checkbox"
-                      aria-label="장바구니 상품 선택"
+                      aria-label={`${item.sheetName} 상품 선택`}
                       onChange={() => handleSingleCheck(item.id)} // id만 넘기도록 수정
                       checked={checkedItems.includes(item.id)}
                     />
@@ -200,8 +200,9 @@ function Cart() {
                   <button
                     className="remove-btn"
                     onClick={() => deleteItem(item.id)}
+                    aria-label={`${item.sheetName} 상품 삭제`}
                   >
-                    <img src="images/icon_close.png" alt="삭제" />
+                    <img src="images/icon_close.png" alt="" />
                   </button>
                 </div>
               ))}

@@ -2,8 +2,15 @@ import { Link } from "react-router-dom";
 import "./SideMenu.css";
 function SideMenu({ menuOpen, closeMenu }) {
   return (
-    <div className={` sideMenu ${menuOpen ? "open" : ""}`}>
-      <div className="menu-dim" onClick={closeMenu}></div>
+    <div className={` sideMenu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+      <div
+        className="menu-dim"
+        role="button"
+        tabIndex={menuOpen ? 0 : -1}
+        aria-label="메뉴 닫기"
+        onClick={closeMenu}
+        onKeyDown={(e) => e.key === "Enter" && closeMenu()}
+      ></div>
       <nav className="mobile-menu" aria-label="모바일 네비게이션">
         <div className="menu-container">
           <div className="menu-header">
@@ -12,7 +19,7 @@ function SideMenu({ menuOpen, closeMenu }) {
               onClick={closeMenu}
               aria-label="모바일 메뉴 닫기"
             >
-              <img src="/images/icon_close.png" alt="닫기" />
+              <img src="/images/icon_close.png" alt="" />
             </button>
             <img src="/images/logo.svg" alt="팔레트 로고" />
             <p className="user-name">

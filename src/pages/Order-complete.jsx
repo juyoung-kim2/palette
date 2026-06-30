@@ -9,7 +9,7 @@ import { useMenuToggle } from "../hooks/useMenuToggle";
 import { useToggleSections } from "../hooks/useToggleSections";
 
 // router
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function OrderComplete() {
@@ -22,6 +22,8 @@ function OrderComplete() {
   const location = useLocation();
   const { id, orderer, items, totalPrice, pickupDate, pickupTime, request } =
     location.state || {};
+
+  if (!orderer) return <Navigate to="/" replace />;
 
   useEffect(() => {
     if (!orderer) return;
@@ -111,12 +113,17 @@ function OrderComplete() {
             >
               <div
                 className="toggleTitle"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openSections.includes("payInfo")}
+                aria-controls="section-payInfo"
                 onClick={() => toggleSection("payInfo")}
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("payInfo")}
               >
                 <h2>결제정보</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div className="toggleContent">
+              <div id="section-payInfo" className="toggleContent" aria-hidden={!openSections.includes("payInfo")}>
                 <div className="box_container">
                   {items &&
                     items.map((item, index) => (
@@ -167,18 +174,24 @@ function OrderComplete() {
             >
               <div
                 className="toggleTitle"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openSections.includes("pickup")}
+                aria-controls="section-pickup"
                 onClick={() => toggleSection("pickup")}
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("pickup")}
               >
                 <h2>픽업 안내</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div className="toggleContent">
+              <div id="section-pickup" className="toggleContent" aria-hidden={!openSections.includes("pickup")}>
                 <p>Palete Studio 1층</p>
                 <div className="text-btn">
                   <a
                     href="https://map.naver.com/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="지도 보기 (새 창에서 열림)"
                   >
                     지도 보기
                     <img
@@ -197,12 +210,17 @@ function OrderComplete() {
             >
               <div
                 className="toggleTitle"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openSections.includes("request")}
+                aria-controls="section-request"
                 onClick={() => toggleSection("request")}
+                onKeyDown={(e) => e.key === "Enter" && toggleSection("request")}
               >
                 <h2>요청사항</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div className="toggleContent">
+              <div id="section-request" className="toggleContent" aria-hidden={!openSections.includes("request")}>
                 {request && request.trim() !== "" ? (
                   <p>{request}</p>
                 ) : (

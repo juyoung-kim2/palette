@@ -21,14 +21,19 @@ function Home() {
       {/* 포트폴리오 안내 팝업 */}
       {showNotice && (
         <div className="portfolio-notice-overlay">
-          <div className="portfolio-notice-modal">
-            <h2>Project Information</h2>
+          <div
+            className="portfolio-notice-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="popup-title"
+          >
+            <h2 id="popup-title">Project Information</h2>
             <button
               className="btn-close"
               onClick={() => setShowNotice(false)}
               aria-label="팝업 닫기"
             >
-              <img src="/images/icon_close.png" alt="닫기" />
+              <img src="/images/icon_close.png" alt="" />
             </button>
             <div className="notice-content">
               <p>
@@ -76,7 +81,7 @@ function Home() {
           <FAQSection />
 
           {/* 흐르는 텍스트 애니메이션 (Marquee) */}
-          <div className="text-marquee">
+          <div className="text-marquee" aria-hidden="true">
             <div className="marquee-content">
               <span>
                 Custom cake for your moment &nbsp;&nbsp; • &nbsp;&nbsp;

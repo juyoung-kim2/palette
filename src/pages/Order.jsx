@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import "./Order.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Keyboard } from "swiper/modules";
 import "swiper/css";
 
 // hooks
@@ -94,7 +95,23 @@ function Order() {
 
     return (
       <SwiperSlide key={item.id}>
-        <label className={`option-item ${isSelected ? "selected" : ""}`}>
+        <label
+          className={`option-item ${isSelected ? "selected" : ""}`}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              // 인풋의 onChange와 동일한 로직 작동 유도
+              if (type === "sheet") {
+                setSelectedSheet(item.id);
+                setChangeImg(item.img);
+              } else if (type === "cream") {
+                setSelectedCream(item.id);
+                setChangeImg(item.img);
+              }
+            }
+          }}
+        >
           <input
             type={type === "deco" ? "checkbox" : "radio"}
             name={`${type}Option`}
@@ -110,10 +127,10 @@ function Order() {
             }}
           />
           <div className="option-image-box">
-            <img src={`/images/${item.img}`} alt="" />
+            <img src={`/images/${item.img}`} alt={item.name} />
           </div>
           <span className="option-name">{item.name}</span>
-          <span className="option-price">+{item.price}</span>
+          <span className="option-price">+₩{item.price.toLocaleString()}</span>
 
           {type === "deco" && (
             <div className="topping-qty">
@@ -121,6 +138,7 @@ function Order() {
                 type="button"
                 onClick={() => handleDecoCount(item.id, -1)}
                 className="qty-minus"
+                aria-label={`${item.name} 수량 줄이기`}
               >
                 -
               </button>
@@ -129,6 +147,7 @@ function Order() {
                 type="button"
                 onClick={() => handleDecoCount(item.id, 1)}
                 className="qty-plus"
+                aria-label={`${item.name} 수량 늘리기`}
               >
                 +
               </button>
@@ -294,24 +313,39 @@ function Order() {
             type="button"
             className="order-button btn btn-primary"
             onClick={openOption}
+            aria-label="옵션패널열기"
           >
             ORDER NOW
           </button>
         </div>
 
-        <div className={`option-popup-layer ${optionOpen ? "active" : ""}`}>
+        <div
+          className={`option-popup-layer ${optionOpen ? "active" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="케이크 옵션 선택"
+        >
           <div className="popup-content scroll">
-            <div className="popup-handle" onClick={closeOption}>
+            <div
+              className="popup-handle"
+              role="button"
+              tabIndex={0}
+              aria-label="옵션 닫기"
+              onClick={closeOption}
+              onKeyDown={(e) => e.key === "Enter" && closeOption()}
+            >
               <div className="bar"></div>
             </div>
 
-            <nav className="option-tabs">
+            <nav className="option-tabs" role="tablist">
               {Object.keys(CAKE_OPTIONS)
                 .concat("Lettering")
                 .map((tab) => (
                   <button
                     type="button"
                     key={tab}
+                    role="tab"
+                    aria-selected={activeTab === tab}
                     className={`tab-item ${activeTab === tab ? "active" : ""}`}
                     onClick={() => {
                       setActiveTab(tab);
@@ -336,6 +370,7 @@ function Order() {
                 <div
                   key={type}
                   className={`option-panel ${activeTab === type ? "active" : ""}`}
+                  aria-hidden={activeTab !== type}
                 >
                   <fieldset>
                     <legend className="sr-only">
@@ -345,7 +380,22 @@ function Order() {
                           ? "크림 선택"
                           : "데코 선택"}
                     </legend>
-                    <Swiper slidesPerView={3.5} spaceBetween={10}>
+                    <Swiper
+                      modules={[A11y, Keyboard]}
+                      slidesPerView={3.5}
+                      spaceBetween={10}
+                      grabCursor={true}
+                      keyboard={{
+                        enabled: true,
+                        onlyInViewport: true,
+                      }}
+                      a11y={{
+                        prevSlideMessage: "이전 옵션",
+                        nextSlideMessage: "다음 옵션",
+                        firstSlideMessage: "첫 번째 옵션입니다",
+                        lastSlideMessage: "마지막 옵션입니다",
+                      }}
+                    >
                       {CAKE_OPTIONS[type]?.map((item) =>
                         renderOptionItem(
                           item,
@@ -360,6 +410,7 @@ function Order() {
               {/* 레터링 패널만 따로 유지 */}
               <div
                 className={`option-panel letter ${activeTab === "Lettering" ? "active" : ""}`}
+                aria-hidden={activeTab !== "Lettering"}
               >
                 <input
                   type="text"
@@ -421,6 +472,7 @@ function Order() {
             <button
               type="button"
               className="order-button btn-gray btn"
+              aria-label="장바구니 담기"
               onClick={editItem ? handleUpdateCart : handleOrder}
             >
               {editItem ? "UPDATE CART" : "ADD TO CART"}
@@ -429,6 +481,7 @@ function Order() {
               type="button"
               className="order-button popup-order-button btn btn-primary"
               onClick={handleDirectOrder}
+              aria-label="주문하기"
             >
               ORDER NOW
             </button>

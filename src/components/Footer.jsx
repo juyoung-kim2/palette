@@ -11,7 +11,15 @@ function Footer() {
             디자인&퍼블리싱 <br />
             김주영 이메일 juyoung0145@naver.com
             <br />
-            깃허브 https://github.com/juyoung-kim2
+            깃허브
+            <a
+              href="https://github.com/juyoung-kim2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="깃허브 프로필 (새 창에서 열림)"
+            >
+              github.com/juyoung-kim2
+            </a>
           </p>
         </div>
       </div>

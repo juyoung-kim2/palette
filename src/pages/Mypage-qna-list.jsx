@@ -90,6 +90,11 @@ function MypageQnaList() {
                         onClick={() => {
                           navigate("/mypage-qna-detail", { state: { qna } });
                         }}
+                        tabIndex={0}
+                        onKeyDown={(e) =>
+                          e.key === "Enter" &&
+                          navigate("/mypage-qna-detail", { state: { qna } })
+                        }
                       >
                         <td className="col-answer badge pending">
                           {qna.status}

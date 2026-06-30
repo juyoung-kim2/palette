@@ -23,38 +23,38 @@ function HeroSection() {
         }}
       >
         <SwiperSlide>
-          <Link to={"/order"}>
+          <Link to={"/order"} aria-label="케이크 주문하기">
             <img src="/images/main-banner.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
-              <h2>
+              <h2 aria-hidden="true">
                 Design <br />
                 Every Detail
               </h2>
-              <div className="btn sm btn-primary">Order Now</div>
+              <span className="btn sm btn-primary">Order Now</span>
             </div>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/order"}>
+          <Link to={"/order"} aria-label="케이크 주문하기">
             <img src="/images/main-banner02.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
-              <h2>
+              <h2 aria-hidden="true">
                 Your Cake, <br />
                 Your Every Detail
               </h2>
-              <div className="btn sm btn-primary">Order Now</div>
+              <span className="btn sm btn-primary">Order Now</span>
             </div>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={"/order"}>
+          <Link to={"/order"} aria-label="케이크 주문하기">
             <img src="/images/main-banner.png" alt="" aria-hidden="true" />
             <div className="text-wrap">
-              <h2>
+              <h2 aria-hidden="true">
                 Design <br />
                 Every Detail
               </h2>
-              <div className="btn sm btn-primary">Order Now</div>
+              <span className="btn sm btn-primary">Order Now</span>
             </div>
           </Link>
         </SwiperSlide>

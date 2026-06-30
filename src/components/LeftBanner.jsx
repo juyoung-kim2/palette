@@ -14,7 +14,7 @@ function LeftBanner() {
           <img src="/images/faq-icon03.png" alt="" aria-hidden="true" />
           케이크 제작하기
         </div>
-        <img src="/images/icon_arrow_r.png" alt="화살표" className="arrow" />
+        <img src="/images/icon_arrow_r.png" alt="" className="arrow" />
       </Link>
     </div>
   );

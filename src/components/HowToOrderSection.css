@@ -67,7 +67,7 @@
   padding: var(--space-6) var(--space-10);
   border-radius: var(--radius-lg);
   background-color: var(--accent-blue);
-  color: var(--white);
+  color: #1a1a1a;
   line-height: 1;
 }
 
