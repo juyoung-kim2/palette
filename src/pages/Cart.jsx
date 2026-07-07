@@ -37,6 +37,7 @@ function Cart() {
   const updateCartStorage = (newCart) => {
     setCartList(newCart);
     localStorage.setItem("cartData", JSON.stringify(newCart));
+    window.dispatchEvent(new Event("cartUpdate"));
   };
 
   // 핸들러 함수들
