@@ -182,17 +182,24 @@ function Order() {
       cakeImage: imgData,
     };
 
-    //기존 창고에 있던 목록 가져오기
-    const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
+    try {
+      //기존 창고에 있던 목록 가져오기
+      const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
 
-    //기존 목록에 새 주문 추가하기 (배열에 push)
-    const updatedCart = [...existingCart, finalOrder];
+      //기존 목록에 새 주문 추가하기 (배열에 push)
+      const updatedCart = [...existingCart, finalOrder];
 
-    //합쳐진 전체 목록을 다시 저장
-    localStorage.setItem("cartData", JSON.stringify(updatedCart));
+      //합쳐진 전체 목록을 다시 저장
+      localStorage.setItem("cartData", JSON.stringify(updatedCart));
 
-    navigate("/cart");
-    alert("장바구니에 상품을 담았습니다 :)");
+      navigate("/cart");
+      alert("장바구니에 상품을 담았습니다 :)");
+    } catch (e) {
+      console.error("장바구니 저장 실패:", e);
+      alert(
+        "저장 공간이 부족합니다. 마이페이지에서 이전 주문내역을 정리한 후 다시 시도해주세요.",
+      );
+    }
   };
 
   //바로 구매
@@ -251,11 +258,18 @@ function Order() {
       cakeImage: imgData,
     };
 
-    //장바구니 배열에서 해당 인덱스만 교체하기
-    const newCartList = [...currentCart];
-    newCartList[editIndex] = updatedOrder;
-    localStorage.setItem("cartData", JSON.stringify(newCartList));
-    navigate("/cart");
+    try {
+      //장바구니 배열에서 해당 인덱스만 교체하기
+      const newCartList = [...currentCart];
+      newCartList[editIndex] = updatedOrder;
+      localStorage.setItem("cartData", JSON.stringify(newCartList));
+      navigate("/cart");
+    } catch (e) {
+      console.error("장바구니 수정 실패:", e);
+      alert(
+        "저장 공간이 부족합니다. 마이페이지에서 이전 주문내역을 정리한 후 다시 시도해주세요.",
+      );
+    }
   };
 
   //레터링 폰트 색상 지정
