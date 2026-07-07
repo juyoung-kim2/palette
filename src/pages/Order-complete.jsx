@@ -38,25 +38,32 @@ function OrderComplete() {
       status: "주문완료",
     };
 
-    //기존 주문 내역에 있던 목록 가져오기
-    const existingOrder =
-      JSON.parse(localStorage.getItem("orderHistory")) || [];
+    try {
+      //기존 주문 내역에 있던 목록 가져오기
+      const existingOrder =
+        JSON.parse(localStorage.getItem("orderHistory")) || [];
 
-    //기존 목록에 새 주문 추가하기 (배열에 push)
-    const updatedHistory = [...existingOrder, orderData];
+      //기존 목록에 새 주문 추가하기 (배열에 push)
+      const updatedHistory = [...existingOrder, orderData];
 
-    //합쳐진 전체 목록을 다시 저장
-    localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
+      //합쳐진 전체 목록을 다시 저장
+      localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
 
-    //기존 장바구니 내역 가저오기
-    const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
-    //구매 완료한 상품 id
-    const orderId = items.map((item) => item.id);
-    const deleteId = existingCart.filter((cart) => !orderId.includes(cart.id));
-    //삭제한 목록 카트에 다시 저장
-    localStorage.setItem("cartData", JSON.stringify(deleteId));
-    window.dispatchEvent(new Event("cartUpdate"));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      //기존 장바구니 내역 가저오기
+      const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
+      //구매 완료한 상품 id
+      const orderId = (items ?? []).map((item) => item.id);
+      const deleteId = existingCart.filter(
+        (cart) => !orderId.includes(cart.id),
+      );
+      //삭제한 목록 카트에 다시 저장
+      localStorage.setItem("cartData", JSON.stringify(deleteId));
+      window.dispatchEvent(new Event("cartUpdate"));
+    } catch (e) {
+      console.error("주문 내역 저장 실패:", e);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -123,7 +130,11 @@ function OrderComplete() {
                 <h2>결제정보</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div id="section-payInfo" className="toggleContent" aria-hidden={!openSections.includes("payInfo")}>
+              <div
+                id="section-payInfo"
+                className="toggleContent"
+                aria-hidden={!openSections.includes("payInfo")}
+              >
                 <div className="box_container">
                   {items &&
                     items.map((item, index) => (
@@ -184,7 +195,11 @@ function OrderComplete() {
                 <h2>픽업 안내</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div id="section-pickup" className="toggleContent" aria-hidden={!openSections.includes("pickup")}>
+              <div
+                id="section-pickup"
+                className="toggleContent"
+                aria-hidden={!openSections.includes("pickup")}
+              >
                 <p>Palete Studio 1층</p>
                 <div className="text-btn">
                   <a
@@ -220,7 +235,11 @@ function OrderComplete() {
                 <h2>요청사항</h2>
                 <img src="/images/icon_arrow_b.png" alt="" aria-hidden="true" />
               </div>
-              <div id="section-request" className="toggleContent" aria-hidden={!openSections.includes("request")}>
+              <div
+                id="section-request"
+                className="toggleContent"
+                aria-hidden={!openSections.includes("request")}
+              >
                 {request && request.trim() !== "" ? (
                   <p>{request}</p>
                 ) : (
