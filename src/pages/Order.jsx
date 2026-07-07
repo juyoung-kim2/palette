@@ -159,8 +159,8 @@ function Order() {
   };
 
   const handleOrder = async () => {
-    const canvas = await html2canvas(cakeRef.current);
-    const imgData = canvas.toDataURL("image/png");
+    const canvas = await html2canvas(cakeRef.current, { scale: 0.9 });
+    const imgData = canvas.toDataURL("image/jpeg", 0.8);
     const finalOrder = {
       id: Date.now(), // 각 주문을 구분하기 위한 고유 id
       sheetId: selectedSheet,
@@ -204,8 +204,8 @@ function Order() {
 
   //바로 구매
   const handleDirectOrder = async () => {
-    const canvas = await html2canvas(cakeRef.current);
-    const imgData = canvas.toDataURL("image/png");
+    const canvas = await html2canvas(cakeRef.current, { scale: 0.9 });
+    const imgData = canvas.toDataURL("image/jpeg", 0.8);
     const currentCake = {
       id: Date.now(),
       sheetName: allOptions[selectedSheet]?.name,
@@ -234,8 +234,8 @@ function Order() {
 
   //수정완료
   const handleUpdateCart = async () => {
-    const canvas = await html2canvas(cakeRef.current);
-    const imgData = canvas.toDataURL("image/png");
+    const canvas = await html2canvas(cakeRef.current, { scale: 0.9 });
+    const imgData = canvas.toDataURL("image/jpeg", 0.8);
     const currentCart = JSON.parse(localStorage.getItem("cartData")) || [];
     const updatedOrder = {
       id: editItem.id,

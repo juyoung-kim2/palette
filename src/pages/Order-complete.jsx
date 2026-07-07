@@ -27,28 +27,7 @@ function OrderComplete() {
 
   useEffect(() => {
     if (!orderer) return;
-    const orderData = {
-      id,
-      orderer,
-      items,
-      totalPrice,
-      pickupDate,
-      pickupTime,
-      request,
-      status: "주문완료",
-    };
-
     try {
-      //기존 주문 내역에 있던 목록 가져오기
-      const existingOrder =
-        JSON.parse(localStorage.getItem("orderHistory")) || [];
-
-      //기존 목록에 새 주문 추가하기 (배열에 push)
-      const updatedHistory = [...existingOrder, orderData];
-
-      //합쳐진 전체 목록을 다시 저장
-      localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
-
       //기존 장바구니 내역 가저오기
       const existingCart = JSON.parse(localStorage.getItem("cartData")) || [];
       //구매 완료한 상품 id
@@ -60,9 +39,36 @@ function OrderComplete() {
       localStorage.setItem("cartData", JSON.stringify(deleteId));
       window.dispatchEvent(new Event("cartUpdate"));
     } catch (e) {
-      console.error("주문 내역 저장 실패:", e);
+      console.error("장바구니 갱신 실패:", e);
     }
 
+    try {
+      const orderData = {
+        id,
+        orderer,
+        items,
+        totalPrice,
+        pickupDate,
+        pickupTime,
+        request,
+        status: "주문완료",
+      };
+
+      //기존 주문 내역에 있던 목록 가져오기
+      const existingOrder =
+        JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+      //기존 목록에 새 주문 추가하기 (배열에 push)
+      const updatedHistory = [...existingOrder, orderData];
+
+      //합쳐진 전체 목록을 다시 저장
+      localStorage.setItem("orderHistory", JSON.stringify(updatedHistory));
+    } catch (e) {
+      console.error("주문 내역 저장 실패:", e);
+      alert(
+        "저장 공간이 부족해 주문 내역이 기록되지 않았어요.\n마이페이지에서 이전 주문내역을 정리한 후 다시 확인해주세요.",
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

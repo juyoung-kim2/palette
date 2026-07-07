@@ -39,6 +39,8 @@ function Home() {
               <p>
                 <strong>Development</strong>
                 <br />• React State & LocalStorage 연동 구매 시스템
+                <br />• 브라우저 저장공간 특성상 데모 환경에서는 상품 1~2개로
+                테스트 권장
               </p>
               <br />
               <p>
