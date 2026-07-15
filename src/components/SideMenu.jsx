@@ -1,8 +1,47 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./SideMenu.css";
 function SideMenu({ menuOpen, closeMenu }) {
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const menu = menuRef.current;
+    if (!menu) return;
+
+    const focusable = menu.querySelectorAll(
+      'button, a, [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    setTimeout(() => first?.focus(), 50);
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeMenu();
+        return;
+      }
+      if (e.key === "Tab") {
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen, closeMenu]);
   return (
-    <div className={` sideMenu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+    <div
+      className={` sideMenu ${menuOpen ? "open" : ""}`}
+      aria-hidden={!menuOpen}
+    >
       <div
         className="menu-dim"
         role="button"
@@ -11,7 +50,7 @@ function SideMenu({ menuOpen, closeMenu }) {
         onClick={closeMenu}
         onKeyDown={(e) => e.key === "Enter" && closeMenu()}
       ></div>
-      <nav className="mobile-menu" aria-label="모바일 네비게이션">
+      <nav className="mobile-menu" aria-label="모바일 네비게이션" ref={menuRef}>
         <div className="menu-container">
           <div className="menu-header">
             <button

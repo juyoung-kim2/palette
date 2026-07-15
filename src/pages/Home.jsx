@@ -12,10 +12,47 @@ import "./Home.css";
 // hooks
 import { useMenuToggle } from "../hooks/useMenuToggle";
 import { usePopupExpiry } from "../hooks/usePopupExpiry";
+import { useRef, useEffect } from "react";
 
 function Home() {
   const { menuOpen, openMenu, closeMenu } = useMenuToggle();
   const { showNotice, setShowNotice, handleClosePopup } = usePopupExpiry();
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (!showNotice) return;
+
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const focusable = modal.querySelectorAll(
+      'button, [href], input, [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    // 열릴 때 첫 번째 요소로 포커스
+    first?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setShowNotice(false);
+        return;
+      }
+      if (e.key === "Tab") {
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showNotice]);
   return (
     <>
       {/* 포트폴리오 안내 팝업 */}
@@ -23,6 +60,7 @@ function Home() {
         <div className="portfolio-notice-overlay">
           <div
             className="portfolio-notice-modal"
+            ref={modalRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="popup-title"

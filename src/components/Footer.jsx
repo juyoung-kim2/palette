@@ -18,7 +18,7 @@ function Footer() {
               rel="noopener noreferrer"
               aria-label="깃허브 프로필 (새 창에서 열림)"
             >
-              github.com/juyoung-kim2
+              &nbsp; github.com/juyoung-kim2
             </a>
           </p>
         </div>
