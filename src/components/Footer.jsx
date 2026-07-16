@@ -21,7 +21,6 @@ function Footer() {
               &nbsp; github.com/juyoung-kim2
             </a>
           </p>
-          ㅎ
         </div>
       </div>
     </footer>
